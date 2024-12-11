@@ -2,9 +2,10 @@
 here is a detailed step by step procedure to create your own Conceal OS iso file.
 
 ## Prerequisite
-1. Download Ubuntu Iso [Ubuntu 22.04 LTS ISO](https://ubuntu.com/download/alternative-downloads)
+1. Download Ubuntu Iso [Ubuntu 22.04 LTS ISO](https://ubuntu.com/download/alternative-downloads)  
 
 ## First step on Cubic
+:warning: make sure the system your using match the same kernel as the downloaded iso, otherwise you may encounter some issues.
 ![Cubic Step 1](docs/cubic_step1.png)
 
 ## Second step on Cubic
@@ -18,7 +19,7 @@ use the command line tool to customize.
     add-apt-repository main universe restricted multiverse
     ```
 
-- [ ] **Update**
+- [ ] ~~Update~~
     ```
     apt update
     ```
@@ -46,7 +47,6 @@ use the command line tool to customize.
 - [ ] **nodejs & npm**
     ```
     curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-    apt update
     apt install -y nodejs
     ```
     >In case of *error*, one solution is:    
@@ -131,7 +131,7 @@ use the command line tool to customize.
     apt-get install ./amdgpu-install_5.4.50403-1_all.deb
     rm amdgpu-install_5.4.50403-1_all.deb
     cd
-    amdgpu-install -y --accept-eula --usecase=opencl --opencl=rocr,legacy
+    amdgpu-install -y --accept-eula --no-dkms --usecase=opencl --opencl=rocr
     ```
 
 - [ ] **SRB** (not open source ...otional)
@@ -149,7 +149,7 @@ use the command line tool to customize.
 
 - [ ] xmr-stak version for Concealers (with AMD GPU)
     ```
-    apt install libmicrohttpd-dev libssl-dev cmake build-essential \
+    apt install ocl-icd-opencl-dev libmicrohttpd-dev libssl-dev cmake build-essential \
     libhwloc-dev pkg-config libjsoncpp-dev libwxgtk3.0-gtk3-dev
     cd /opt
     git clone https://github.com/Acktarius/xmr-stak.git
