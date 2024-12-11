@@ -1,0 +1,15 @@
+[Unit]
+Description=Conceal Guardian
+After=network.target
+
+[Service]
+Type=simple
+# Another Type option: forking
+User=root
+WorkingDirectory=/opt/conceal-guardian/
+ExecStart=/usr/bin/node /opt/conceal-guardian/index.js
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
