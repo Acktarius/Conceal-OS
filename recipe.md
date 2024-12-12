@@ -222,10 +222,12 @@ use the command line tool to customize.
     copy [zmotd.sh](./ingredients/etc/profile.d/zmotd.sh)
 
 	
-- [ ] **Background**
-    
+- [ ] **Background**  
+    ```
+    cd /usr/share/backgrounds/
+    ```    
+    copy all background files like [ccxBackground.jpg](./ingredients/usr/share/backgrounds/ccxBackground.jpg)
 
-- copy in /usr/share/backgrounds/
     and modify jammy*.xml in /usr/share/gnome-background-properties/
 - to force a background :
     `touch /usr/share/glib-2.0/schemas/90_custom.gshema.override`
