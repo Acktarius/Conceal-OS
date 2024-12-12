@@ -230,21 +230,17 @@ use the command line tool to customize.
     ```
     cd ../gnome-background-properties/
     ```
-    and modify jammy*.xml in /usr/share/gnome-background-properties/
-- to force a background :
-    `touch /usr/share/glib-2.0/schemas/90_custom.gshema.override`
+    copy [jammy-wallpaper.xml](./ingredients/usr/share/gnome-background-properties/jammy-wallpapers.xml)
 
-### \- \- \- \- \-
+    ```
+    cd ../glib-2.0/schemas/
+    ```
+    copy [90_custom.gshema.override](./ingredients/usr/share/glib-2.0/schemas/90_custom.gshema.override)
 
-\[org.gnome.desktop.background\]
-picture-uri='[file:////usr/share/backgrounds/ccxBackground4.jpg'](file:////usr/share/backgrounds/ccxBackground4.jpg%27 "file:////usr/share/backgrounds/ccxBackground4.jpg'")
-\[org.gnome.desktop.screensaver\]
-picture-uri='[file:////usr/share/backgrounds/ccxBackground5.jpg'](file:////usr/share/backgrounds/ccxBackground5.jpg%27 "file:////usr/share/backgrounds/ccxBackground5.jpg'")
-
-### \- \- \- \- \-
-
-*and run*
-`glib-compile-schemas /usr/share/glib-2.0/schemas`
+    ```
+    cd
+    glib-compile-schemas /usr/share/glib-2.0/schemas
+    ```
 
 - [ ] **Terminal profile**
 
