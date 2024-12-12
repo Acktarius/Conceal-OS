@@ -291,15 +291,6 @@ use the command line tool to customize.
     ```
 
 
-- [ ] `Terminal colors`
-    ***if no setup script***
-    export PS1="\\e\[0;33m\[\\u@\\h \\W\]$ \\e\[m "
-
-`export PS1="\[$(tput setaf 178)\]\u@\h\[$(tput sgr0)\]:\[$(tput setaf 27)\]\w $\[$(tput sgr0)\]"`
-
-icon in /etc/skel/.icons
-.desktop file in /etc/skel/.local/share/applications 
-
 - [ ] **grub**
     nano /etc/default/grub
     *append with :* amdgpu.ppfeaturemask=0xffffffff
