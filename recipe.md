@@ -17,7 +17,8 @@ use the command line tool to customize.
 - [ ] **Clean up and set correct kernel**
     ```
     # Remove newer kernel and HWE
-    apt remove linux-image-6.8.0-* linux-headers-6.8.0-*
+    apt remove -y linux-image-6* linux-headers-6*
+    apt remove -y linux-modules-6*
     apt remove linux-generic-hwe-22.04
     apt autoremove
     
@@ -35,8 +36,14 @@ use the command line tool to customize.
     
     # Verify installation
     dpkg --list | grep linux-image
-    ```
 
+    #if needed:
+    dpkg --purge linux-image-6.8.0-40-generic
+    ```
+- [ ] **Remove unnecessary language packs** *(optional)*  
+    ```
+    apt remove language-pack-pt language-pack-pt-base 
+    ```
 
 - [ ] **update apt repository**
     ```
@@ -324,7 +331,7 @@ use the command line tool to customize.
     ```
     cd ../glib-2.0/schemas/
     ```
-    copy [90_custom.gshema.override](./ingredients/usr/share/glib-2.0/schemas/90_custom.gshema.override)
+    copy [90_custom.schema.override](./ingredients/usr/share/glib-2.0/schemas/90_custom.schema.override)
 
     ```
     cd
@@ -352,10 +359,8 @@ use the command line tool to customize.
     cd /etc/skel
     rm .bashrc
     ```
-    copy our [.bashrc](./ingredients/etc/skel/.bashrc) and [.bash_aliases]
-    ```
-    source .bashrc
-    ```
+    copy our [.bashrc](./ingredients/etc/skel/.bashrc) and [.bash_aliases](./ingredients/etc/skel/.bashrc_aliases)
+
 
 - [ ] **Fonts**
     ```
