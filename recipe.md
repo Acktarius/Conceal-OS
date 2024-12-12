@@ -214,6 +214,62 @@ use the command line tool to customize.
         cd /opt/conceal-toolbox/ccx-mining_service
         cp m-s_script.desktop /etc/skel/.local/share/applications/m-s_script.desktop
         ```
+    * **ping ccx pool**  
+    ```
+    apt install build-essential cmake libwxgtk3.0-gtk3-dev git nlohmann-json3-dev nmap
+    git clone https://github.com/Acktarius/ping_ccx_pool_cpp.git
+    cd ping_ccx_pool_cpp.git
+    mkdir build && cd build
+    cmake -DINSTALL_POLKIT_POLICY=ON ..
+    cmake --build .
+    cmake --install .
+    ```
+    *make sure the policy file org.acktarius.nping.policy in /usr/share/polkit-1/actions/*  
+
+    * **oc-amd**  
+    ```
+    cd /opt/conceal-toolbox
+    git clone https://github.com/Acktarius/oc-amd.git
+    cd oc-amd
+    chmod 755 *.sh
+    ```
+
+    * **EZ Privacy**
+    ```
+    cd /opt/conceal-toolbox
+    git clone https://github.com/Acktarius/EZ_Privacy.git
+    cd EZ_Privacy
+    chmod 755 ez_privacy.sh
+    cp ez_rpivacy_logo_128.png /etc/skel/.icons/
+    cp ez_privacy.desktop /etc/skel/.local/share/applications/
+    ```
+
+    * **extension4Concealers**
+    ```
+    apt-get -y install gnome-shell-extension-prefs
+    git clone https://github.com/p-e-w/argos.git
+    cd argos
+    cp argos@pew-worldwidemann.com /etc/skel/.local/share/gnome-shell/extensions/
+    cd /opt/conceal-toolbox
+    git clone https://github.com/Acktarius/extension4Concealers.git
+    cd extension4Concealers
+    chmod 755 gpu.2r.5m+.sh
+    chmod 755 assistant.1r.1m+.sh
+    mkdir -p /etc/skel/.config/argos
+    cp gpu.2r.5m+.sh /etc/skel/.config/argos/gpu.2r.5m+.sh
+    cp assistant.1r.1m+.sh /etc/skel/.config/argos/assistant.1r.1m+.sh
+    ```
+
+    * **CCX-BOX_Apps**  
+    ```
+    cd /opt/conceal-toolbox
+    git clone https://github.com/Acktarius/CCX-BOX_Apps.git
+    cd CCX-BOX_Apps
+    chmod 755 updater.sh
+    cd /etc/skel/.local/share/applications/
+    ```
+    copy [CCX-BOX_Apps_updater.desktop](./ingredients/etc/skel/.local/share/applications/CCX-BOX_Apps_updater.desktop)
+    
 
 - [ ] **zmotd**  
     ```
@@ -288,9 +344,37 @@ use the command line tool to customize.
     apt-get install oem-config-slideshow-ubuntu
     ```
     Then also copy the files under `/usr/share/oem-config-slideshow/slides/l10n/
+    
+
+ - [ ] **CCX Assistant firefox shortcut**
+    ```
+    cd /opt/conceal-toolbox
+    ```
+    copy [ccx-assistant_firefox.sh](./ingredients/opt/conceal-toolbox/ccx-assistant_firefox.sh)
+    ```
+    chmod 755 ccx-assistant_firefox.sh
+    ```
+    - icon
+    ```
+    cd /etc/skel/.icons/
+    ```
+    copy [cham.png]  
+    - shortcut
+    ```
+    cd /etc/skel/.local/share/applications
+    ```
+    copy [ccx-assistant_firefox.desktop](./ingredients/etc/skel/.local/share/applications/ccx-assistant_firefox.desktop)
+ 
+
+- [ ] Flatpak
+    ```
+    add-apt-repository ppa:flatpak/stable
+    apt install flatpak -y
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     ```
 
 
+## Last Step on CUBIC
 - [ ] **grub**
     nano /etc/default/grub
     *append with :* amdgpu.ppfeaturemask=0xffffffff
@@ -300,54 +384,3 @@ use the command line tool to customize.
 in toolbox
 pp.png in `etc/skel/.icons`
 ping_pool.desktop in `etc/skel/.local/share/applications/`
-
-
- - [ ] **CCX Assistant firefox shortcut**
- 
-icon in /etc/skel/.icons/cham.png
-.desktop file in /etc/skel/.local/share/applications 
-
-### \- \- \- \- \- \- \- \-
-
-\[Desktop Entry\]
-Type=Application
-Name=CCX Assistant
-Exec=/opt/conceal-toolbox/ccx-firefox.sh
-Icon=cham.png
-Hidden=false
-NoDisplay=false
-Terminal=false
-Comment=Launch Firefox on CCX Assistant page
-X-GNOME-Autostart-enabled=true
-
-### \- \- \- \- \- \- \- \-
-
-chmod 755 ccx-firefox.sh
-
-## Privacy
- - [ ] Tor
-  download in /opt
-`wget -c https://www.torproject.org/dist/torbrowser/12.5.2/tor-browser-linux64-12.5.2_ALL.tar.xz -O - | sudo tor -x -J -C /opt/`
-
-place the modify .desktop in /etc/skel/.local/share/applications/
-
- - [ ] Authentificator
- `sudo apt install flatpak -y`
- `flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo`
-`flatpak install flathub com.belmoussaoui.Authenticator`
-
- - [ ] Obfuscate
-`flatpak install flathub com.belmoussaoui.Obfuscate`
-
-- [ ] File Shredder
-`flatpak install flathub com.githubADBeveridge.Raider`
-
-- [ ] Kleopatra
-`flatpak install flathub org.kde.kleopatra`
-
-- [ ] Librewolf
-refer [https://librewolf.net/debian-migration/](https://librewolf.net/debian-migration/
-)
-
-
-sudo gpg --export 991BC93C EFE21092 C0B21F32 A1F4A52C > ubuntu-archive-keyring.gpg

@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=CCX-BOX App updater
+Path=/opt/conceal-toolbox/CCX-BOX_Apps
+Exec=gnome-terminal --title=CCX-BOX_Apps_updater --active --geometry=80x45 -- bash -c 'sudo /opt/conceal-toolbox/CCX-BOX_Apps/updater.sh ; exit'
+Terminal=false
+Type=Application
+Icon=/opt/conceal-toolbox/CCX-BOX_Apps/icon/update_box.png
+Hidden=false
+NoDisplay=false
+Terminal=false
+Categories=Office
+X-GNOME-Autostart-enabled=true
+Comment=Update your CCX BOX

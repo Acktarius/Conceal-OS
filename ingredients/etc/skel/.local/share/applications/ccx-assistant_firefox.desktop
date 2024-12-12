@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=CCX Assistant
+Exec=/opt/conceal-toolbox/ccx-assistant_firefox.sh
+Icon=cham.png
+Hidden=false
+NoDisplay=false
+Terminal=false
+Comment=open Assistant in Firefox 
+X-GNOME-Autostart-enabled=true
