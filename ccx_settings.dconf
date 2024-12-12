@@ -1,0 +1,307 @@
+[apps/update-manager]
+first-run=false
+launch-count=14
+launch-time=int64 1708790297
+show-details=true
+window-height=400
+window-width=593
+
+[com/ubuntu/update-notifier]
+release-check-time=uint32 1708788310
+
+[org/gnome/Disks]
+image-dir-uri='file:///home/ccxbox3/cubic_3'
+
+[org/gnome/baobab/ui]
+window-size=(960, 600)
+window-state=87168
+
+[org/gnome/control-center]
+last-panel='background'
+
+[org/gnome/desktop/app-folders]
+folder-children=['Utilities', 'YaST', 'bcc9c1fc-3f13-44d8-ae75-3c734305fd3f', '2b882df2-dc5e-4005-832c-e73351935fda', 'a4f256b2-2334-47c1-9d28-d36ad5ba3e8a']
+
+[org/gnome/desktop/app-folders/folders/2b882df2-dc5e-4005-832c-e73351935fda]
+apps=['ez_privacy.desktop', 'com.belmoussaoui.Authenticator.desktop', 'start-tor-browser.desktop', 'com.github.ADBeveridge.Raider.desktop', 'network.loki.Session.desktop', 'org.onionshare.OnionShare.desktop', 'com.belmoussaoui.Obfuscate.desktop']
+name='Privacy'
+translate=false
+
+[org/gnome/desktop/app-folders/folders/619a36d6-3e6b-4c14-a286-9e174e48c284]
+apps=['com.belmoussaoui.Authenticator.desktop', 'com.github.ADBeveridge.Raider.desktop', 'ez_privacy.desktop']
+name='Accessories'
+
+[org/gnome/desktop/app-folders/folders/8e973161-70d5-49ef-b7bf-f39fe752d4f4]
+apps=['gimp_gimp.desktop', 'display-im6.q16.desktop']
+name='Graphics'
+
+[org/gnome/desktop/app-folders/folders/Utilities]
+apps=['gnome-abrt.desktop', 'gnome-system-log.desktop', 'nm-connection-editor.desktop', 'org.gnome.baobab.desktop', 'org.gnome.Connections.desktop', 'org.gnome.DejaDup.desktop', 'org.gnome.Dictionary.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.eog.desktop', 'org.gnome.Evince.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.fonts.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Usage.desktop', 'vinagre.desktop']
+categories=['X-GNOME-Utilities']
+name='X-GNOME-Utilities.directory'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/YaST]
+categories=['X-SuSE-YaST']
+name='suse-yast.directory'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/a4f256b2-2334-47c1-9d28-d36ad5ba3e8a]
+apps=['display-im6.q16.desktop', 'gimp_gimp.desktop']
+name='Graphics'
+
+[org/gnome/desktop/app-folders/folders/a6f63cf6-cced-4239-ad18-ba509f583490]
+apps=['conceal-desktop.desktop', 'ccx-assistant_firefox.desktop', 'setup_script.desktop']
+name='Unnamed Folder'
+
+[org/gnome/desktop/app-folders/folders/bcc9c1fc-3f13-44d8-ae75-3c734305fd3f]
+apps=['setup_script.desktop', 'conceal-desktop.desktop', 'ccx-assistant_firefox.desktop', 'm-s_script.desktop', 'fan_script.desktop', 'ping_pool.desktop']
+name='Conceal'
+translate=false
+
+[org/gnome/desktop/background]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///usr/share/backgrounds/ccxBackground4.jpg'
+picture-uri-dark='file:///usr/share/backgrounds/ccxBackground4.jpg'
+primary-color='#000000'
+secondary-color='#000000'
+
+[org/gnome/desktop/input-sources]
+sources=[('xkb', 'us')]
+xkb-options=@as []
+
+[org/gnome/desktop/interface]
+clock-show-weekday=true
+color-scheme='prefer-dark'
+cursor-theme='Yaru'
+document-font-name='Sans 11'
+font-hinting='slight'
+font-name='Poppins 11'
+gtk-theme='Yaru-dark'
+icon-theme='Yaru'
+monospace-font-name='Ubuntu Mono 13'
+toolkit-accessibility=false
+
+[org/gnome/desktop/notifications]
+application-children=['firefox-firefox', 'org-gnome-fileroller', 'io-snapcraft-sessionagent', 'org-corectrl-corectrl', 'snap-store-ubuntu-software', 'org-gnome-gedit', 'org-gnome-nautilus', 'gimp-gimp', 'apport-gtk', 'balena-etcher-electron', 'discord-discord', 'org-xfce-mousepad', 'thunderbird', 'appimagelauncher']
+
+[org/gnome/desktop/notifications/application/appimagelauncher]
+application-id='appimagelauncher.desktop'
+
+[org/gnome/desktop/notifications/application/apport-gtk]
+application-id='apport-gtk.desktop'
+
+[org/gnome/desktop/notifications/application/balena-etcher-electron]
+application-id='balena-etcher-electron.desktop'
+
+[org/gnome/desktop/notifications/application/discord-discord]
+application-id='discord_discord.desktop'
+
+[org/gnome/desktop/notifications/application/firefox-firefox]
+application-id='firefox_firefox.desktop'
+
+[org/gnome/desktop/notifications/application/gimp-gimp]
+application-id='gimp_gimp.desktop'
+
+[org/gnome/desktop/notifications/application/io-snapcraft-sessionagent]
+application-id='io.snapcraft.SessionAgent.desktop'
+
+[org/gnome/desktop/notifications/application/org-corectrl-corectrl]
+application-id='org.corectrl.corectrl.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-fileroller]
+application-id='org.gnome.FileRoller.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-gedit]
+application-id='org.gnome.gedit.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-nautilus]
+application-id='org.gnome.Nautilus.desktop'
+
+[org/gnome/desktop/notifications/application/org-xfce-mousepad]
+application-id='org.xfce.mousepad.desktop'
+
+[org/gnome/desktop/notifications/application/snap-store-ubuntu-software]
+application-id='snap-store_ubuntu-software.desktop'
+
+[org/gnome/desktop/notifications/application/thunderbird]
+application-id='thunderbird.desktop'
+
+[org/gnome/desktop/notifications/application/update-manager]
+application-id='update-manager.desktop'
+
+[org/gnome/desktop/peripherals/keyboard]
+numlock-state=true
+
+[org/gnome/desktop/privacy]
+report-technical-problems=true
+
+[org/gnome/desktop/screensaver]
+color-shading-type='solid'
+lock-delay=uint32 0
+lock-enabled=false
+picture-options='zoom'
+picture-uri='file:///usr/share/backgrounds/ccxBackground4.jpg'
+primary-color='#000000'
+secondary-color='#000000'
+ubuntu-lock-on-suspend=false
+
+[org/gnome/desktop/session]
+idle-delay=uint32 900
+
+[org/gnome/desktop/wm/preferences]
+focus-mode='click'
+titlebar-font='Poppins ExtraLight, Bold 10'
+
+[org/gnome/eog/view]
+background-color='rgb(0,0,0)'
+use-background-color=true
+
+[org/gnome/evolution-data-server]
+migrated=true
+network-monitor-gio-name=''
+
+[org/gnome/file-roller/dialogs/extract]
+recreate-folders=true
+skip-newer=false
+
+[org/gnome/file-roller/listing]
+list-mode='as-folder'
+name-column-width=250
+show-path=false
+sort-method='name'
+sort-type='ascending'
+
+[org/gnome/file-roller/ui]
+sidebar-width=200
+window-height=480
+window-width=600
+
+[org/gnome/gedit/plugins]
+active-plugins=['filebrowser', 'spell', 'modelines', 'openlinks', 'sort', 'docinfo']
+
+[org/gnome/gedit/plugins/filebrowser]
+root='file:///'
+tree-view=true
+virtual-root='file:///home/ccxbox3/.local/share/applications'
+
+[org/gnome/gedit/preferences/editor]
+editor-font='Monospace 2'
+scheme='solarized-dark'
+use-default-font=true
+wrap-last-split-mode='word'
+
+[org/gnome/gedit/preferences/ui]
+show-tabs-mode='auto'
+
+[org/gnome/gedit/state/file-chooser]
+open-recent=false
+
+[org/gnome/gedit/state/window]
+bottom-panel-size=140
+side-panel-active-page='GeditWindowDocumentsPanel'
+side-panel-size=200
+size=(1266, 688)
+state=87168
+
+[org/gnome/mutter]
+center-new-windows=true
+
+[org/gnome/nautilus/preferences]
+default-folder-viewer='list-view'
+search-filter-time-type='last_modified'
+search-view='list-view'
+
+[org/gnome/nautilus/window-state]
+initial-size=(890, 550)
+maximized=false
+sidebar-width=260
+
+[org/gnome/shell]
+app-picker-layout=[{'bcc9c1fc-3f13-44d8-ae75-3c734305fd3f': <{'position': <0>}>, '2b882df2-dc5e-4005-832c-e73351935fda': <{'position': <1>}>, 'org.gnome.Extensions.desktop': <{'position': <2>}>, 'org.gnome.Terminal.desktop': <{'position': <3>}>, 'org.gnome.Calculator.desktop': <{'position': <4>}>, 'org.gnome.gedit.desktop': <{'position': <5>}>, 'gnome-system-monitor.desktop': <{'position': <6>}>, 'Utilities': <{'position': <7>}>, 'discord_discord.desktop': <{'position': <8>}>, 'librewolf.desktop': <{'position': <9>}>, 'loupvagabond.desktop': <{'position': <10>}>, 'software-properties-drivers.desktop': <{'position': <11>}>, 'cubic.desktop': <{'position': <12>}>, 'keet.desktop': <{'position': <13>}>, 'gnome-language-selector.desktop': <{'position': <14>}>, 'a4f256b2-2334-47c1-9d28-d36ad5ba3e8a': <{'position': <15>}>, 'gnome-control-center.desktop': <{'position': <16>}>}, {'org.xfce.mousepad.desktop': <{'position': <0>}>, 'org.gnome.PowerStats.desktop': <{'position': <1>}>, 'software-properties-gtk.desktop': <{'position': <2>}>, 'update-manager.desktop': <{'position': <3>}>, 'gnome-session-properties.desktop': <{'position': <4>}>}]
+enabled-extensions=['argos@pew.worldwidemann.com']
+welcome-dialog-last-shown-version='42.5'
+
+[org/gnome/shell/extensions/dash-to-dock]
+dash-max-icon-size=46
+dock-fixed=false
+extend-height=false
+
+[org/gnome/software]
+check-timestamp=int64 1708790119
+
+[org/gnome/system/location]
+enabled=false
+
+[org/gnome/terminal/legacy/profiles:]
+default='d35f51b0-1f93-4e2c-95e2-1bd8959198db'
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9', 'd35f51b0-1f93-4e2c-95e2-1bd8959198db']
+
+[org/gnome/terminal/legacy/profiles:/:d35f51b0-1f93-4e2c-95e2-1bd8959198db]
+background-color='rgb(41,46,51)'
+background-transparency-percent=1
+bold-is-bright=false
+cursor-shape='block'
+foreground-color='rgb(191,106,6)'
+highlight-background-color='rgb(20,22,25)'
+highlight-colors-set=true
+login-shell=false
+palette=['rgb(7,54,66)', 'rgb(220,50,47)', 'rgb(34,140,210)', 'rgb(181,137,0)', 'rgb(38,139,210)', 'rgb(211,54,130)', 'rgb(42,161,152)', 'rgb(238,232,213)', 'rgb(0,28,54)', 'rgb(203,75,22)', 'rgb(48,58,61)', 'rgb(101,123,131)', 'rgb(131,148,150)', 'rgb(108,113,196)', 'rgb(147,161,161)', 'rgb(253,246,227)']
+use-system-font=true
+use-theme-colors=false
+use-theme-transparency=false
+use-transparent-background=true
+visible-name='ccx'
+
+[org/gtk/gtk4/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+show-type-column=true
+sidebar-width=173
+sort-column='name'
+sort-directories-first=false
+sort-order='ascending'
+type-format='category'
+window-size=(1400, 374)
+
+[org/gtk/settings/color-chooser]
+custom-colors=[(0.18640000000000004, 0.22706206896551726, 0.24000000000000002, 1.0), (0.12555555555555559, 0.15674329501915713, 0.16666666666666669, 1.0), (0.34509803921568627, 0.43137254901960786, 0.45882352941176469, 1.0), (0.077655555555555561, 0.087161111111111134, 0.096666666666666679, 1.0), (0.18462222222222227, 0.20735374677002585, 0.22333333333333336, 1.0), (0.83000000000000007, 0.33678558558558574, 0.077466666666666711, 1.0), (0.83000000000000007, 0.33678558558558569, 0.077466666666666711, 1.0), (0.0, 0.16862745098039206, 0.21176470588235294, 1.0)]
+selected-color=(true, 0.18640000000000004, 0.22706206896551726, 0.24000000000000002, 1.0)
+
+[org/gtk/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=true
+show-size-column=true
+show-type-column=true
+sidebar-width=167
+sort-column='name'
+sort-directories-first=true
+sort-order='ascending'
+type-format='category'
+window-position=(26, 23)
+window-size=(1203, 1006)
+
+[org/xfce/mousepad/preferences/view]
+color-scheme='cobalt'
+font-name='Poppins 10'
+match-braces=true
+show-line-numbers=true
+show-whitespace=true
+use-default-monospace-font=false
+word-wrap=true
+
+[org/xfce/mousepad/preferences/window]
+toolbar-visible=true
+
+[org/xfce/mousepad/state/search]
+replace-all=true
+
+[org/xfce/mousepad/state/window]
+fullscreen=false
+height=uint32 700
+maximized=false
+width=uint32 1274

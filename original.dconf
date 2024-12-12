@@ -1,0 +1,18 @@
+[/]
+default='b1dcc9dd-5262-4d8d-a863-c897e6d979b9'
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9', 'd35f51b0-1f93-4e2c-95e2-1bd8959198db']
+
+[:d35f51b0-1f93-4e2c-95e2-1bd8959198db]
+background-color='rgb(41,46,51)'
+background-transparency-percent=1
+bold-is-bright=false
+cursor-shape='block'
+foreground-color='rgb(191,106,6)'
+highlight-background-color='rgb(20,22,25)'
+highlight-colors-set=true
+palette=['rgb(7,54,66)', 'rgb(220,50,47)', 'rgb(34,140,210)', 'rgb(181,137,0)', 'rgb(38,139,210)', 'rgb(211,54,130)', 'rgb(42,161,152)', 'rgb(238,232,213)', 'rgb(0,28,54)', 'rgb(203,75,22)', 'rgb(48,58,61)', 'rgb(101,123,131)', 'rgb(131,148,150)', 'rgb(108,113,196)', 'rgb(147,161,161)', 'rgb(253,246,227)']
+use-system-font=true
+use-theme-colors=false
+use-theme-transparency=false
+use-transparent-background=true
+visible-name='ccx'
