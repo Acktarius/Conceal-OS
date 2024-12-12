@@ -250,8 +250,8 @@ use the command line tool to customize.
     ```
     cd custom_setup
     chmod 755 setup_script.sh
-    cp ss.png /etc/skel/icons/
-    cp setup_script.desktop /etc/.skel/.local/share/applications/
+    cp ss.png /etc/skel/.icons/
+    cp setup_script.desktop /etc/skel/.local/share/applications/
     ```
 
 - [ ] **.face**
@@ -270,22 +270,25 @@ use the command line tool to customize.
 
 - [ ] **Fonts**
     ```
-    cd .local/fonts
+    cd .local/share
+    mkdir fonts
     ```
-    copy folder [Poppins](./ingredients/etc/skel/.local/fonts/Poppins/)
+    as you wish copy the ttf file from [Poppins](./ingredients/etc/skel/.local/fonts/Poppins/)
 
 - [ ] **Tweaks**
     ```
     apt install gnome-tweaks
     ```
-    
-- [ ] **Slideshow**
+
+- [ ] **Slideshow**  
+
+    copy the file in their respective folder from [slides](./ingredients/usr/share/ubiquity-slideshow/slides/)  
+    if you wish to have a slideshow for oem install:  
+    ```    
     apt-get install oem-config-slideshow-ubuntu
-    Then modify the files under /usr/share/ubiquity-slideshow/slides/l10n/
-    
-
-remove oem .deb after install ?
-
+    ```
+    Then also copy the files under `/usr/share/oem-config-slideshow/slides/l10n/
+    ```
 
 
 - [ ] `Terminal colors`
