@@ -121,7 +121,11 @@ use the command line tool to customize.
     git clone https://github.com/Acktarius/conceal-assistant.git
     cd conceal-assistant
     npm install
-    cd
+    cd /etc/systemd/system
+    ```
+    copy [ccx-assistant.service](./ingredients/etc/systemd/system/ccx-assistant.service)
+    ```
+    systemctl enable ccx-assistant.service
     ```
 
 - [ ] **amdgpu**
@@ -240,16 +244,19 @@ use the command line tool to customize.
     git clone https://github.com/Acktarius/EZ_Privacy.git
     cd EZ_Privacy
     chmod 755 ez_privacy.sh
-    cp ez_rpivacy_logo_128.png /etc/skel/.icons/
+    cp ez_privacy_logo3_128.png /etc/skel/.icons/
     cp ez_privacy.desktop /etc/skel/.local/share/applications/
     ```
 
     * **extension4Concealers**
     ```
-    apt-get -y install gnome-shell-extension-prefs
+    apt-get -y install gnome-shell-extension-prefs fonts-noto
     git clone https://github.com/p-e-w/argos.git
     cd argos
-    cp argos@pew-worldwidemann.com /etc/skel/.local/share/gnome-shell/extensions/
+    mkdir -p /etc/skel/.local/share/gnome-shell/extensions
+    cp -R argos@pew-worldwidemann.com /etc/skel/.local/share/gnome-shell/extensions/
+    cd ..
+    rm -rf argos
     cd /opt/conceal-toolbox
     git clone https://github.com/Acktarius/extension4Concealers.git
     cd extension4Concealers
@@ -373,14 +380,29 @@ use the command line tool to customize.
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     ```
 
-
-## Last Step on CUBIC
 - [ ] **grub**
+    ```
     nano /etc/default/grub
-    *append with :* amdgpu.ppfeaturemask=0xffffffff
-    `cp /etc/default/grub /usr/share/grub/default/grub`
+    ```
+    *append GRUB_CMDLINE_LINUX_DEFAULT with :* `amdgpu.ppfeaturemask=0xffffffff`  
+    
+    ```
+    cp /etc/default/grub /usr/share/grub/default/grub
+    ```
 
-- [ ] **ping_ccx_pool**
-in toolbox
-pp.png in `etc/skel/.icons`
-ping_pool.desktop in `etc/skel/.local/share/applications/`
+## Third step on Cubic
+![Cubic Step 3](docs/cubic_step3.png)
+Select package you want to remove (i.e. save some space removing some languages)
+
+## Fourth step on Cubic
+![Cubic Step 4](docs/cubic_step4.png)
+
+Modify presseed to take grub modification into account:  
+> (a) Generate /boot/grub/grub.cfg using the customized version of /etc/default/>grub.  
+>(b) Revert the customized version of /etc/default/grub after it has been >overwritten.  
+
+```
+ubiquity ubiquity/success_command string \
+    in-target bash -c 'update-grub'; \
+    in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
+```
