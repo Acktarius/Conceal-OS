@@ -258,19 +258,26 @@ use the command line tool to customize.
     `cd /etc/skel/`
     copy [.face](./ingredients/etc/skel/.face)
     
-- [ ] **bashrc**
-    `cd /etc/skel`
-    `rm .bashrc`
-    *and copy our* .bashrc + .bash_aliases
-    
-- [ ] **Fonts**
-    in /etc/skel/.local/fonts
-    
-- [ ] **Aliases**
-    touch .bash_aliases
-    nano .bash_aliases
-    
+- [ ] **bashrc and bash_aliases**
+    ```
+    cd /etc/skel
+    rm .bashrc
+    ```
+    copy our [.bashrc](./ingredients/etc/skel/.bashrc) and [.bash_aliases]
+    ```
     source .bashrc
+    ```
+
+- [ ] **Fonts**
+    ```
+    cd .local/fonts
+    ```
+    copy folder [Poppins](./ingredients/etc/skel/.local/fonts/Poppins/)
+
+- [ ] **Tweaks**
+    ```
+    apt install gnome-tweaks
+    ```
     
 - [ ] **Slideshow**
     apt-get install oem-config-slideshow-ubuntu
@@ -279,8 +286,7 @@ use the command line tool to customize.
 
 remove oem .deb after install ?
 
--\[ \] Theme
-`sudo apt install gnome-tweaks`
+
 
 - [ ] `Terminal colors`
     ***if no setup script***
