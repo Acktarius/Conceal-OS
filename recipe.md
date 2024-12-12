@@ -227,7 +227,9 @@ use the command line tool to customize.
     cd /usr/share/backgrounds/
     ```    
     copy all background files like [ccxBackground.jpg](./ingredients/usr/share/backgrounds/ccxBackground.jpg)
-
+    ```
+    cd ../gnome-background-properties/
+    ```
     and modify jammy*.xml in /usr/share/gnome-background-properties/
 - to force a background :
     `touch /usr/share/glib-2.0/schemas/90_custom.gshema.override`
