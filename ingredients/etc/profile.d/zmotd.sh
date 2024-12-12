@@ -1,6 +1,7 @@
 #!/bin/bash
+################################################################################colors
 # this file is subject to Licence
-#Copyright (c) 2023, Acktarius
+#Copyright (c) 2023-2024, Acktarius
 ################################################################################colors
 case "$TERM" in
 	xterm-256color)
@@ -24,18 +25,25 @@ esac
 CPU=$(cat /proc/cpuinfo | grep -m 1 "model name" | cut -d ":" -f 2 | cut -d " " -f 1,2,3,4)
 GPU=$(glxinfo | grep -m 1 "Device" | tr -s " " | cut -d " " -f 3,4,5,6) || "???"
 IPADD=$(ip a | grep -w 'inet' | grep -v 127 | cut -d "/" -f 1 | tr -d " " | cut -c 5-)
-xs=$(tail -1000 /var/log/syslog | grep -c "xmr-stak")
-if ! [[ $xs =~ ^[0-9]+$ ]]; then
-MINER="???"
-HASH="???"
-else
+xSys=$(tail -1000 /var/log/syslog | grep -c "xmr-stak")
+sSys=$(tail -1000 /var/log/syslog | grep -c "cryptonight_gpu")
+
+if [[ $xSys > $sSys ]]; then
 MINER="Xmr-Stak"
 HASH=$(tail -1000 /var/log/syslog | grep  "Totals (AMD)" | tail -n 1 | tr -s " " | cut -d " " -f 8)
 HASH=${HASH%%.*}
+elif [[ $xSys < $sSys ]]; then
+MINER="SRBMiner-Multi"
+HASH=$(tail -1000 /var/log/syslog | grep  "33mTotal:" | tail -n 1 | tr -s " " | cut -d " " -f 9)
+HASH=${HASH%%.*}
+else
+MINER="???"
+HASH="???"
+fi
 if ! [[ $HASH =~ ^[0-9]+$ ]]; then
 HASH="???"
 fi
-fi
+
 ##################################################################################################Design
 echo -e "${GRIS}###############################################################      .::::."
 echo -e "#                                                                .:---=--=--::."
@@ -43,7 +51,7 @@ echo -e "######                     ${WHITE}Welcome to CCX-BOX   ${GRIS}        
 echo -e "#                                                                -=:+."
 echo -e "###  			${ORANGE}node with guardian + miner ${GRIS}	         -=:+."
 echo -e "#                                                                -=:+."
-echo -e "#   ${ORANGE}and conceal assistant on ${LINK}http://${IPADD}:3500 ${TURNOFF}\t${GRIS}         -=:=."
+echo -e "#   ${ORANGE}and conceal assistant on ${LINK}http:\\$IPADD:3500 ${TURNOFF}\t${GRIS}         -=:=."
 echo -e "#                                                           \t -+:-:    .::."
 echo -e "#                                                           \t -+==------===-"
 echo -e "###############################################################\t    :-=-==-:\n"
