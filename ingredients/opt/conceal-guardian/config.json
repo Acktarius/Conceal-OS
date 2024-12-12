@@ -1,9 +1,7 @@
 {
     "node": {
       "path": "/opt/conceal-core/build/src/conceald",
-      "args": [
-        "--enable-blockchain-indexes --enable-autosave"
-      ],
+      "args": ["--enable-blockchain-indexes", "--enable-autosave"],
       "port": 16000,
       "rfcTimeout": 90,
       "name": "CCX-BOX#X",

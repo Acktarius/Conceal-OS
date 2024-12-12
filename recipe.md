@@ -14,6 +14,30 @@ use the command line tool to customize.
 
 ## Cubic step by step CCX iso
 
+- [ ] **Clean up and set correct kernel**
+    ```
+    # Remove newer kernel and HWE
+    apt remove linux-image-6.8.0-* linux-headers-6.8.0-*
+    apt remove linux-generic-hwe-22.04
+    apt autoremove
+    
+    # Install specific 5.19 kernel
+    apt install linux-image-5.19.0-50-generic linux-headers-5.19.0-50-generic
+    
+    # Hold everything in place
+    apt-mark hold linux-image-5.19.0-50-generic linux-headers-5.19.0-50-generic
+    apt-mark hold linux-image-generic linux-headers-generic
+    apt-mark hold linux-generic
+    apt-mark hold linux-generic-hwe-22.04
+    
+    # Double-check HWE is disabled
+    apt-mark hold linux-generic-hwe-22.04
+    
+    # Verify installation
+    dpkg --list | grep linux-image
+    ```
+
+
 - [ ] **update apt repository**
     ```
     add-apt-repository main universe restricted multiverse
@@ -26,7 +50,7 @@ use the command line tool to customize.
     
 - [ ] **tiny software**
     ```
-    apt install mousepad git clinfo lm-sensors curl dbus-x11 jq zenity
+    apt install mousepad git clinfo lm-sensors curl dbus-x11 jq zenity mesa-utils
     apt-get install openssh-server -y
     apt remove -y libreoffice-draw
     apt remove -y xubuntu-artwork xubuntu-community-wallpapers
@@ -205,6 +229,7 @@ use the command line tool to customize.
     * **mining service**  
         ```
         git clone https://github.com/Acktarius/ccx-mining_service.git
+        mv ccx-mining_service mining_service/
         cd ccx-mining_service
         chmod 755 mining_s.sh
         ```
@@ -240,7 +265,7 @@ use the command line tool to customize.
 
     * **EZ Privacy**
     ```
-    cd /opt/conceal-toolbox
+    cd /opt/
     git clone https://github.com/Acktarius/EZ_Privacy.git
     cd EZ_Privacy
     chmod 755 ez_privacy.sh
@@ -253,8 +278,9 @@ use the command line tool to customize.
     apt-get -y install gnome-shell-extension-prefs fonts-noto
     git clone https://github.com/p-e-w/argos.git
     cd argos
+    git switch -c gnome-44 GNOME-44
     mkdir -p /etc/skel/.local/share/gnome-shell/extensions
-    cp -R argos@pew-worldwidemann.com /etc/skel/.local/share/gnome-shell/extensions/
+    cp -r argos@pew-worldwidemann.com /etc/skel/.local/share/gnome-shell/extensions/
     cd ..
     rm -rf argos
     cd /opt/conceal-toolbox
