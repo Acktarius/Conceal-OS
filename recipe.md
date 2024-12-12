@@ -178,24 +178,48 @@ use the command line tool to customize.
     cmake .. -DCUDA_ENABLE=OFF
     make install
     ```
+    or
+    ```
+    ./ubuntu_AMD_builder.sh
+    ```
+*Notes:*
+    * final user will have to run `./xmr-stak` for initial setup
+    * run `sudo ./ubuntu_shortcut_creator.sh` to install day to day icon and shortcut
+    * run mining service installation script to generate a service.
 
-copy mining service or rely on the mining-service installation script 
+- [ ] Conceal Toolbox  
+    ```
+    cd /opt
+    mkdir conceal-toolbox
+    ```
+    * **mem alloc fail solver**
+        ```
+        git clone https://github.com/Acktarius/mem-alloc-fail_solver.git
+        cd mem-alloc-fail_solver
+        chmod +x mem_alloc_fail-solver.sh
+        ```
+    * **mining service**  
+        ```
+        git clone https://github.com/Acktarius/ccx-mining_service.git
+        cd ccx-mining_service
+        chmod 755 mining_s.sh
+        ```
+        - icon:  
+        ```
+        cd /etc/skel/.icons
+        ```
+        copy [ms.png](./ingredients/etc/skel/.icons/ms.png)   
+         - shortcut:  
+        ```
+        cd /opt/conceal-toolbox/ccx-mining_service
+        cp m-s_script.desktop /etc/skel/.local/share/applications/m-s_script.desktop
+        ```
 
--\[ \] Conceal Toolbox
-copy folder in /opt
-
-- ./mem\_alloc\_fail-solver.sh
-
-- [ ] **zmotd**
-    copy zmotd.sh in /etc/profile.d
-
--  [ ] **mining service**
-    copy mining_service in `/opt/conceal-toolbox/mining-service`
-	ms.png in ~/.icons
-`sudo cp /opt/conceal-toolbox/mining_service/ms.png /etc/skel/.icons/ms.png`
-
-m-s_script.desktop in ~/.local/share/applications
-`sudo cp /opt/conceal-toolbox/mining_service/m-s_script.desktop /etc/skel/.local/share/applications/m-s_script.desktop`
+- [ ] **zmotd**  
+    ```
+    cd /etc/profile.d
+    ```
+    copy [zmotd.sh](./ingredients/etc/profile.d/zmotd.sh)
 
 	
 - [ ] **Background**
