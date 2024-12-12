@@ -321,8 +321,12 @@ use the command line tool to customize.
 - [ ] **Background**  
     ```
     cd /usr/share/backgrounds/
+    # remove the existing symlink
+    rm ubuntu-default-greyscale-wallpaper.png
+    # Create a new symlink to your custom background
+    ln -s ccxBackground5.jpg ubuntu-default-greyscale-wallpaper.png
     ```    
-    copy all background files like [ccxBackground.jpg](./ingredients/usr/share/backgrounds/ccxBackground.jpg)
+    copy all background files before like [ccxBackground.jpg](./ingredients/usr/share/backgrounds/ccxBackground.jpg)
     ```
     cd ../gnome-background-properties/
     ```
