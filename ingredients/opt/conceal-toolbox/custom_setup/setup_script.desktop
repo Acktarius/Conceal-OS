@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=CCX colors
+Exec=/opt/conceal-toolbox/custom_setup/setup_script.sh
+Icon=ss.png
+Hidden=false
+NoDisplay=false
+Terminal=false
+Comment=import terminal CCX profile
+X-GNOME-Autostart-enabled=true

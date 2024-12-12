@@ -106,7 +106,7 @@ use the command line tool to customize.
     ```
     cd .icons
     ```
-    copy [conceal-desktop.desktop] in **applications**
+    copy [conceal-desktop.desktop] in applications
     ```
     cd ..
     cd .local/share/applications/
@@ -134,7 +134,7 @@ use the command line tool to customize.
     amdgpu-install -y --accept-eula --no-dkms --usecase=opencl --opencl=rocr
     ```
 
-- [ ] **SRB** (not open source ...otional)
+- [ ] **SRBMiner** (not open source ...otional)
     ```
     cd /opt
     wget https://github.com/doktor83/SRBMiner-Multi/releases/download/2.2.4/SRBMiner-Multi-2-2-4-Linux.tar.xz
@@ -147,7 +147,7 @@ use the command line tool to customize.
     cd
     ```
 
-- [ ] xmr-stak version for Concealers (with AMD GPU)
+- [ ] **xmr-stak** version for Concealers (with AMD GPU)
     ```
     apt install ocl-icd-opencl-dev libmicrohttpd-dev libssl-dev cmake build-essential \
     libhwloc-dev pkg-config libjsoncpp-dev libwxgtk3.0-gtk3-dev
@@ -243,40 +243,20 @@ use the command line tool to customize.
     ```
 
 - [ ] **Terminal profile**
-
-- save the file : dconf dump /org/gnome/terminal/legacy/profiles:/ > gnome-terminal-profiles.dconf
-
-create importing script **setup_script.sh**:
-`if [[ $USER = ubuntu ]]; then exit 0 else read -p "Import CCX colors for terminal (no to revert) (Yes/no) ?" answer case "$answer" in Y|Yes|y|yes) echo "importing CCX color for the terminal" dconf load /org/gnome/terminal/legacy/profiles:/ < /opt/custom_setup/gnome-terminal-profiles.dconf ;; N|No|n|no) dconf load /org/gnome/terminal/legacy/profiles:/ < /opt/custom_setup/original.dconf ;; *) echo "nothing will be done, bye" esac fi exit 0`
-
-Place the script in the /opt/custum_setup/ directory while you are using Cubic. with the dconf file
-/opt/custom\_setup/setup\_script.sh
-
-*Place a launcher in all new user's home directory :*
-/etc/.skel/.local/share/applications/setup_script.desktop
-
-### \- \- \- \- \- \- \- \-
-
-\[Desktop Entry\]
-Type=Application
-Name=CCX colors
-Exec=/opt/conceal-toolbox/custom\_setup/setup\_script.sh
-Icon=ss.png
-Hidden=false
-NoDisplay=false
-Terminal=false
-Comment=import terminal CCX profile
-X-GNOME-Autostart-enabled=true
-
-### \- \- \- \- \- \- \- \-
-
-chmod 755 setup_script.sh
-
-copy ss.png in ~/icons
+    ```
+    cd /opt/conceal-toolbox
+    ```
+    copy the folder [custom_setup](./ingredients/opt/conceal-toolbox/)
+    ```
+    cd custom_setup
+    chmod 755 setup_script.sh
+    cp ss.png /etc/skel/icons/
+    cp setup_script.desktop /etc/.skel/.local/share/applications/
+    ```
 
 - [ ] **.face**
     `cd /etc/skel/`
-    copy .face
+    copy [.face](./ingredients/etc/skel/.face)
     
 - [ ] **bashrc**
     `cd /etc/skel`
@@ -286,18 +266,10 @@ copy ss.png in ~/icons
 - [ ] **Fonts**
     in /etc/skel/.local/fonts
     
-
-mkdir .config && cd .config
-mkdir autostart && cd autostart
-copy ccx-firefox.sh.desktop into
-
 - [ ] **Aliases**
     touch .bash_aliases
     nano .bash_aliases
-    alias uu="sudo apt update && sudo apt upgrade"
-    alias ins="sudo apt-get install"
-    alias rem="sudo apt remove"
-    alias ..="cd .."
+    
     source .bashrc
     
 - [ ] **Slideshow**
