@@ -36,15 +36,15 @@ use the command line tool to customize.
     Pin-Priority: -1" > /etc/apt/preferences.d/no-hwe
     
     # Hold kernel packages in a way that persists through installation
-    echo "Package: linux-image-*
+    echo "Package: linux-image-5.15.0-43-generic
     Pin: version 5.15.0-43*
     Pin-Priority: 1001
 
-    Package: linux-headers-*
+    Package: linux-headers-5.15.0-43-generic
     Pin: version 5.15.0-43*
     Pin-Priority: 1001
 
-    Package: linux-modules-*
+    Package: linux-modules-5.15.0-43-generic
     Pin: version 5.15.0-43*
     Pin-Priority: 1001" > /etc/apt/preferences.d/kernel-hold
 
@@ -600,6 +600,7 @@ Modify presseed to take grub modification into account:
 ubiquity ubiquity/success_command string \
     in-target bash -c 'cp -f /etc/apt/preferences.d/kernel-hold /target/etc/apt/preferences.d/'; \
     in-target bash -c 'cp -f /etc/apt/preferences.d/no-hwe /target/etc/apt/preferences.d/'; \
+    in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic'; \
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp -f /usr/share/grub/default/grub /etc/default/grub';
 ```
