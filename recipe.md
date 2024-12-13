@@ -35,44 +35,18 @@ use the command line tool to customize.
     Pin: release *
     Pin-Priority: -1" > /etc/apt/preferences.d/no-hwe
     
-    # More comprehensive kernel pinning
-    cat > /etc/apt/preferences.d/kernel-hold << EOF
-    # Block all kernel updates by default
-    Package: linux-*
-    Pin: release *
-    Pin-Priority: -1
-
-    # Block specific packages
-    Package: linux-generic*
-    Pin: release *
-    Pin-Priority: -1
-
-    Package: linux-headers-generic*
-    Pin: release *
-    Pin-Priority: -1
-
-    Package: linux-image-generic*
-    Pin: release *
-    Pin-Priority: -1
-
-    # Block meta packages
-    Package: linux-generic
-    Pin: release *
-    Pin-Priority: -1
-
-    Package: linux-headers-generic
-    Pin: release *
-    Pin-Priority: -1
-
-    Package: linux-image-generic
-    Pin: release *
-    Pin-Priority: -1
-
-    # Only allow 5.15 kernel
-    Package: linux-*5.15*
-    Pin: release *
+    # Hold kernel packages in a way that persists through installation
+    echo "Package: linux-image-*
+    Pin: version 5.15.0-43*
     Pin-Priority: 1001
-    EOF
+
+    Package: linux-headers-*
+    Pin: version 5.15.0-43*
+    Pin-Priority: 1001
+
+    Package: linux-modules-*
+    Pin: version 5.15.0-43*
+    Pin-Priority: 1001" > /etc/apt/preferences.d/kernel-hold
 
     # Also add to APT config
     echo 'APT::Get::Install-Recommends "false";' > /etc/apt/apt.conf.d/99norecommends
@@ -82,6 +56,8 @@ use the command line tool to customize.
     apt-mark hold linux-generic
     apt-mark hold linux-headers-generic
     apt-mark hold linux-image-generic
+    apt-mark hold linux-generic-hwe-20.04
+
     
     echo 'APT::Get::Install-Recommends "false";' > /etc/apt/apt.conf.d/99norecommends
     echo 'APT::Get::Install-Suggests "false";' >> /etc/apt/apt.conf.d/99norecommends
