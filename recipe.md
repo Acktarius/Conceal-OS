@@ -56,7 +56,10 @@ use the command line tool to customize.
     apt-mark hold linux-generic
     apt-mark hold linux-headers-generic
     apt-mark hold linux-image-generic
-    apt-mark hold linux-generic-hwe-20.04
+    apt-mark hold linux-generic-hwe-22.04
+    
+    # Verify holds
+    apt-mark showhold
 
     
     echo 'APT::Get::Install-Recommends "false";' > /etc/apt/apt.conf.d/99norecommends
@@ -66,15 +69,16 @@ use the command line tool to customize.
 
 - [ ] **Configure Update Notifications**
     ```bash
-    # Create custom APT configuration for updates
+    # 20auto-upgrades
     cat > /etc/apt/apt.conf.d/20auto-upgrades << EOF
+    APT::Periodic::Enable "1";
     APT::Periodic::Update-Package-Lists "1";
-    APT::Periodic::Unattended-Upgrade "1";
     APT::Periodic::Download-Upgradeable-Packages "0";
     APT::Periodic::AutocleanInterval "7";
+    APT::Periodic::Unattended-Upgrade "1";
     EOF
 
-    # Configure unattended-upgrades to only handle security updates
+    # 50unattended-upgrades (unchanged)
     cat > /etc/apt/apt.conf.d/50unattended-upgrades << EOF
     Unattended-Upgrade::Allowed-Origins {
         "\${distro_id}:\${distro_codename}-security";
@@ -89,29 +93,8 @@ use the command line tool to customize.
     Unattended-Upgrade::InstallOnShutdown "false";
     EOF
 
-    # Disable regular update notifications but keep security ones
-    cat > /etc/xdg/autostart/update-notifier.desktop << EOF
-    [Desktop Entry]
-    Name=Update Notifier
-    Comment=Check for available updates automatically
-    Icon=update-notifier
-    Exec=/usr/lib/update-notifier/update-notifier
-    Terminal=false
-    Type=Application
-    NotShowIn=GNOME;KDE;XFCE;
-    X-GNOME-Autostart-Delay=60
-    X-Ubuntu-Gettext-Domain=update-notifier
-    EOF
-
-    # Configure update-manager settings
+    # 99update-notifier (simplified)
     cat > /etc/apt/apt.conf.d/99update-notifier << EOF
-    APT::Periodic::Enable "1";
-    APT::Periodic::Update-Package-Lists "1";
-    APT::Periodic::Download-Upgradeable-Packages "0";
-    APT::Periodic::AutocleanInterval "7";
-    APT::Periodic::Unattended-Upgrade "1";
-    APT::Periodic::UpdatePackageList "1";
-    APT::Periodic::DownloadUpgradeablePackages "0";
     Update-Manager::Launch-Time "0";
     Update-Manager::Show-Remains-Time "false";
     Update-Manager::Check-Dist-Upgrades "false";

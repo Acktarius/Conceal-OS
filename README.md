@@ -15,8 +15,8 @@ It is the user's responsibility to review and comply with all applicable license
 ## Build Requirements
 
 ### Base System
-- Ubuntu 20.04.3 LTS
-  - Download link: [Ubuntu 20.04.3 LTS ISO](...)
+- Ubuntu 20.04.1 LTS
+  - Download link: [Ubuntu 22.04.1 LTS ISO](https://releases.ubuntu.com/22.04/ubuntu-22.04.1-desktop-amd64.iso)
 
 ### Required Tools
 - Cubic (Custom Ubuntu ISO Creator)
@@ -48,7 +48,7 @@ We specifically use AMDGPU driver version 5.4.50403 instead of newer versions be
   - Potentially extended GPU lifespan
 
 ### Kernel Version
-The recipe specifies kernel 5.15.0-91-generic which, combined with the AMDGPU driver version and specific GRUB parameters, creates a known-good configuration for optimal mining operations.
+The recipe specifies kernel 5.15.0-43-generic which, combined with the AMDGPU driver version and specific GRUB parameters, creates a known-good configuration for optimal mining operations.
 
 Updating these components to newer versions, while tempting, may result in loss of important functionality. Please maintain these version requirements unless you have specific reasons to change them.
 
