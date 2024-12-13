@@ -6,10 +6,11 @@ picture-uri-dark='file:///usr/share/backgrounds/ccxBackground1.jpg'
 picture-uri='file:///usr/share/backgrounds/ccxBackground4.jpg'
 picture-uri-dark='file:///usr/share/backgrounds/ccxBackground4.jpg'
 
-[org.gnome.shell.ubuntu]
-theme='Yaru-dark'
-
 [org.gnome.desktop.interface]
-gtk-theme='Yaru-dark'
+gtk-theme='Yaru'
 icon-theme='Yaru'
 cursor-theme='Yaru'
+color-scheme='prefer-dark'
+
+[org.gnome.login-screen]
+logo='/usr/share/plymouth/themes/conceal-logo/splash.png'
