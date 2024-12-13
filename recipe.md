@@ -30,10 +30,10 @@ use the command line tool to customize.
 
 - [ ] **Clean up and set correct kernel**
     ```
-    # Hold specific 5.15 kernel and its modules
-    apt-mark hold linux-image-5.15.0-43-generic
-    apt-mark hold linux-headers-5.15.0-43-generic
-    apt-mark hold linux-modules-5.15.0-43-generic
+    # Hold specific 5.19 kernel and its modules
+    apt-mark hold linux-image-5.19.0-35-generic
+    apt-mark hold linux-headers-5.19.0-35-generic
+    apt-mark hold linux-modules-5.19.0-35-generic
     
     # Verify kernel version
     dpkg --list | grep linux-image
