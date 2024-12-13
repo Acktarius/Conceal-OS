@@ -28,7 +28,35 @@ use the command line tool to customize.
     apt update
     ```
 
-- [ ] **Clean up and set correct kernel**
+- [ ] **Prevent Kernel Updates During Installation**
+    ```
+    # Prevent HWE stack installation
+    echo "Package: linux-generic-hwe-22.04
+    Pin: release *
+    Pin-Priority: -1" > /etc/apt/preferences.d/no-hwe
+
+    # More aggressive kernel pinning
+    echo "Package: linux-*
+    Pin: release *
+    Pin-Priority: -1
+
+    Package: linux-image-*
+    Pin: version 5.19.0-35*
+    Pin-Priority: 1001
+
+    Package: linux-headers-*
+    Pin: version 5.19.0-35*
+    Pin-Priority: 1001
+
+    Package: linux-modules-*
+    Pin: version 5.19.0-35*
+    Pin-Priority: 1001
+
+    Package: linux-generic*
+    Pin: release *
+    Pin-Priority: -1" > /etc/apt/preferences.d/kernel-hold
+    ```
+- [ ] **Hold correct kernel**
     ```
     # Hold specific 5.19 kernel and its modules
     apt-mark hold linux-image-5.19.0-35-generic
@@ -41,28 +69,8 @@ use the command line tool to customize.
     #if needed:
     dpkg --purge linux-image-6.8.0-40-generic
     ```
-- [ ] **Prevent Kernel Updates During Installation**
-    ```
-    # Prevent HWE stack installation
-    echo "Package: linux-generic-hwe-22.04
-    Pin: release *
-    Pin-Priority: -1" > /etc/apt/preferences.d/no-hwe
 
-    # Hold kernel packages in a way that persists through installation
-    echo "Package: linux-image-*
-    Pin: version 5.19.0-35*
-    Pin-Priority: 1001
-
-    Package: linux-headers-*
-    Pin: version 5.19.0-35*
-    Pin-Priority: 1001
-
-    Package: linux-modules-*
-    Pin: version 5.19.0-35*
-    Pin-Priority: 1001" > /etc/apt/preferences.d/kernel-hold
-    ```
-
-    - [ ] **Essential Drivers and Firmware** (as needed)
+- [ ] **Essential Drivers and Firmware** (as needed)
     ```   
     # Install firmware and drivers
     apt install -y \
