@@ -31,9 +31,9 @@ use the command line tool to customize.
 - [ ] **Clean up and set correct kernel**
     ```
     # Hold specific 5.15 kernel and its modules
-    apt-mark hold linux-image-5.15.0-91-generic
-    apt-mark hold linux-headers-5.15.0-91-generic
-    apt-mark hold linux-modules-5.15.0-91-generic
+    apt-mark hold linux-image-5.15.0-43-generic
+    apt-mark hold linux-headers-5.15.0-43-generic
+    apt-mark hold linux-modules-5.15.0-43-generic
     
     # Verify kernel version
     dpkg --list | grep linux-image
@@ -42,12 +42,7 @@ use the command line tool to customize.
     dpkg --purge linux-image-6.8.0-40-generic
     ```
     - [ ] **Essential Drivers and Firmware**
-    ```
-    # Add non-free firmware repository
-    add-apt-repository restricted
-    add-apt-repository multiverse
-    apt update
-    
+    ```   
     # Install firmware and drivers
     apt install -y \
         linux-firmware \
@@ -66,7 +61,7 @@ use the command line tool to customize.
         vulkan-validationlayers
     
     # Update initramfs to include new firmware
-    update-initramfs -u -k 5.15.0-91-generic
+    update-initramfs -u -k 5.15.0-43-generic
 
      # Prevent cryptsetup warnings
     echo "CRYPTSETUP=n" >> /etc/initramfs-tools/conf.d/cryptsetup
@@ -356,7 +351,7 @@ use the command line tool to customize.
     ```
     cd ../glib-2.0/schemas/
     ```
-    copy [90_custom.schema.override](./ingredients/usr/share/glib-2.0/schemas/90_custom.schema.override)
+    copy [90_custom.gschema.override](./ingredients/usr/share/glib-2.0/schemas/90_custom.gschema.override)
 
     ```
     cd
@@ -594,4 +589,13 @@ ubiquity ubiquity/success_command string \
         gradient:'#cc8400-#ffa500' \
         -draw "roundrectangle 0,0 195,15 8,8" \
         /usr/share/plymouth/themes/conceal-logo/progress_bar.png
+    ```
+
+- [ ] **Background and Theme Settings**
+    ```
+    # Copy schema override file
+    cp 90_custom.gschema.override /usr/share/glib-2.0/schemas/
+    
+    # Compile schemas
+    glib-compile-schemas /usr/share/glib-2.0/schemas/
     ```
