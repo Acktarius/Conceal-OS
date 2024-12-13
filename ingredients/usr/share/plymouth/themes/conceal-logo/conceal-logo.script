@@ -20,13 +20,26 @@ progress_bar.sprite.SetPosition(progress_box.x, progress_box.y);
 
 fun refresh_callback ()
 {
-    if (Plymouth.GetMode() == "boot" || Plymouth.GetMode() == "resume") {
-        progress = Plymouth.GetBootProgress();
-        if (progress_bar.image.GetWidth() != Math.Int(progress_bar.original_image.GetWidth() * progress)) {
-            progress_bar.image = progress_bar.original_image.Scale(progress_bar.original_image.GetWidth() * progress, progress_bar.original_image.GetHeight());
-            progress_bar.sprite.SetImage(progress_bar.image);
-        }
+    progress = Plymouth.GetBootProgress();
+    if (progress_bar.image.GetWidth() != Math.Int(progress_bar.original_image.GetWidth() * progress)) {
+        progress_bar.image = progress_bar.original_image.Scale(
+            Math.Int(progress_bar.original_image.GetWidth() * progress),
+            progress_bar.original_image.GetHeight());
+        progress_bar.sprite.SetImage(progress_bar.image);
     }
 }
 
-Plymouth.SetRefreshFunction(refresh_callback); 
+Plymouth.SetRefreshFunction(refresh_callback);
+
+# Message display
+message_sprite = Sprite();
+message_sprite.SetPosition(Window.GetWidth() / 2, Window.GetHeight() * 0.9);
+
+fun message_callback (text)
+{
+    message_image = Image.Text(text, 1, 1, 1);
+    message_sprite.SetImage(message_image);
+    message_sprite.SetX(Window.GetWidth() / 2 - message_image.GetWidth() / 2);
+}
+
+Plymouth.SetMessageFunction(message_callback); 

@@ -2,10 +2,13 @@
 here is a detailed step by step procedure to create your own Conceal OS iso file.
 
 ## Prerequisite
-1. Download Ubuntu Iso [Ubuntu 22.04 LTS ISO](https://ubuntu.com/download/alternative-downloads)  
+1. Download Ubuntu 22.04.1 LTS ISO (comes with kernel 5.15)
+   - Direct download: [Ubuntu 22.04.1 LTS ISO](https://old-releases.ubuntu.com/releases/22.04.1/ubuntu-22.04.1-desktop-amd64.iso)
+   - This specific version is required as it comes with kernel 5.15, which is optimal for mining operations
+   - Do NOT use newer point releases (22.04.2+) as they come with kernel 6.x
 
 ## First step on Cubic
-:warning: make sure the system your using match the same kernel as the downloaded iso, otherwise you may encounter some issues.
+:warning: make sure the system you're using matches the same kernel as the downloaded iso (5.15), otherwise you may encounter some issues.
 ![Cubic Step 1](docs/cubic_step1.png)
 
 ## Second step on Cubic
@@ -27,26 +30,12 @@ use the command line tool to customize.
 
 - [ ] **Clean up and set correct kernel**
     ```
-    # Remove newer kernel and HWE
-    apt remove -y linux-image-6* linux-headers-6*
-    apt remove -y linux-modules-6*
-    apt autoremove
-    
-    # Install specific 5.15 kernel and its modules
-    apt install linux-image-5.15.0-91-generic linux-headers-5.15.0-91-generic linux-modules-5.15.0-91-generic
-    
-    # Add version check after installation
-    if ! dpkg -l | grep -q "linux-image-5.15.0-91-generic"; then
-        echo "Error: Kernel installation failed"
-        exit 1
-    fi
-    
-    # Hold only the specific kernel version
+    # Hold specific 5.15 kernel and its modules
     apt-mark hold linux-image-5.15.0-91-generic
     apt-mark hold linux-headers-5.15.0-91-generic
     apt-mark hold linux-modules-5.15.0-91-generic
     
-    # Verify installation
+    # Verify kernel version
     dpkg --list | grep linux-image
 
     #if needed:
@@ -585,11 +574,6 @@ ubiquity ubiquity/success_command string \
 
     # List available themes
     update-alternatives --list default.plymouth
-    
-    # Set the default theme (spinner in this case)
-    update-alternatives --set default.plymouth /usr/share/plymouth/themes/spinner/spinner.plymouth
-    
-
     ```
 
 - [ ] **Plymouth Progress Bar Creation**
