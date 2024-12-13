@@ -30,32 +30,119 @@ use the command line tool to customize.
 
 - [ ] **Prevent Kernel Updates During Installation**
     ```
-    # Prevent HWE stack installation
-    echo "Package: linux-generic-hwe-22.04
+    # Block HWE stack more aggressively
+    echo "Package: *hwe*
     Pin: release *
     Pin-Priority: -1" > /etc/apt/preferences.d/no-hwe
-
-    # More aggressive kernel pinning
-    echo "Package: linux-*
+    
+    # More comprehensive kernel pinning
+    cat > /etc/apt/preferences.d/kernel-hold << EOF
+    # Block all kernel updates by default
+    Package: linux-*
     Pin: release *
     Pin-Priority: -1
 
-    Package: linux-image-*
-    Pin: version 5.19.0-35*
-    Pin-Priority: 1001
-
-    Package: linux-headers-*
-    Pin: version 5.19.0-35*
-    Pin-Priority: 1001
-
-    Package: linux-modules-*
-    Pin: version 5.19.0-35*
-    Pin-Priority: 1001
-
+    # Block specific packages
     Package: linux-generic*
     Pin: release *
-    Pin-Priority: -1" > /etc/apt/preferences.d/kernel-hold
+    Pin-Priority: -1
+
+    Package: linux-headers-generic*
+    Pin: release *
+    Pin-Priority: -1
+
+    Package: linux-image-generic*
+    Pin: release *
+    Pin-Priority: -1
+
+    # Block meta packages
+    Package: linux-generic
+    Pin: release *
+    Pin-Priority: -1
+
+    Package: linux-headers-generic
+    Pin: release *
+    Pin-Priority: -1
+
+    Package: linux-image-generic
+    Pin: release *
+    Pin-Priority: -1
+
+    # Only allow 5.15 kernel
+    Package: linux-*5.15*
+    Pin: release *
+    Pin-Priority: 1001
+    EOF
+
+    # Also add to APT config
+    echo 'APT::Get::Install-Recommends "false";' > /etc/apt/apt.conf.d/99norecommends
+    echo 'APT::Get::Install-Suggests "false";' >> /etc/apt/apt.conf.d/99norecommends
+    
+    # Hold specific packages
+    apt-mark hold linux-generic
+    apt-mark hold linux-headers-generic
+    apt-mark hold linux-image-generic
+    
+    echo 'APT::Get::Install-Recommends "false";' > /etc/apt/apt.conf.d/99norecommends
+    echo 'APT::Get::Install-Suggests "false";' >> /etc/apt/apt.conf.d/99norecommends
     ```
+// ... existing code ...
+
+- [ ] **Configure Update Notifications**
+    ```bash
+    # Create custom APT configuration for updates
+    cat > /etc/apt/apt.conf.d/20auto-upgrades << EOF
+    APT::Periodic::Update-Package-Lists "1";
+    APT::Periodic::Unattended-Upgrade "1";
+    APT::Periodic::Download-Upgradeable-Packages "0";
+    APT::Periodic::AutocleanInterval "7";
+    EOF
+
+    # Configure unattended-upgrades to only handle security updates
+    cat > /etc/apt/apt.conf.d/50unattended-upgrades << EOF
+    Unattended-Upgrade::Allowed-Origins {
+        "\${distro_id}:\${distro_codename}-security";
+    };
+    Unattended-Upgrade::Package-Blacklist {
+        "linux-*";
+        "*nvidia*";
+        "amdgpu*";
+    };
+    Unattended-Upgrade::AutoFixInterruptedDpkg "true";
+    Unattended-Upgrade::MinimalSteps "true";
+    Unattended-Upgrade::InstallOnShutdown "false";
+    EOF
+
+    # Disable regular update notifications but keep security ones
+    cat > /etc/xdg/autostart/update-notifier.desktop << EOF
+    [Desktop Entry]
+    Name=Update Notifier
+    Comment=Check for available updates automatically
+    Icon=update-notifier
+    Exec=/usr/lib/update-notifier/update-notifier
+    Terminal=false
+    Type=Application
+    NotShowIn=GNOME;KDE;XFCE;
+    X-GNOME-Autostart-Delay=60
+    X-Ubuntu-Gettext-Domain=update-notifier
+    EOF
+
+    # Configure update-manager settings
+    cat > /etc/apt/apt.conf.d/99update-notifier << EOF
+    APT::Periodic::Enable "1";
+    APT::Periodic::Update-Package-Lists "1";
+    APT::Periodic::Download-Upgradeable-Packages "0";
+    APT::Periodic::AutocleanInterval "7";
+    APT::Periodic::Unattended-Upgrade "1";
+    APT::Periodic::UpdatePackageList "1";
+    APT::Periodic::DownloadUpgradeablePackages "0";
+    Update-Manager::Launch-Time "0";
+    Update-Manager::Show-Remains-Time "false";
+    Update-Manager::Check-Dist-Upgrades "false";
+    Update-Manager::Release-Upgrade-Mode "never";
+    EOF
+    ```
+
 - [ ] **Hold correct kernel**
     ```
     # Hold specific 5.19 kernel and its modules
@@ -553,17 +640,13 @@ Modify presseed to take grub modification into account:
 > (a) Generate /boot/grub/grub.cfg using the customized version of /etc/default/>grub.  
 >(b) Revert the customized version of /etc/default/grub after it has been >overwritten.  
 
+
 ```
 ubiquity ubiquity/success_command string \
+    in-target bash -c 'cp -f /etc/apt/preferences.d/kernel-hold /target/etc/apt/preferences.d/'; \
+    in-target bash -c 'cp -f /etc/apt/preferences.d/no-hwe /target/etc/apt/preferences.d/'; \
     in-target bash -c 'update-grub'; \
-    in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
-```
-```
-ubiquity ubiquity/success_command string \
-    in-target bash -c 'cp /etc/apt/preferences.d/kernel-hold /target/etc/apt/preferences.d/'; \
-    in-target bash -c 'cp /etc/apt/preferences.d/no-hwe /target/etc/apt/preferences.d/'; \
-    in-target bash -c 'update-grub'; \
-    in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
+    in-target bash -c 'cp -f /usr/share/grub/default/grub /etc/default/grub';
 ```
 ---
 
