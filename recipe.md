@@ -32,8 +32,14 @@ use the command line tool to customize.
     apt remove -y linux-modules-6*
     apt autoremove
     
-    # Install specific 5.19 kernel and its modules
+    # Install specific 5.15 kernel and its modules
     apt install linux-image-5.15.0-91-generic linux-headers-5.15.0-91-generic linux-modules-5.15.0-91-generic
+    
+    # Add version check after installation
+    if ! dpkg -l | grep -q "linux-image-5.15.0-91-generic"; then
+        echo "Error: Kernel installation failed"
+        exit 1
+    fi
     
     # Hold only the specific kernel version
     apt-mark hold linux-image-5.15.0-91-generic
@@ -436,6 +442,34 @@ use the command line tool to customize.
     Enable and start the service:
     ```
     systemctl enable fail2ban
+    ```
+- [ ] **Security**  
+    ```
+    # Install and configure UFW
+    apt install -y ufw
+    ufw default deny incoming
+    ufw default allow outgoing
+    ufw allow ssh
+    ufw allow 16000/tcp  # Conceal port
+    ufw allow 3500/tcp  # Conceal assistant port
+    ufw --force enable
+    ```
+
+- [ ] **System Optimization**    
+    ```
+    # Add performance tweaks to sysctl
+    echo "vm.swappiness=10" >> /etc/sysctl.conf
+    echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf
+    
+    # For mining optimization
+    echo "kernel.sched_migration_cost_ns=5000000" >> /etc/sysctl.conf
+    echo "kernel.sched_autogroup_enabled=0" >> /etc/sysctl.conf    
+    ```
+
+4. **Monitoring Tools**
+    ```
+    Consider adding monitoring tools:
+    apt install -y htop iotop nmon
     ```
 
 - [ ] **grub**
