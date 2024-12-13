@@ -9,15 +9,3 @@ Pin-Priority: 1001
 Package: linux-modules-5.15.0-43-generic
 Pin: version 5.15.0-43*
 Pin-Priority: 1001
-
-Package: linux-image-generic
-Pin: version *
-Pin-Priority: -1
-
-Package: linux-headers-generic
-Pin: version *
-Pin-Priority: -1
-
-Package: linux-generic
-Pin: version *
-Pin-Priority: -1
