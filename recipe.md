@@ -598,6 +598,7 @@ Modify presseed to take grub modification into account:
 
 ```
 ubiquity ubiquity/success_command string \
+    in-target bash -c 'mkdir -p /target/etc/apt/preferences.d/'; \
     in-target bash -c 'cp -f /etc/apt/preferences.d/kernel-hold /target/etc/apt/preferences.d/'; \
     in-target bash -c 'cp -f /etc/apt/preferences.d/no-hwe /target/etc/apt/preferences.d/'; \
     in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic'; \
