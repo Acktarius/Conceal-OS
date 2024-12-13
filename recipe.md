@@ -41,7 +41,28 @@ use the command line tool to customize.
     #if needed:
     dpkg --purge linux-image-6.8.0-40-generic
     ```
-    - [ ] **Essential Drivers and Firmware**
+- [ ] **Prevent Kernel Updates During Installation**
+    ```
+    # Prevent HWE stack installation
+    echo "Package: linux-generic-hwe-22.04
+    Pin: release *
+    Pin-Priority: -1" > /etc/apt/preferences.d/no-hwe
+
+    # Hold kernel packages in a way that persists through installation
+    echo "Package: linux-image-*
+    Pin: version 5.19.0-35*
+    Pin-Priority: 1001
+
+    Package: linux-headers-*
+    Pin: version 5.19.0-35*
+    Pin-Priority: 1001
+
+    Package: linux-modules-*
+    Pin: version 5.19.0-35*
+    Pin-Priority: 1001" > /etc/apt/preferences.d/kernel-hold
+    ```
+
+    - [ ] **Essential Drivers and Firmware** (as needed)
     ```   
     # Install firmware and drivers
     apt install -y \
@@ -529,7 +550,13 @@ ubiquity ubiquity/success_command string \
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
 ```
-
+```
+ubiquity ubiquity/success_command string \
+    in-target bash -c 'cp /etc/apt/preferences.d/kernel-hold /target/etc/apt/preferences.d/'; \
+    in-target bash -c 'cp /etc/apt/preferences.d/no-hwe /target/etc/apt/preferences.d/'; \
+    in-target bash -c 'update-grub'; \
+    in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
+```
 ---
 
 ### Extra
@@ -589,13 +616,4 @@ ubiquity ubiquity/success_command string \
         gradient:'#cc8400-#ffa500' \
         -draw "roundrectangle 0,0 195,15 8,8" \
         /usr/share/plymouth/themes/conceal-logo/progress_bar.png
-    ```
-
-- [ ] **Background and Theme Settings**
-    ```
-    # Copy schema override file
-    cp 90_custom.gschema.override /usr/share/glib-2.0/schemas/
-    
-    # Compile schemas
-    glib-compile-schemas /usr/share/glib-2.0/schemas/
     ```
