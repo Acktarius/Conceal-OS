@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Conceal Logo
+Description=A theme for Conceal OS
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/conceal-logo
+ScriptFile=/usr/share/plymouth/themes/conceal-logo/conceal-logo.script

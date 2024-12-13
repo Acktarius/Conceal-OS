@@ -498,3 +498,53 @@ ubiquity ubiquity/success_command string \
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
 ```
+
+---
+
+### Extra
+
+- [ ] **Plymouth Splash Screen**
+    ```
+    # Install Plymouth tools
+    apt install plymouth-themes plymouth-theme-spinner
+    
+    # Create a custom theme directory
+    mkdir -p /usr/share/plymouth/themes/conceal-logo
+    
+    # Copy theme files
+    cp splash.png /usr/share/plymouth/themes/conceal-logo/
+    cp progress_box.png /usr/share/plymouth/themes/conceal-logo/
+    cp progress_bar.png /usr/share/plymouth/themes/conceal-logo/
+    cp conceal-logo.plymouth /usr/share/plymouth/themes/conceal-logo/
+    cp conceal-logo.script /usr/share/plymouth/themes/conceal-logo/
+    
+    # Set permissions
+    chmod 644 /usr/share/plymouth/themes/conceal-logo/*
+    
+    # Set the custom theme
+    update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/conceal-logo/conceal-logo.plymouth 100
+    update-alternatives --set default.plymouth /usr/share/plymouth/themes/conceal-logo/conceal-logo.plymouth
+    
+    # Update initramfs
+    update-initramfs -u
+    ```
+
+- [ ] **Plymouth Progress Bar Creation**
+    ```
+    # Install ImageMagick
+    apt install -y imagemagick
+    
+    # Create progress box (container)
+    convert -size 200x20 xc:transparent \
+        -fill none \
+        -stroke '#323436' \
+        -strokewidth 2 \
+        -draw "roundrectangle 0,0 199,19 10,10" \
+        /usr/share/plymouth/themes/conceal-logo/progress_box.png
+    
+    # Create progress bar (fill) - orange gradient
+    convert -size 196x16 \
+        gradient:'#cc8400-#ffa500' \
+        -draw "roundrectangle 0,0 195,15 8,8" \
+        /usr/share/plymouth/themes/conceal-logo/progress_bar.png
+    ```
