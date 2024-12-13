@@ -34,4 +34,22 @@ It is the user's responsibility to review and comply with all applicable license
 3. Follow the detailed build procedure in [recipe.md](recipe.md)
 4. Use the components from the `ingredients` folder as specified in the recipe
 
+## Version Control Notice
+Please note that specific versions of components are carefully chosen in this build recipe for important reasons:
+
+### AMD Driver Version
+We specifically use AMDGPU driver version 5.4.50403 instead of newer versions because:
+- It maintains critical power management functionality that has been removed in newer versions
+- It allows for better control over power consumption during mining operations
+- This results in:
+  - Lower electricity costs
+  - Reduced environmental impact
+  - Better thermal management
+  - Potentially extended GPU lifespan
+
+### Kernel Version
+The recipe specifies kernel 5.15.0-91-generic which, combined with the AMDGPU driver version and specific GRUB parameters, creates a known-good configuration for optimal mining operations.
+
+Updating these components to newer versions, while tempting, may result in loss of important functionality. Please maintain these version requirements unless you have specific reasons to change them.
+
 

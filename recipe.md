@@ -52,6 +52,36 @@ use the command line tool to customize.
     #if needed:
     dpkg --purge linux-image-6.8.0-40-generic
     ```
+    - [ ] **Essential Drivers and Firmware**
+    ```
+    # Add non-free firmware repository
+    add-apt-repository restricted
+    add-apt-repository multiverse
+    apt update
+    
+    # Install firmware and drivers
+    apt install -y \
+        linux-firmware \
+        amd64-microcode \
+        xserver-xorg-video-amdgpu \
+        network-manager
+    
+    # Ensure network-manager starts on boot
+    systemctl enable NetworkManager
+    
+    # Install additional GPU support
+    apt install -y \
+        mesa-vulkan-drivers \
+        libvulkan1 \
+        vulkan-tools \
+        vulkan-validationlayers
+    
+    # Update initramfs to include new firmware
+    update-initramfs -u -k 5.15.0-91-generic
+
+     # Prevent cryptsetup warnings
+    echo "CRYPTSETUP=n" >> /etc/initramfs-tools/conf.d/cryptsetup
+    ```
 - [ ] **Remove unnecessary language packs** *(optional)*  
     ```
     apt remove -y language-pack-pt language-pack-pt-base 
@@ -472,7 +502,7 @@ use the command line tool to customize.
     apt install -y htop iotop nmon
     ```
 
-- [ ] **grub**
+- [ ] **GRUB**
     ```
     nano /etc/default/grub
     ```
@@ -481,6 +511,23 @@ use the command line tool to customize.
     ```
     cp /etc/default/grub /usr/share/grub/default/grub
     ```
+- [ ] **GRUB Display Configuration**
+    ```
+    # Backup original grub config
+    cp /etc/default/grub /etc/default/grub.backup
+    
+    # Update GRUB configuration
+    # append GRUB_CMDLINE_LINUX_DEFAULT
+    #with:  video=HDMI-A-1:1920x1080
+    
+    # Add kernel parameters for better GPU support
+    echo 'GRUB_GFXMODE="1920x1080"' >> /etc/default/grub
+    echo 'GRUB_GFXPAYLOAD_LINUX="keep"' >> /etc/default/grub
+    
+    # Update GRUB
+    update-grub
+    ```
+
 
 ## Third step on Cubic
 ![Cubic Step 3](docs/cubic_step3.png)
@@ -521,12 +568,28 @@ ubiquity ubiquity/success_command string \
     # Set permissions
     chmod 644 /usr/share/plymouth/themes/conceal-logo/*
     
+      
     # Set the custom theme
     update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/conceal-logo/conceal-logo.plymouth 100
     update-alternatives --set default.plymouth /usr/share/plymouth/themes/conceal-logo/conceal-logo.plymouth
     
+    # Ensure Plymouth is in initramfs
+    echo "FRAMEBUFFER=y" > /etc/initramfs-tools/conf.d/plymouth
+    
+    # Configure Plymouth to show during boot and shutdown
+    #append GRUB_CMDLINE_LINUX_DEFAULT
+    # with: plymouth.enable=1
+    
     # Update initramfs
-    update-initramfs -u
+    update-initramfs -u -k 5.15.0-91-generic
+
+    # List available themes
+    update-alternatives --list default.plymouth
+    
+    # Set the default theme (spinner in this case)
+    update-alternatives --set default.plymouth /usr/share/plymouth/themes/spinner/spinner.plymouth
+    
+
     ```
 
 - [ ] **Plymouth Progress Bar Creation**
