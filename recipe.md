@@ -60,10 +60,6 @@ use the command line tool to customize.
     
     # Verify holds
     apt-mark showhold
-
-    
-    echo 'APT::Get::Install-Recommends "false";' > /etc/apt/apt.conf.d/99norecommends
-    echo 'APT::Get::Install-Suggests "false";' >> /etc/apt/apt.conf.d/99norecommends
     ```
 // ... existing code ...
 
