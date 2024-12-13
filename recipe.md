@@ -14,25 +14,31 @@ use the command line tool to customize.
 
 ## Cubic step by step CCX iso
 
+
+- [ ] **update apt repository**
+    ```
+    add-apt-repository main universe restricted multiverse
+    ```
+
+- [ ] Update
+    ```
+    apt update
+    ```
+
 - [ ] **Clean up and set correct kernel**
     ```
     # Remove newer kernel and HWE
     apt remove -y linux-image-6* linux-headers-6*
     apt remove -y linux-modules-6*
-    apt remove linux-generic-hwe-22.04
     apt autoremove
     
-    # Install specific 5.19 kernel
-    apt install linux-image-5.19.0-50-generic linux-headers-5.19.0-50-generic
+    # Install specific 5.19 kernel and its modules
+    apt install linux-image-5.15.0-91-generic linux-headers-5.15.0-91-generic linux-modules-5.15.0-91-generic
     
-    # Hold everything in place
-    apt-mark hold linux-image-5.19.0-50-generic linux-headers-5.19.0-50-generic
-    apt-mark hold linux-image-generic linux-headers-generic
-    apt-mark hold linux-generic
-    apt-mark hold linux-generic-hwe-22.04
-    
-    # Double-check HWE is disabled
-    apt-mark hold linux-generic-hwe-22.04
+    # Hold only the specific kernel version
+    apt-mark hold linux-image-5.15.0-91-generic
+    apt-mark hold linux-headers-5.15.0-91-generic
+    apt-mark hold linux-modules-5.15.0-91-generic
     
     # Verify installation
     dpkg --list | grep linux-image
@@ -42,17 +48,7 @@ use the command line tool to customize.
     ```
 - [ ] **Remove unnecessary language packs** *(optional)*  
     ```
-    apt remove language-pack-pt language-pack-pt-base 
-    ```
-
-- [ ] **update apt repository**
-    ```
-    add-apt-repository main universe restricted multiverse
-    ```
-
-- [ ] ~~Update~~
-    ```
-    apt update
+    apt remove -y language-pack-pt language-pack-pt-base 
     ```
     
 - [ ] **tiny software**
@@ -237,7 +233,7 @@ use the command line tool to customize.
         ```
         git clone https://github.com/Acktarius/ccx-mining_service.git
         mv ccx-mining_service mining_service/
-        cd ccx-mining_service
+        cd mining_service
         chmod 755 mining_s.sh
         ```
         - icon:  
@@ -247,7 +243,7 @@ use the command line tool to customize.
         copy [ms.png](./ingredients/etc/skel/.icons/ms.png)   
          - shortcut:  
         ```
-        cd /opt/conceal-toolbox/ccx-mining_service
+        cd /opt/conceal-toolbox/mining_service
         cp m-s_script.desktop /etc/skel/.local/share/applications/m-s_script.desktop
         ```
     * **ping ccx pool**  
@@ -413,6 +409,33 @@ use the command line tool to customize.
     add-apt-repository ppa:flatpak/stable
     apt install flatpak -y
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    ```
+- [ ] **fail2ban**  
+    ```
+    apt install -y fail2ban
+    cd /etc/fail2ban
+    cp jail.conf jail.local
+    ```
+    Edit jail.local to set basic configuration:
+    ```
+    # In [DEFAULT] section:
+    bantime = 1d
+    findtime = 1d
+    maxretry = 3
+
+    # Enable SSH protection in [sshd] section:
+    [sshd]
+    enabled = true
+    port = ssh
+    filter = sshd
+    logpath = %(sshd_log)s
+    maxretry = 3
+    findtime = 600
+    bantime = 600
+    ```
+    Enable and start the service:
+    ```
+    systemctl enable fail2ban
     ```
 
 - [ ] **grub**
