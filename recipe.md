@@ -30,33 +30,14 @@ use the command line tool to customize.
 
 - [ ] **Prevent Kernel Updates During Installation**
     ```
-    # Block HWE stack more aggressively
-    echo "Package: *hwe*
-    Pin: release *
-    Pin-Priority: -1" > /etc/apt/preferences.d/no-hwe
-    
-    # Hold kernel packages in a way that persists through installation
-    echo "Package: linux-image-5.15.0-43-generic
-    Pin: version 5.15.0-43*
-    Pin-Priority: 1001
+    cd /etc/apt/preferences.d/
+    ```
+    add files [kernel-hold](./ingredients/etc/apt/preference.d/kernel-hold), [no-hwe](./ingredients/etc/apt/preference.d/no-hwe) and [ubiquity-priority](./ingredients/etc/apt/preference.d/ubiquity-priority)
 
-    Package: linux-headers-5.15.0-43-generic
-    Pin: version 5.15.0-43*
-    Pin-Priority: 1001
-
-    Package: linux-modules-5.15.0-43-generic
-    Pin: version 5.15.0-43*
-    Pin-Priority: 1001" > /etc/apt/preferences.d/kernel-hold
-
+    ```
     # Also add to APT config
     echo 'APT::Get::Install-Recommends "false";' > /etc/apt/apt.conf.d/99norecommends
     echo 'APT::Get::Install-Suggests "false";' >> /etc/apt/apt.conf.d/99norecommends
-    
-    # Hold specific packages
-    apt-mark hold linux-generic
-    apt-mark hold linux-headers-generic
-    apt-mark hold linux-image-generic
-    apt-mark hold linux-generic-hwe-22.04
     
     # Verify holds
     apt-mark showhold
@@ -66,9 +47,7 @@ use the command line tool to customize.
 - [ ] **Hold correct kernel**
     ```
     # Hold specific 5.19 kernel and its modules
-    apt-mark hold linux-image-5.19.0-35-generic
-    apt-mark hold linux-headers-5.19.0-35-generic
-    apt-mark hold linux-modules-5.19.0-35-generic
+    # now that is done in presseed
     
     # Verify kernel version
     dpkg --list | grep linux-image
@@ -76,7 +55,7 @@ use the command line tool to customize.
     #if needed:
     dpkg --purge linux-image-6.8.0-40-generic
     ```
-- [ ] **Reinstall Ubiquity**
+- [ ] **Reinstall Ubiquity** (as needed)
     ```
     # Reinstall ubiquity and its Python dependencies
     apt install --reinstall \
@@ -589,7 +568,7 @@ ubiquity ubiquity/success_command string \
     in-target bash -c 'cp -f /etc/apt/preferences.d/kernel-hold /target/etc/apt/preferences.d/'; \
     in-target bash -c 'cp -f /etc/apt/preferences.d/no-hwe /target/etc/apt/preferences.d/'; \
     in-target bash -c 'cp -f /etc/apt/preferences.d/ubiquity-priority /target/etc/apt/preferences.d/'; \
-    in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic'; \
+    in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic linux-generic-hwe-22.04'; \
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp -f /usr/share/grub/default/grub /etc/default/grub'; \
     in-target bash -c 'cp /opt/post-install-updates.sh /tmp/'; \
