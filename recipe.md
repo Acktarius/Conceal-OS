@@ -81,6 +81,7 @@ use the command line tool to customize.
     # Reinstall ubiquity and its Python dependencies
     apt install --reinstall \
         ubiquity \
+        ubiquity-frontend-gtk \
         python3-debconf \
         python3-debian \
         python3-parted \
@@ -591,9 +592,9 @@ ubiquity ubiquity/success_command string \
     in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic'; \
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp -f /usr/share/grub/default/grub /etc/default/grub'; \
-    in-target bash -c 'cp /opt/post-install-updates.sh /opt/'; \
-    in-target bash -c 'chmod +x /opt/post-install-updates.sh'; \
-    in-target bash -c '/opt/post-install-updates.sh';
+    in-target bash -c 'cp /opt/post-install-updates.sh /tmp/'; \
+    in-target bash -c 'chmod +x /tmp/post-install-updates.sh'; \
+    in-target bash -c '/tmp/post-install-updates.sh';
 ```
 ---
 
