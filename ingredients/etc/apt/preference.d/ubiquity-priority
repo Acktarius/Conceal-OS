@@ -5,3 +5,11 @@ Pin-Priority: 1001
 Package: python3-apt
 Pin: release *
 Pin-Priority: 1001
+
+Package: python3-debian
+Pin: release *
+Pin-Priority: 1001
+
+Package: python3-debconf
+Pin: release *
+Pin-Priority: 1001
