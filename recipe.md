@@ -76,6 +76,19 @@ use the command line tool to customize.
     #if needed:
     dpkg --purge linux-image-6.8.0-40-generic
     ```
+- [ ] **Reinstall Ubiquity**
+    ```
+    # Reinstall ubiquity and its Python dependencies
+    apt install --reinstall \
+        ubiquity \
+        python3-debconf \
+        python3-debian \
+        python3-parted \
+        python3-gi \
+        python3-yaml \
+        python3-aptdaemon.gtk3widgets \
+        gir1.2-webkit2-4.0
+    ```
 
 - [ ] **Essential Drivers and Firmware** (as needed)
     ```   
