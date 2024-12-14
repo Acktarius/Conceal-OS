@@ -63,41 +63,6 @@ use the command line tool to customize.
     ```
 // ... existing code ...
 
-- [ ] **Configure Update Notifications**
-    ```bash
-    # 20auto-upgrades
-    cat > /etc/apt/apt.conf.d/20auto-upgrades << EOF
-    APT::Periodic::Enable "1";
-    APT::Periodic::Update-Package-Lists "1";
-    APT::Periodic::Download-Upgradeable-Packages "0";
-    APT::Periodic::AutocleanInterval "7";
-    APT::Periodic::Unattended-Upgrade "1";
-    EOF
-
-    # 50unattended-upgrades (unchanged)
-    cat > /etc/apt/apt.conf.d/50unattended-upgrades << EOF
-    Unattended-Upgrade::Allowed-Origins {
-        "\${distro_id}:\${distro_codename}-security";
-    };
-    Unattended-Upgrade::Package-Blacklist {
-        "linux-*";
-        "*nvidia*";
-        "amdgpu*";
-    };
-    Unattended-Upgrade::AutoFixInterruptedDpkg "true";
-    Unattended-Upgrade::MinimalSteps "true";
-    Unattended-Upgrade::InstallOnShutdown "false";
-    EOF
-
-    # 99update-notifier (simplified)
-    cat > /etc/apt/apt.conf.d/99update-notifier << EOF
-    Update-Manager::Launch-Time "0";
-    Update-Manager::Show-Remains-Time "false";
-    Update-Manager::Check-Dist-Upgrades "false";
-    Update-Manager::Release-Upgrade-Mode "never";
-    EOF
-    ```
-
 - [ ] **Hold correct kernel**
     ```
     # Hold specific 5.19 kernel and its modules
@@ -582,7 +547,15 @@ use the command line tool to customize.
     # Update GRUB
     update-grub
     ```
-
+- [ ] **Post-Installation Updates Configuration**
+    ```bash
+    # Create post-installation update configuration script
+    cd /opt
+    ```
+    Copy [post-install-updates.sh](./ingredients/opt/post-install-updates.sh)
+    ```bash
+    chmod +x post-install-updates.sh
+    ```
 
 ## Third step on Cubic
 ![Cubic Step 3](docs/cubic_step3.png)
@@ -604,7 +577,10 @@ ubiquity ubiquity/success_command string \
     in-target bash -c 'cp -f /etc/apt/preferences.d/ubiquity-priority /target/etc/apt/preferences.d/'; \
     in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic'; \
     in-target bash -c 'update-grub'; \
-    in-target bash -c 'cp -f /usr/share/grub/default/grub /etc/default/grub';
+    in-target bash -c 'cp -f /usr/share/grub/default/grub /etc/default/grub'; \
+    in-target bash -c 'cp /opt/post-install-updates.sh /opt/'; \
+    in-target bash -c 'chmod +x /opt/post-install-updates.sh'; \
+    in-target bash -c '/opt/post-install-updates.sh';
 ```
 ---
 
