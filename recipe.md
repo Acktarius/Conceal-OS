@@ -570,17 +570,18 @@ ubiquity ubiquity/success_command string \
     in-target bash -c 'mkdir -p /target/etc/apt/preferences.d/'; \
     in-target bash -c 'cp -f /etc/apt/preferences.d/kernel-hold /target/etc/apt/preferences.d/'; \
     in-target bash -c 'cp -f /etc/apt/preferences.d/no-hwe /target/etc/apt/preferences.d/'; \
-    in-target bash -c 'cp -f /etc/apt/preferences.d/ubiquity-priority /target/etc/apt/preferences.d/'; \
+#     in-target bash -c 'cp -f /etc/apt/preferences.d/ubiquity-priority /target/etc/apt/preferences.d/'; \
     in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic linux-generic-hwe-22.04'; \
-    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-image-6.8 | awk "{print $2}")'; \
-    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-headers-6.8 | awk "{print $2}")'; \
-    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-modules-6.8 | awk "{print $2}")'; \
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp -f /usr/share/grub/default/grub /etc/default/grub'; \
     in-target bash -c 'update-initramfs -u -k 5.15.0-43-generic'; \
     in-target bash -c 'cp /opt/post-install-updates.sh /tmp/'; \
     in-target bash -c 'chmod +x /tmp/post-install-updates.sh'; \
     in-target bash -c '/tmp/post-install-updates.sh';
+
+
+
+
 ```
 ---
 
