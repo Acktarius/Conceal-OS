@@ -23,38 +23,44 @@ use the command line tool to customize.
     add-apt-repository main universe restricted multiverse
     ```
 
-- [ ] Update
-    ```
-    apt update
-    ```
 
 - [ ] **Prevent Kernel Updates During Installation**
     ```
     cd /etc/apt/preferences.d/
     ```
-    add files [kernel-hold](./ingredients/etc/apt/preference.d/kernel-hold), [no-hwe](./ingredients/etc/apt/preference.d/no-hwe) and [ubiquity-priority](./ingredients/etc/apt/preference.d/ubiquity-priority)
+    add files [kernel-hold](./ingredients/etc/apt/preference.d/kernel-hold), [no-hwe](./ingredients/etc/apt/preference.d/no-hwe) 
+    # as needed [ubiquity-priority](./ingredients/etc/apt/preference.d/ubiquity-priority)
 
     ```
     # Also add to APT config
-    echo 'APT::Get::Install-Recommends "false";' > /etc/apt/apt.conf.d/99norecommends
-    echo 'APT::Get::Install-Suggests "false";' >> /etc/apt/apt.conf.d/99norecommends
+    echo 'APT::Get::Install-Recommends "0";' > /etc/apt/apt.conf.d/99norecommends
+    echo 'APT::Get::Install-Suggests "0";' >> /etc/apt/apt.conf.d/99norecommends
     
-    # Verify holds
-    apt-mark showhold
+
     ```
-// ... existing code ...
 
 - [ ] **Hold correct kernel**
     ```
     # Hold specific 5.19 kernel and its modules
-    # now that is done in presseed
+    apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic linux-generic-hwe-22.04
     
     # Verify kernel version
     dpkg --list | grep linux-image
 
     #if needed:
     dpkg --purge linux-image-6.8.0-40-generic
+
+    # Verify holds
+    apt-mark showhold
+
     ```
+
+- [ ] Update
+    ```
+    apt update
+    ```
+
+
 - [ ] **Reinstall Ubiquity** (as needed)
     ```
     # Reinstall ubiquity and its Python dependencies
@@ -89,9 +95,6 @@ use the command line tool to customize.
         vulkan-tools \
         vulkan-validationlayers
     
-    # Update initramfs to include new firmware
-    update-initramfs -u -k 5.15.0-43-generic
-
      # Prevent cryptsetup warnings
     echo "CRYPTSETUP=n" >> /etc/initramfs-tools/conf.d/cryptsetup
     ```
@@ -102,7 +105,7 @@ use the command line tool to customize.
     
 - [ ] **tiny software**
     ```
-    apt install mousepad git clinfo lm-sensors curl dbus-x11 jq zenity mesa-utils
+    apt install git clinfo lm-sensors curl dbus-x11 jq zenity mesa-utils
     apt-get install openssh-server -y
     apt remove -y libreoffice-draw
     apt remove -y xubuntu-artwork xubuntu-community-wallpapers
@@ -498,7 +501,7 @@ use the command line tool to customize.
     ufw --force enable
     ```
 
-- [ ] **System Optimization**    
+- [ ] **System Optimization** (optional)
     ```
     # Add performance tweaks to sysctl
     echo "vm.swappiness=10" >> /etc/sysctl.conf
@@ -509,7 +512,7 @@ use the command line tool to customize.
     echo "kernel.sched_autogroup_enabled=0" >> /etc/sysctl.conf    
     ```
 
-4. **Monitoring Tools**
+4. **Monitoring Tools** (optional)
     ```
     Consider adding monitoring tools:
     apt install -y htop iotop nmon
@@ -574,6 +577,7 @@ ubiquity ubiquity/success_command string \
     in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-modules-6.8 | awk "{print $2}")'; \
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp -f /usr/share/grub/default/grub /etc/default/grub'; \
+    in-target bash -c 'update-initramfs -u -k 5.15.0-43-generic'; \
     in-target bash -c 'cp /opt/post-install-updates.sh /tmp/'; \
     in-target bash -c 'chmod +x /tmp/post-install-updates.sh'; \
     in-target bash -c '/tmp/post-install-updates.sh';
