@@ -9,3 +9,42 @@ Pin-Priority: 1001
 Package: linux-modules-5.15.0-43-generic
 Pin: version 5.15.0-43*
 Pin-Priority: 1001
+
+# Prevent installation of newer kernels
+Package: linux-image-6.*
+Pin: version *
+Pin-Priority: -1
+
+Package: linux-headers-6.*
+Pin: version *
+Pin-Priority: -1
+
+Package: linux-modules-6.*
+Pin: version *
+Pin-Priority: -1
+
+# Block HWE kernels and meta-packages
+Package: linux-generic-hwe-22.04
+Pin: version *
+Pin-Priority: -1
+
+Package: linux-image-generic-hwe-22.04
+Pin: version *
+Pin-Priority: -1
+
+Package: linux-headers-generic-hwe-22.04
+Pin: version *
+Pin-Priority: -1
+
+# Block HWE 6.x specific packages
+Package: linux-image-*-hwe-6.*
+Pin: version *
+Pin-Priority: -1
+
+Package: linux-headers-*-hwe-6.*
+Pin: version *
+Pin-Priority: -1
+
+Package: linux-modules-*-hwe-6.*
+Pin: version *
+Pin-Priority: -1

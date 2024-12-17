@@ -569,6 +569,9 @@ ubiquity ubiquity/success_command string \
     in-target bash -c 'cp -f /etc/apt/preferences.d/no-hwe /target/etc/apt/preferences.d/'; \
     in-target bash -c 'cp -f /etc/apt/preferences.d/ubiquity-priority /target/etc/apt/preferences.d/'; \
     in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic linux-generic-hwe-22.04'; \
+    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-image-6.8 | awk "{print $2}")'; \
+    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-headers-6.8 | awk "{print $2}")'; \
+    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-modules-6.8 | awk "{print $2}")'; \
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp -f /usr/share/grub/default/grub /etc/default/grub'; \
     in-target bash -c 'cp /opt/post-install-updates.sh /tmp/'; \
