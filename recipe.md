@@ -217,7 +217,7 @@ use the command line tool to customize.
     amdgpu-install -y --accept-eula --no-dkms --usecase=opencl --opencl=rocr
     ```
 
-- [ ] **SRBMiner** (not open source ...otional)
+- [ ] **SRBMiner** (not open source ...optional)
     ```
     cd /opt
     wget https://github.com/doktor83/SRBMiner-Multi/releases/download/2.2.4/SRBMiner-Multi-2-2-4-Linux.tar.xz
