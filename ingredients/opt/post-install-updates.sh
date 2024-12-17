@@ -30,16 +30,16 @@ Unattended-Upgrade::Package-Blacklist {
     "*nvidia*";
     "amdgpu*";
 };
-Unattended-Upgrade::AutoFixInterruptedDpkg "true";
-Unattended-Upgrade::MinimalSteps "true";
-Unattended-Upgrade::InstallOnShutdown "false";
+Unattended-Upgrade::AutoFixInterruptedDpkg "1";
+Unattended-Upgrade::MinimalSteps "1";
+Unattended-Upgrade::InstallOnShutdown "0";
 EOF
 
 # 99update-notifier - Disable upgrade notifications
 cat > /etc/apt/apt.conf.d/99update-notifier << EOF
 Update-Manager::Launch-Time "0";
-Update-Manager::Show-Remains-Time "false";
-Update-Manager::Check-Dist-Upgrades "false";
+Update-Manager::Show-Remains-Time "0";
+Update-Manager::Check-Dist-Upgrades "0";
 Update-Manager::Release-Upgrade-Mode "never";
 EOF
 

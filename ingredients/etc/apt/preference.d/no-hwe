@@ -1,3 +1,7 @@
-Package: *hwe*
+Package: *-hwe-*
+Pin: release *
+Pin-Priority: -1
+
+Package: linux-*-hwe-*
 Pin: release *
 Pin-Priority: -1
