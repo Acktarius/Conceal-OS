@@ -326,6 +326,7 @@ use the command line tool to customize.
     chmod 755 ez_privacy.sh
     cp ez_privacy_logo3_128.png /etc/skel/.icons/
     cp ez_privacy.desktop /etc/skel/.local/share/applications/
+    cd
     ```
 
     * **extension4Concealers**
