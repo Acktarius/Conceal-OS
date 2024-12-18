@@ -23,9 +23,10 @@ fun refresh_callback ()
     if (Plymouth.GetMode() == "shutdown" || Plymouth.GetMode() == "boot") {
         progress = Plymouth.GetBootProgress();
         if (progress < 0.1) progress = 0.1;  # Ensure minimum visibility
-        new_width = Math.Int(progress_bar.original_image.GetWidth() * progress);
-        progress_bar.image = progress_bar.original_image.Scale(new_width, progress_bar.original_image.GetHeight());
-        progress_bar.sprite.SetImage(progress_bar.image);
+        
+        # Calculate new x position based on progress
+        new_x = progress_box.x + (progress_box.image.GetWidth() - progress_bar.original_image.GetWidth()) * progress;
+        progress_bar.sprite.SetX(new_x);
     } else {
         # Hide everything when not booting/shutting down
         logo.sprite.SetOpacity(0);
