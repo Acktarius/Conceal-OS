@@ -36,15 +36,14 @@ use the command line tool to customize.
     # echo 'APT::Get::Install-Recommends "0";' > /etc/apt/apt.conf.d/99norecommends
     # echo 'APT::Get::Install-Suggests "0";' >> /etc/apt/apt.conf.d/99norecommends
     
+    # Remove HWE kernel and related packages
+    apt remove -y linux-generic-hwe-22.04
+    apt autoremove -y
 
     ```
 
 - [ ] **Hold correct kernel**
     ```
-    # Remove HWE kernel and related packages
-    apt remove -y linux-generic-hwe-22.04
-    apt autoremove -y
-
     # Hold specific 5.19 kernel and its modules
     apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic
     

@@ -21,6 +21,12 @@ progress_bar.sprite.SetPosition(progress_box.x + 2, progress_box.y + 2);
 fun refresh_callback ()
 {
     if (Plymouth.GetMode() == "shutdown" || Plymouth.GetMode() == "boot") {
+        # Ensure everything is visible
+        logo.sprite.SetOpacity(1);
+        progress_box.sprite.SetOpacity(1);
+        progress_bar.sprite.SetOpacity(1);
+        message_sprite.SetOpacity(1);
+
         progress = Plymouth.GetBootProgress();
         if (progress < 0.1) progress = 0.1;  # Ensure minimum visibility
         

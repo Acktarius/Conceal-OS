@@ -52,4 +52,5 @@ The recipe specifies kernel 5.15.0-43-generic which, combined with the AMDGPU dr
 
 Updating these components to newer versions, while tempting, may result in loss of important functionality. Please maintain these version requirements unless you have specific reasons to change them.
 
-
+### References:
+* [Howtoforge.com](https://www.howtoforge.com/how-to-block-package-and-kernel-updates-in-debian-ubuntu/)
