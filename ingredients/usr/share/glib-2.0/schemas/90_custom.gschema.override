@@ -8,6 +8,3 @@ picture-uri='file:///usr/share/backgrounds/ccxBackground4.jpg'
 gtk-theme='Yaru'
 icon-theme='Yaru'
 cursor-theme='Yaru'
-
-[org.gnome.login-screen]
-logo='/usr/share/plymouth/themes/conceal-logo/splash.png'

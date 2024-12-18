@@ -15,17 +15,23 @@ progress_box.y = Window.GetHeight() * 0.75;
 progress_box.sprite.SetPosition(progress_box.x, progress_box.y);
 
 progress_bar.original_image = Image("progress_bar.png");
-progress_bar.sprite = Sprite();
-progress_bar.sprite.SetPosition(progress_box.x, progress_box.y);
+progress_bar.sprite = Sprite(progress_bar.original_image);
+progress_bar.sprite.SetPosition(progress_box.x + 2, progress_box.y + 2);
 
 fun refresh_callback ()
 {
-    progress = Plymouth.GetBootProgress();
-    if (progress_bar.image.GetWidth() != Math.Int(progress_bar.original_image.GetWidth() * progress)) {
-        progress_bar.image = progress_bar.original_image.Scale(
-            Math.Int(progress_bar.original_image.GetWidth() * progress),
-            progress_bar.original_image.GetHeight());
+    if (Plymouth.GetMode() == "shutdown" || Plymouth.GetMode() == "boot") {
+        progress = Plymouth.GetBootProgress();
+        if (progress < 0.1) progress = 0.1;  # Ensure minimum visibility
+        new_width = Math.Int(progress_bar.original_image.GetWidth() * progress);
+        progress_bar.image = progress_bar.original_image.Scale(new_width, progress_bar.original_image.GetHeight());
         progress_bar.sprite.SetImage(progress_bar.image);
+    } else {
+        # Hide everything when not booting/shutting down
+        logo.sprite.SetOpacity(0);
+        progress_box.sprite.SetOpacity(0);
+        progress_bar.sprite.SetOpacity(0);
+        message_sprite.SetOpacity(0);
     }
 }
 

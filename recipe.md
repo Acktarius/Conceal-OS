@@ -569,10 +569,14 @@ Modify presseed to take grub modification into account:
 ```
 ubiquity ubiquity/success_command string \
     in-target bash -c 'mkdir -p /target/etc/apt/preferences.d/'; \
+    in-target bash -c 'chmod 755 /target/etc/apt/preferences.d/'; \
     in-target bash -c 'cp -f /etc/apt/preferences.d/kernel-hold /target/etc/apt/preferences.d/'; \
     in-target bash -c 'cp -f /etc/apt/preferences.d/no-hwe /target/etc/apt/preferences.d/'; \
 #     in-target bash -c 'cp -f /etc/apt/preferences.d/ubiquity-priority /target/etc/apt/preferences.d/'; \
     in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic linux-generic-hwe-22.04'; \
+    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-image-6. | awk "{print $2}")'; \
+    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-headers-6. | awk "{print $2}")'; \
+    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-modules-6. | awk "{print $2}")'; \
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp -f /usr/share/grub/default/grub /etc/default/grub'; \
     in-target bash -c 'update-initramfs -u -k 5.15.0-43-generic'; \
@@ -638,9 +642,10 @@ ubiquity ubiquity/success_command string \
         -draw "roundrectangle 0,0 199,19 10,10" \
         /usr/share/plymouth/themes/conceal-logo/progress_box.png
     
-    # Create progress bar (fill) - orange gradient
-    convert -size 196x16 \
-        gradient:'#cc8400-#ffa500' \
-        -draw "roundrectangle 0,0 195,15 8,8" \
+    # Create progress bar (fill) - solid orange with rounded corners
+    convert -size 196x16 xc:transparent \
+        -fill '#ffa500' \
+        -strokewidth 0 \
+        -draw "roundrectangle 0,0 195,15 8,8 fill" \
         /usr/share/plymouth/themes/conceal-logo/progress_bar.png
     ```
