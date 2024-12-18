@@ -626,7 +626,7 @@ ubiquity ubiquity/success_command string \
     # with: plymouth.enable=1
     
     # Update initramfs
-    update-initramfs -u -k 5.15.0-91-generic
+    update-initramfs -u -k 5.15.0-43-generic
 
     # List available themes
     update-alternatives --list default.plymouth
