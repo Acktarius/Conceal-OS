@@ -18,7 +18,7 @@ progress_bar.original_image = Image("progress_bar.png");
 progress_bar.sprite = Sprite(progress_bar.original_image);
 progress_bar.sprite.SetPosition(progress_box.x + 2, progress_box.y + 2);
 
-fun refresh_callback ()
+fun boot_progress_callback(duration, progress)
 {
     if (Plymouth.GetMode() == "shutdown" || Plymouth.GetMode() == "boot") {
         # Ensure everything is visible
@@ -27,12 +27,16 @@ fun refresh_callback ()
         progress_bar.sprite.SetOpacity(1);
         message_sprite.SetOpacity(1);
 
-        progress = Plymouth.GetBootProgress();
         if (progress < 0.1) progress = 0.1;  # Ensure minimum visibility
         
-        # Calculate new x position based on progress
-        new_x = progress_box.x + (progress_box.image.GetWidth() - progress_bar.original_image.GetWidth()) * progress;
-        progress_bar.sprite.SetX(new_x);
+        # Scale the progress bar instead of moving it
+        scaled_width = progress_bar.original_image.GetWidth() * progress;
+        scaled_height = progress_bar.original_image.GetHeight();
+        progress_bar.image = progress_bar.original_image.Scale(scaled_width, scaled_height);
+        progress_bar.sprite.SetImage(progress_bar.image);
+        
+        # Keep the progress bar aligned to the left of the box
+        progress_bar.sprite.SetX(progress_box.x + 2);
     } else {
         # Hide everything when not booting/shutting down
         logo.sprite.SetOpacity(0);
@@ -42,7 +46,8 @@ fun refresh_callback ()
     }
 }
 
-Plymouth.SetRefreshFunction(refresh_callback);
+# Replace the refresh function with the boot progress function
+Plymouth.SetBootProgressFunction(boot_progress_callback);
 
 # Message display
 message_sprite = Sprite();
