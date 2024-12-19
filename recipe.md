@@ -277,12 +277,14 @@ use the command line tool to customize.
     ```
     cd /opt
     mkdir conceal-toolbox
+    cd conceal-toolbox
     ```
     * **mem alloc fail solver**
         ```
         git clone https://github.com/Acktarius/mem-alloc-fail_solver.git
         cd mem-alloc-fail_solver
         chmod +x mem_alloc_fail-solver.sh
+        cd ..
         ```
     * **mining service**  
         ```
@@ -290,36 +292,33 @@ use the command line tool to customize.
         mv ccx-mining_service mining_service/
         cd mining_service
         chmod 755 mining_s.sh
+        cp ms.png /etc/skel/.icons/ms.png
+        cp m-s_script.desktop /etc/skel/.local/share/applications/m-s_script.desktop
+        cd ..
         ```
         - icon:  
-        ```
-        cd /etc/skel/.icons
-        ```
-        copy [ms.png](./ingredients/etc/skel/.icons/ms.png)   
-         - shortcut:  
-        ```
-        cd /opt/conceal-toolbox/mining_service
-        cp m-s_script.desktop /etc/skel/.local/share/applications/m-s_script.desktop
-        ```
+         [ms.png](./ingredients/etc/skel/.icons/ms.png)   
+
     * **ping ccx pool**  
-    ```
-    apt install build-essential cmake libwxgtk3.0-gtk3-dev git nlohmann-json3-dev nmap
-    git clone https://github.com/Acktarius/ping_ccx_pool_cpp.git
-    cd ping_ccx_pool_cpp.git
-    mkdir build && cd build
-    cmake -DINSTALL_POLKIT_POLICY=ON ..
-    cmake --build .
-    cmake --install .
-    ```
+        ```
+        apt install -y build-essential cmake libwxgtk3.0-gtk3-dev git nlohmann-json3-dev nmap
+        git clone https://github.com/Acktarius/ping_ccx_pool_cpp.git
+        cd ping_ccx_pool_cpp.git
+        mkdir build && cd build
+        cmake -DINSTALL_POLKIT_POLICY=ON ..
+        cmake --build .
+        cmake --install .
+        cd ../..
+        ```
     *make sure the policy file org.acktarius.nping.policy in /usr/share/polkit-1/actions/*  
 
     * **oc-amd**  
-    ```
-    cd /opt/conceal-toolbox
-    git clone https://github.com/Acktarius/oc-amd.git
-    cd oc-amd
-    chmod 755 *.sh
-    ```
+        ```
+        git clone https://github.com/Acktarius/oc-amd.git
+        cd oc-amd
+        chmod 755 *.sh
+        cd ..
+        ```
 
     * **EZ Privacy**
     ```
