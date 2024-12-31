@@ -1,8 +1,10 @@
 [org.gnome.desktop.background]
 picture-uri='file:///usr/share/backgrounds/ccxBackground5.jpg'
+picture-uri-dark='file:///usr/share/backgrounds/ccxBackground5.jpg'
 
 [org.gnome.desktop.screensaver]
 picture-uri='file:///usr/share/backgrounds/ccxBackground4.jpg'
+picture-uri-dark='file:///usr/share/backgrounds/ccxBackground4.jpg'
 
 [org.gnome.desktop.interface]
 gtk-theme='Yaru-dark'
