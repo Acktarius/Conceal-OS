@@ -579,6 +579,7 @@ ubiquity ubiquity/success_command string \
     in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-headers-6. | awk "{print $2}")'; \
     in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-modules-6. | awk "{print $2}")'; \
     in-target bash -c 'update-grub'; \
+    in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
     in-target bash -c 'cp /opt/post-install-updates.sh /usr/lib/ubiquity/post-install/'; \
     in-target bash -c 'chmod +x /usr/lib/ubiquity/post-install/post-install-updates.sh';
 
