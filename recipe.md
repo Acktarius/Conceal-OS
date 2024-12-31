@@ -29,15 +29,14 @@ use the command line tool to customize.
     cd /etc/apt/preferences.d/
     ```
     add files [kernel-hold](./ingredients/etc/apt/preference.d/kernel-hold), [no-hwe](./ingredients/etc/apt/preference.d/no-hwe) 
+    * as needed [ubiquity-priority](./ingredients/etc/apt/preference.d/ubiquity-priority)
     
     ```
     # Also add to APT config
     # echo 'APT::Get::Install-Recommends "0";' > /etc/apt/apt.conf.d/99norecommends
     # echo 'APT::Get::Install-Suggests "0";' >> /etc/apt/apt.conf.d/99norecommends
     ```
-    ## as needed [ubiquity-priority](./ingredients/etc/apt/preference.d/ubiquity-priority)
-
-
+ 
 - [ ] **Hold correct kernel**
     ```
     # Hold specific 5.19 kernel and its modules
