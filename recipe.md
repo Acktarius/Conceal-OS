@@ -514,7 +514,7 @@ use the command line tool to customize.
     echo "kernel.sched_autogroup_enabled=0" >> /etc/sysctl.conf    
     ```
 
-4. **Monitoring Tools** (optional)
+- [ ] **Monitoring Tools** (optional)
     ```
     # Consider adding monitoring tools:
     apt install -y htop iotop nmon
@@ -524,27 +524,38 @@ use the command line tool to customize.
     ```
     nano /etc/default/grub
     ```
-    *append GRUB_CMDLINE_LINUX_DEFAULT with :* `amdgpu.ppfeaturemask=0xffffffff`  
-    
+    *append GRUB_CMDLINE_LINUX_DEFAULT with :* 
     ```
+    amdgpu.ppfeaturemask=0xffffffff  
+    ```
+    then backup your grub:
+    ```
+    mkdir -p /usr/share/grub/default
     cp /etc/default/grub /usr/share/grub/default/grub
     ```
 - [ ] **GRUB Display Configuration**
     ```
-    # Backup original grub config
-    cp /etc/default/grub /etc/default/grub.backup
-    
-    # Update GRUB configuration
-    # append GRUB_CMDLINE_LINUX_DEFAULT
-    #with:  video=HDMI-A-1:1920x1080
-    
     # Add kernel parameters for better GPU support
     echo 'GRUB_GFXMODE="1920x1080"' >> /etc/default/grub
-    echo 'GRUB_GFXPAYLOAD_LINUX="keep"' >> /etc/default/grub
-    
-    # Update GRUB
-    update-grub
+    # echo 'GRUB_GFXPAYLOAD_LINUX="keep"' >> /etc/default/grub
     ```
+- [ ] **Other GRUB** (optional)  
+    To Change Distribution name, edit 10_linux file
+    ```
+    cd 
+    cd /etc/grub.d/10_linux
+    ```
+    change the OS= value in the is this section:  
+    ```
+        case ${GRUB_DISTRIBUTOR} in
+        Ubuntu|Kubuntu)
+            OS="${GRUB_DISTRIBUTOR}"
+            ;;
+        *)
+    ```
+
+
+
 - [ ] **Post-Installation Updates Configuration**
     ```bash
     # Create post-installation update configuration script
