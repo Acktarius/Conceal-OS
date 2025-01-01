@@ -51,4 +51,8 @@ chmod 644 /etc/apt/apt.conf.d/99update-notifier
 # Restart unattended-upgrades service
 systemctl restart unattended-upgrades
 
+# At the end of the script, disable the service
+systemctl disable post-install-updates.service
+rm /etc/systemd/system/post-install-updates.service
+
 echo "Update configurations have been applied successfully"

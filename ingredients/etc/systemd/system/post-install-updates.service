@@ -1,0 +1,12 @@
+[Unit]
+Description=Post Installation Updates
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/ubiquity/post-install/post-install-updates.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
