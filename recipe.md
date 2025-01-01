@@ -565,6 +565,7 @@ use the command line tool to customize.
     ```bash
     chmod +x post-install-updates.sh
     ```
+    copy 
 
 ## Third step on Cubic
 ![Cubic Step 3](docs/cubic_step3.png)
@@ -591,9 +592,6 @@ ubiquity ubiquity/success_command string \
     in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-modules-6. | awk "{print $2}")'; \
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
-    in-target bash -c 'cp /opt/post-install-updates.sh /usr/lib/ubiquity/post-install/'; \
-    in-target bash -c 'chmod +x /usr/lib/ubiquity/post-install/post-install-updates.sh'; \
-    in-target bash -c '/usr/lib/ubiquity/post-install/post-install-updates.sh';
 
 ```
 ---
