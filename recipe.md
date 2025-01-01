@@ -582,23 +582,18 @@ Select package you want to remove (i.e. save some space removing some languages)
 ![Cubic Step 4](docs/cubic_step4.png)
 
 Modify presseed to take grub modification into account:  
-> (a) Generate /boot/grub/grub.cfg using the customized version of /etc/default/>grub.  
->(b) Revert the customized version of /etc/default/grub after it has been >overwritten.  
-
 
 ```
 ubiquity ubiquity/success_command string \
-#    in-target bash -c 'mkdir -p /target/etc/apt/preferences.d/'; \
-#    in-target bash -c 'chmod 755 /target/etc/apt/preferences.d/'; \
-#    in-target bash -c 'cp -f /etc/apt/preferences.d/kernel-hold /target/etc/apt/preferences.d/'; \
-#    in-target bash -c 'cp -f /etc/apt/preferences.d/no-hwe /target/etc/apt/preferences.d/'; \
-#     in-target bash -c 'cp -f /etc/apt/preferences.d/ubiquity-priority /target/etc/apt/preferences.d/'; \
-    in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic'; \
-    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-image-6. | awk "{print $2}")'; \
-    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-headers-6. | awk "{print $2}")'; \
-    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-modules-6. | awk "{print $2}")'; \
+# (a) Generate /boot/grub/grub.cfg using the customized version of /etc/default/>grub.  
+# (b) Revert the customized version of /etc/default/grub after it has been >overwritten. 
+#    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-image-6. | awk "{print $2}")'; \
+#    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-headers-6. | awk "{print $2}")'; \
+#    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-modules-6. | awk "{print $2}")'; \
+    in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
+    in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic'; \
 
 ```
 ---
@@ -661,3 +656,29 @@ ubiquity ubiquity/success_command string \
         -draw "roundrectangle 0,0 195,15 8,8 fill" \
         /usr/share/plymouth/themes/conceal-logo/progress_bar.png
     ```
+
+---
+
+## Possible issues
+
+- [ ] **unability to wake up after suspend**  
+    if in the Bios the option is available:  
+    `security` => `security chip`  => `Disable`
+
+- [ ] **System still tries to update**    
+    re run the post install script after installation:  
+    ```
+    cd /opt
+    sudo ./post-install-updates.sh
+    ```
+    and/or
+    ```
+    sudo apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic
+    ```
+- [ ] **Grub did not upgrade**  
+    implement the custom one "manually" 
+    ```
+    sudo cp /usr/share/grub/default/grub /etc/default/grub
+    sudo update-grub
+    ```    
+    and reboot

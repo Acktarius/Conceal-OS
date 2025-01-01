@@ -51,6 +51,10 @@ chmod 644 /etc/apt/apt.conf.d/99update-notifier
 # Restart unattended-upgrades service
 systemctl restart unattended-upgrades
 
+# GRUB Update
+cp /usr/share/grub/default/grub /etc/default/grub
+update-grub
+
 # At the end of the script, disable the service
 systemctl disable post-install-updates.service
 rm /etc/systemd/system/post-install-updates.service
