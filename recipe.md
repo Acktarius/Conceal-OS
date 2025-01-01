@@ -565,7 +565,14 @@ use the command line tool to customize.
     ```bash
     chmod +x post-install-updates.sh
     ```
-    copy 
+    copy [post-install-updates.service](./ingredients/etc/systemd/system/post-install-updates.service) in  
+    ```
+    cd /etc/systemd/system
+    ```
+    and enable the oneshot servcice:  
+    ```
+    systemctl enable post-install-updates.service
+    ```
 
 ## Third step on Cubic
 ![Cubic Step 3](docs/cubic_step3.png)
