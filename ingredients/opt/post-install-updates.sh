@@ -53,7 +53,6 @@ systemctl restart unattended-upgrades
 
 # Verify and update GRUB if needed
 if [ -f /opt/grub_backup/grub ]; then
-    echo "Restoring custom GRUB configuration..."
     sudo cp /opt/grub_backup/grub /etc/default/grub
     sudo update-grub
     echo "GRUB configuration restored and updated."
