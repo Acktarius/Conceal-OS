@@ -539,6 +539,12 @@ use the command line tool to customize.
     echo 'GRUB_GFXMODE="1920x1080"' >> /etc/default/grub
     # echo 'GRUB_GFXPAYLOAD_LINUX="keep"' >> /etc/default/grub
     ```
+- [ ] **Backup GRUB changes**  
+    ```
+    mkdir -p /opt/grub_backup
+    cp /etc/default/grub /opt/grub_backup/grub
+    ```
+
 - [ ] **Other GRUB** (optional)  
     To Change Distribution name, edit 10_linux file
     ```
@@ -590,7 +596,6 @@ ubiquity ubiquity/success_command string \
 #    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-image-6. | awk "{print $2}")'; \
 #    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-headers-6. | awk "{print $2}")'; \
 #    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-modules-6. | awk "{print $2}")'; \
-    in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
     in-target bash -c 'update-grub'; \
     in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
     in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic'; \

@@ -51,9 +51,13 @@ chmod 644 /etc/apt/apt.conf.d/99update-notifier
 # Restart unattended-upgrades service
 systemctl restart unattended-upgrades
 
-# GRUB Update
-cp /usr/share/grub/default/grub /etc/default/grub
-update-grub
+# Verify and update GRUB if needed
+if [ -f /opt/grub_backup/grub ]; then
+    echo "Restoring custom GRUB configuration..."
+    sudo cp /opt/grub_backup/grub /etc/default/grub
+    sudo update-grub
+    echo "GRUB configuration restored and updated."
+fi
 
 # At the end of the script, disable the service
 systemctl disable post-install-updates.service
