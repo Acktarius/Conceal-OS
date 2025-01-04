@@ -302,7 +302,7 @@ use the command line tool to customize.
         ```
         apt install -y build-essential cmake libwxgtk3.0-gtk3-dev git nlohmann-json3-dev nmap
         git clone https://github.com/Acktarius/ping_ccx_pool_cpp.git
-        cd ping_ccx_pool_cpp.git
+        cd ping_ccx_pool_cpp
         mkdir build && cd build
         cmake -DINSTALL_POLKIT_POLICY=ON ..
         cmake --build .

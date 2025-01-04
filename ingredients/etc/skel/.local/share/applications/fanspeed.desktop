@@ -1,0 +1,13 @@
+[Desktop Entry]
+#file to be place in ~/.local/share/applications folder
+Type=Application
+Name=Fan Speed
+#route to your script
+Exec=gnome-terminal --title=FAN_SPEED --active --geometry=100x45 -- bash -c 'sudo /opt/conceal-toolbox/oc-amd/fan-speed.sh ; exit'
+#route to your icon
+Icon=/opt/conceal-toolbox/oc-amd/icon/fs.png
+Hidden=false
+NoDisplay=false
+Terminal=false
+Comment=change gpu fan speed for CCX-BOX 
+X-GNOME-Autostart-enabled=true
