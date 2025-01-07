@@ -604,6 +604,24 @@ ubiquity ubiquity/success_command string \
 ---
 
 ### Extra
+- [ ] **Xbox driver**
+    ```
+    apt install xboxdrv
+    # create rules file
+    cat > /etc/udev/rules.d/99-xbox-controller.rules << EOF
+    ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", TAG+="systemd", ENV{SYSTEMD_WANTS}="xbox-controller.service"
+    ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", TAG+="systemd", ENV{SYSTEMD_WANTS}="xbox-controller.service"
+    ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02dd", TAG+="systemd", ENV{SYSTEMD_WANTS}="xbox-controller.service"
+    ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02d1", TAG+="systemd", ENV{SYSTEMD_WANTS}="xbox-controller.service"
+    EOF
+    udevadm control --reload-rules
+    udevadm trigger  
+    ```
+    and copy [xbox-controller.service](/ingredients/etc/systemd/system/xbox-controller.service) in `/etc/systemd/system`
+    ```
+    systemctl enable xbox-controller.service
+    ```
+
 
 - [ ] **Plymouth Splash Screen**
     ```
