@@ -608,26 +608,12 @@ ubiquity ubiquity/success_command string \
     ```
     apt install xboxdrv
     # create rules file
-   cat > /etc/udev/rules.d/99-xbox-controller.rules << 'EOF'
+    cat > /etc/udev/rules.d/99-xbox-controller.rules << 'EOF'
     # Load uinput kernel module
     ACTION=="add", SUBSYSTEM=="input", RUN+="/sbin/modprobe uinput"
-
     # Xbox 360 Controller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", MODE="0666", GROUP="input", ACTION=="add", RUN+="/usr/bin/xboxdrv --daemon --detach --dbus disabled --silent"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", ACTION=="remove", RUN+="/bin/sh -c '/bin/kill -TERM $(/usr/bin/pidof xboxdrv)'"
-
-    # Xbox One Controller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", MODE="0666", GROUP="input", ACTION=="add", RUN+="/usr/bin/xboxdrv --daemon --detach --dbus disabled --silent"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", ACTION=="remove", RUN+="/bin/sh -c '/bin/kill -TERM $(/usr/bin/pidof xboxdrv)'"
-
-    # Xbox One S Controller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02dd", MODE="0666", GROUP="input", ACTION=="add", RUN+="/usr/bin/xboxdrv --daemon --detach --dbus disabled --silent"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02dd", ACTION=="remove", RUN+="/bin/sh -c '/bin/kill -TERM $(/usr/bin/pidof xboxdrv)'"
-
-    # Xbox One Elite Controller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02d1", MODE="0666", GROUP="input", ACTION=="add", RUN+="/usr/bin/xboxdrv --daemon --detach --dbus disabled --silent"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02d1", ACTION=="remove", RUN+="/bin/sh -c '/bin/kill -TERM $(/usr/bin/pidof xboxdrv)'"
-
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", MODE="0666", GROUP="input", ACTION=="add", RUN+="/usr/bin/xboxdrv --daemon --detach --dbus disabled --silent --device-by-id 045e:028e"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", ACTION=="remove", RUN+="/usr/bin/pkill xboxdrv || true"
     # Set permissions for uinput
     KERNEL=="uinput", MODE="0666", GROUP="input"
     EOF
