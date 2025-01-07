@@ -612,12 +612,17 @@ ubiquity ubiquity/success_command string \
     # Load uinput kernel module
     ACTION=="add", SUBSYSTEM=="input", RUN+="/sbin/modprobe uinput"
     # Xbox 360 Controller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", MODE="0666", GROUP="input", ACTION=="add", RUN+="/bin/sh -c 'nohup "/usr/bin/xboxdrv --daemon --detach-kernel-driver --dbus disabled --silent --device-by-id 045e:028e"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", ACTION=="add", RUN+="/bin/systemctl restart xbox-controller.service"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", ACTION=="remove", RUN+="/bin/systemctl stop xbox-controller.service"
     # Set permissions for uinput
     KERNEL=="uinput", MODE="0666", GROUP="input"
     EOF
     udevadm control --reload-rules
     udevadm trigger  
+    ```
+    and copy [xbox-controller.service](/ingredients/etc/systemd/system/xbox-controller.service) in `/etc/systemd/system`
+    ```
+    systemctl enable xbox-controller.service
     ```
 
 - [ ] **Plymouth Splash Screen**
