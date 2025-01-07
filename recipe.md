@@ -608,24 +608,26 @@ ubiquity ubiquity/success_command string \
     ```
     apt install xboxdrv
     # create rules file
-    cat > /etc/udev/rules.d/99-xbox-controller.rules << EOF
+   cat > /etc/udev/rules.d/99-xbox-controller.rules << 'EOF'
     # Xbox 360 Controller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", RUN+="/usr/bin/systemctl restart xbox-controller.service"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", ACTION=="add", RUN+="/usr/bin/xboxdrv --daemon --detach --dbus disabled --silent"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", ACTION=="remove", RUN+="/bin/sh -c '/bin/kill -TERM $(/usr/bin/pidof xboxdrv)'"
+
     # Xbox One Controller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", RUN+="/usr/bin/systemctl restart xbox-controller.service"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", ACTION=="add", RUN+="/usr/bin/xboxdrv --daemon --detach --dbus disabled --silent"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", ACTION=="remove", RUN+="/bin/sh -c '/bin/kill -TERM $(/usr/bin/pidof xboxdrv)'"
+
     # Xbox One S Controller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02dd", RUN+="/usr/bin/systemctl restart xbox-controller.service"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02dd", ACTION=="add", RUN+="/usr/bin/xboxdrv --daemon --detach --dbus disabled --silent"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02dd", ACTION=="remove", RUN+="/bin/sh -c '/bin/kill -TERM $(/usr/bin/pidof xboxdrv)'"
+
     # Xbox One Elite Controller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02d1", RUN+="/usr/bin/systemctl restart xbox-controller.service"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02d1", ACTION=="add", RUN+="/usr/bin/xboxdrv --daemon --detach --dbus disabled --silent"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02d1", ACTION=="remove", RUN+="/bin/sh -c '/bin/kill -TERM $(/usr/bin/pidof xboxdrv)'"
     EOF
     udevadm control --reload-rules
     udevadm trigger  
     ```
-    and copy [xbox-controller.service](/ingredients/etc/systemd/system/xbox-controller.service) in `/etc/systemd/system`
-    ```
-    systemctl enable xbox-controller.service
-    ```
-
 
 - [ ] **Plymouth Splash Screen**
     ```
