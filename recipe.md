@@ -360,6 +360,25 @@ use the command line tool to customize.
     ```
     copy [CCX-BOX_Apps_updater.desktop](./ingredients/etc/skel/.local/share/applications/CCX-BOX_Apps_updater.desktop)
     
+    - **CCX Assistant firefox shortcut**
+    ```
+    cd /opt/conceal-toolbox
+    ```
+    copy [ccx-assistant_firefox.sh](./ingredients/opt/conceal-toolbox/ccx-assistant_firefox.sh)
+    ```
+    chmod 755 ccx-assistant_firefox.sh
+    ```
+    - icon  
+        ```
+        cd /etc/skel/.icons/
+        ```
+    copy [cham.png]  
+    - shortcut: copy [ccx-assistant_firefox.desktop](./ingredients/etc/skel/.local/share/applications/ccx-assistant_firefox.desktop) in  
+        ```
+        cd /etc/skel/.local/share/applications
+        ```
+    
+
 
 - [ ] **zmotd**  
     ```
@@ -371,12 +390,15 @@ use the command line tool to customize.
 - [ ] **Background**  
     ```
     cd /usr/share/backgrounds/
+    ```
+    copy all background files [ccxBackground.jpg](./ingredients/usr/share/backgrounds/ccxBackground.jpg)
+    ```
     # remove the existing symlink
     rm ubuntu-default-greyscale-wallpaper.png
     # Create a new symlink to your custom background
     ln -s ccxBackground5.jpg ubuntu-default-greyscale-wallpaper.png
     ```    
-    copy all background files before like [ccxBackground.jpg](./ingredients/usr/share/backgrounds/ccxBackground.jpg)
+
     ```
     cd ../gnome-background-properties/
     ```
@@ -437,26 +459,6 @@ use the command line tool to customize.
     ```
     Then also copy the files under `/usr/share/oem-config-slideshow/slides/l10n/
     
-
- - [ ] **CCX Assistant firefox shortcut**
-    ```
-    cd /opt/conceal-toolbox
-    ```
-    copy [ccx-assistant_firefox.sh](./ingredients/opt/conceal-toolbox/ccx-assistant_firefox.sh)
-    ```
-    chmod 755 ccx-assistant_firefox.sh
-    ```
-    - icon
-    ```
-    cd /etc/skel/.icons/
-    ```
-    copy [cham.png]  
-    - shortcut
-    ```
-    cd /etc/skel/.local/share/applications
-    ```
-    copy [ccx-assistant_firefox.desktop](./ingredients/etc/skel/.local/share/applications/ccx-assistant_firefox.desktop)
- 
 
 - [ ] Flatpak
     ```

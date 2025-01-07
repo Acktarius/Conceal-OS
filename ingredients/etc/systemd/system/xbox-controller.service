@@ -1,5 +1,6 @@
 [Unit]
 Description=Xbox Controller Driver
+After=network-online.target 
 
 [Service]
 Type=simple
