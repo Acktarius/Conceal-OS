@@ -612,7 +612,7 @@ ubiquity ubiquity/success_command string \
     # Load uinput kernel module
     ACTION=="add", SUBSYSTEM=="input", RUN+="/sbin/modprobe uinput"
     # Xbox 360 Controller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", MODE="0666", GROUP="input", ACTION=="add", RUN+="/usr/bin/xboxdrv"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", MODE="0666", GROUP="input", ACTION=="add", RUN+="/bin/sh -c 'nohup "/usr/bin/xboxdrv --daemon --detach-kernel-driver --dbus disabled --silent --device-by-id 045e:028e"
     # Set permissions for uinput
     KERNEL=="uinput", MODE="0666", GROUP="input"
     EOF
