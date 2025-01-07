@@ -609,10 +609,14 @@ ubiquity ubiquity/success_command string \
     apt install xboxdrv
     # create rules file
     cat > /etc/udev/rules.d/99-xbox-controller.rules << EOF
-    ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", TAG+="systemd", ENV{SYSTEMD_WANTS}="xbox-controller.service"
-    ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", TAG+="systemd", ENV{SYSTEMD_WANTS}="xbox-controller.service"
-    ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02dd", TAG+="systemd", ENV{SYSTEMD_WANTS}="xbox-controller.service"
-    ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02d1", TAG+="systemd", ENV{SYSTEMD_WANTS}="xbox-controller.service"
+    # Xbox 360 Controller
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", RUN+="/usr/bin/systemctl restart xbox-controller.service"
+    # Xbox One Controller
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0719", RUN+="/usr/bin/systemctl restart xbox-controller.service"
+    # Xbox One S Controller
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02dd", RUN+="/usr/bin/systemctl restart xbox-controller.service"
+    # Xbox One Elite Controller
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02d1", RUN+="/usr/bin/systemctl restart xbox-controller.service"
     EOF
     udevadm control --reload-rules
     udevadm trigger  

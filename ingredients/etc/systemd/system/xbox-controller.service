@@ -1,11 +1,10 @@
 [Unit]
 Description=Xbox Controller Driver Service
 After=network.target
-StopWhenUnneeded=yes
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/xboxdrv
+ExecStart=/usr/bin/xboxdrv --daemon --detach --dbus disabled --silent
 User=root
 Restart=on-failure
 RestartSec=2
