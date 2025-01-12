@@ -88,7 +88,7 @@ sudo apt install -y openssh-server
     ```
     sudo add-apt-repository main universe restricted multiverse
     ```
-- [ ] Update
+- [ ] **Update**
     ```
     sudo apt update
     ```
@@ -97,7 +97,7 @@ sudo apt install -y openssh-server
     ```
     sudo apt install -y git clinfo lm-sensors curl dbus-x11 jq zenity
     ```
-- [ ] Conceal OS
+- [ ] **Conceal OS**
     ```
     cd /opt
     sudo git clone https://github.com/Acktarius/Conceal-OS.git
