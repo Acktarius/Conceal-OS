@@ -3,7 +3,7 @@ here is a detailed step by step procedure to create your Conceal like OS on a Ra
 
 ## Prerequisite
 1. You will need the Raspberry Pi imager, you can download from here:
-    - [https://www.raspberrypi.com/software/](https://www.raspberrypi.com/software/)
+   - [https://www.raspberrypi.com/software/](https://www.raspberrypi.com/software/)
    - you will also find some guidance from Ubuntu website: [https://ubuntu.com/tutorials/how-to-install-ubuntu-desktop-on-raspberry-pi-4#1-overview](https://ubuntu.com/tutorials/how-to-install-ubuntu-desktop-on-raspberry-pi-4#1-overview)
 
 ## First step with Raspberry Pi Imager:
