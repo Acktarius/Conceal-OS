@@ -7,38 +7,38 @@ here is a detailed step by step procedure to create your Conceal like OS on a Ra
    - you will also find some guidance from Ubuntu website: [https://ubuntu.com/tutorials/how-to-install-ubuntu-desktop-on-raspberry-pi-4#1-overview](https://ubuntu.com/tutorials/how-to-install-ubuntu-desktop-on-raspberry-pi-4#1-overview)
 
 ## First step with Raspberry Pi Imager:
- - Have the external SSD you are planing to use plug to your computer:
+ - Have the external SSD you are planing to use plug to your computer:  
 ![external SSD](docs/external_ssd.jpg)
- - Launch Raspberry Pi imager and click on choose OS
+ - Launch Raspberry Pi imager and click on choose OS  
  ![Choose OS](docs/Raspberry-Pi-imager-001.png)  
   - Select other general-purpose OS
  ![Other general-purpose OS](docs/Raspberry-Pi-imager-002.png) 
   - Select Ubuntu
  ![Select Ubuntu](docs/Raspberry-Pi-imager-003.png)  
-  - Choose the Ubuntu Desktop version Compatible with your Raspberry Pi
+  - Choose the Ubuntu Desktop version Compatible with your Raspberry Pi  
 ![Ubuntu Desktop](docs/Raspberry-Pi-imager-004.png)
-  - Choose Storage, be carefull to select wisely
+  - Choose Storage, be carefull to select wisely  
 ![Storage](docs/Raspberry-Pi-imager-005.png)
   - Advanced Option: pressing **Ctrl** + **Shift** + **X**  
-  and set the parameters hostname, enable SSH and wifi config.
+  and set the parameters hostname, enable SSH and wifi config.  
 ![Advanced hostname and SSH](docs/Raspberry-Pi-imager-006.png)
 ![Advanced username and passwd](docs/Raspberry-Pi-imager-007.png)
 ![Advanced wifi](docs/Raspberry-Pi-imager-008.png)
 ![Advanced Time Zone](docs/Raspberry-Pi-imager-009.png)
-  - Write
+  - Write  
 ![Write](docs/Raspberry-Pi-imager-010.png)  
-  - Confirm
+  - Confirm  
 ![Write](docs/Raspberry-Pi-imager-011.png)
 ![Write](docs/Raspberry-Pi-imager-012.png)    
 
 ### Pre-set 
-it can happen you get an error because of issue writting fat32 part, this means our latter pre-set won't be taken into account, two options from here:
+it can happen you get an error because of issue writting fat32 part, this means our latter pre-set won't be taken into account, two options from here:  
 ![error](docs/Raspberry-Pi-imager-013.png) 
-    a. Use an other version of Raspberry Pi imager or on an other OS, or
+    a. Use an other version of Raspberry Pi imager or on an other OS, or  
 ![windows](docs/Raspberry-Pi-imager-a1.png) 
-    b. Drop the preset idea, and you'll setup at first boot.
-  - get your ip address 
-  - get your ip address (192.168.1.118 in this example)
+    b. Drop the preset idea, and you'll setup at first boot.  
+  - get your ip address  
+  - get your ip address (192.168.1.118 in this example)  
  ![Write](docs/Raspberry-Pi-imager-b6.jpg
  ) 
 
