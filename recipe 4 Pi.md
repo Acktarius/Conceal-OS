@@ -33,14 +33,13 @@ here is a detailed step by step procedure to create your Conceal like OS on a Ra
 
 ### Pre-set 
 it can happen you get an error because of issue writting fat32 part, this means our latter pre-set won't be taken into account, two options from here:  
-![error](docs/Raspberry-Pi-imager-013.png) 
+![error](docs/Raspberry-Pi-imager-013.png)  
     a. Use an other version of Raspberry Pi imager or on an other OS, or  
-![windows](docs/Raspberry-Pi-imager-a1.png) 
+![windows](docs/Raspberry-Pi-imager-a1.png)  
     b. Drop the preset idea, and you'll setup at first boot.  
   - get your ip address  
   - get your ip address (192.168.1.118 in this example)  
- ![Write](docs/Raspberry-Pi-imager-b6.jpg
- ) 
+ ![Write](docs/Raspberry-Pi-imager-b6.jpg)   
 
 
 ## First Boot
