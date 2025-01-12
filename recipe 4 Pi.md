@@ -13,7 +13,7 @@ here is a detailed step by step procedure to create your Conceal like OS on a Ra
  ![Choose OS](docs/Raspberry-Pi-imager-001.png)  
   - Select other general-purpose OS  
  ![Other general-purpose OS](docs/Raspberry-Pi-imager-002.png) 
-  - Select Ubuntu
+  - Select Ubuntu  
  ![Select Ubuntu](docs/Raspberry-Pi-imager-003.png)  
   - Choose the Ubuntu Desktop version Compatible with your Raspberry Pi  
 ![Ubuntu Desktop](docs/Raspberry-Pi-imager-004.png)
