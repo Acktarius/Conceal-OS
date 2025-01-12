@@ -11,7 +11,7 @@ here is a detailed step by step procedure to create your Conceal like OS on a Ra
 ![external SSD](docs/external_ssd.jpg)
  - Launch Raspberry Pi imager and click on choose OS  
  ![Choose OS](docs/Raspberry-Pi-imager-001.png)  
-  - Select other general-purpose OS
+  - Select other general-purpose OS  
  ![Other general-purpose OS](docs/Raspberry-Pi-imager-002.png) 
   - Select Ubuntu
  ![Select Ubuntu](docs/Raspberry-Pi-imager-003.png)  
