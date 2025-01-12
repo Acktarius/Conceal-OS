@@ -152,10 +152,11 @@ sudo apt install -y openssh-server
     sudo systemctl enable ccx-assistant.service
     ```
 - [ ] **.icons**
-```
-cd
-mkdir .icons 
-```
+    ```
+    cd
+    mkdir .icons 
+    sudo cp /opt/Conceal-OS/ingredients/etc/skel/.icons/cham.png ~/.icons/
+    ```
 
 - [ ] **extension4Concealers**
     ```
@@ -205,88 +206,53 @@ mkdir .icons
 	
 - [ ] **Background**  
     ```
-    cd /usr/share/backgrounds/
-    ```
-    copy all background files [ccxBackground.jpg](./ingredients/usr/share/backgrounds/ccxBackground.jpg)
-    ```
-    # remove the existing symlink
-    rm ubuntu-default-greyscale-wallpaper.png
+    sudo cp /opt/Conceal-OS/ingredients/usr/share/backgrounds/ccxBackground* /usr/share/backgrounds/
+    cd /usr/share/backgrounds
+    sudo rm ubuntu-default-greyscale-wallpaper.png
     # Create a new symlink to your custom background
-    ln -s ccxBackground5.jpg ubuntu-default-greyscale-wallpaper.png
-    ```    
-
-    ```
+    sudo ln -s ccxBackground5.jpg ubuntu-default-greyscale-wallpaper.png
     cd ../gnome-background-properties/
-    ```
-    copy [jammy-wallpaper.xml](./ingredients/usr/share/gnome-background-properties/jammy-wallpapers.xml)
-
-    ```
+    sudo cp /opt/Conceal-OS/ingredients/usr/share/gnome-background-properties/jammy-wallpapers.xml ./
     cd ../glib-2.0/schemas/
-    ```
-    copy [90_custom.gschema.override](./ingredients/usr/share/glib-2.0/schemas/90_custom.gschema.override)
-
-    ```
+    sudo cp /opt/Conceal-OS/ingredients/usr/share/glib-2.0/schemas/90_custom.gschema.override ./
     cd
-    glib-compile-schemas /usr/share/glib-2.0/schemas
+    sudo glib-compile-schemas /usr/share/glib-2.0/schemas
     ```
 
 - [ ] **Terminal profile**
     ```
     cd /opt/conceal-toolbox
-    ```
-    copy the folder [custom_setup](./ingredients/opt/conceal-toolbox/)
-    ```
+    sudo cp -r /opt/Conceal-OS/ingredients/opt/conceal-toolbox/custom_setup/ ./
     cd custom_setup
-    chmod 755 setup_script.sh
-    cp ss.png /etc/skel/.icons/
-    cp setup_script.desktop /etc/skel/.local/share/applications/
+    sudo chmod 755 setup_script.sh
+    sudo cp ss.png ~/.icons/
+    sudo cp setup_script.desktop ~/.local/share/applications/
     ```
 
 - [ ] **.face**
-    `cd /etc/skel/`
-    copy [.face](./ingredients/etc/skel/.face)
-    
+    ```
+    sudo cp /opt/Conceal-OS/ingredients/etc/skel/.face ~/
+    ```
 - [ ] **bashrc and bash_aliases**
     ```
-    cd /etc/skel
-    rm .bashrc
+    sudo cp /opt/Conceal-OS/ingredients/etc/skel/.bash* ~/
     ```
-    copy our [.bashrc](./ingredients/etc/skel/.bashrc) and [.bash_aliases](./ingredients/etc/skel/.bashrc_aliases)
-
-
-- [ ] **Fonts**
-    ```
-    cd .local/share
-    mkdir fonts
-    ```
-    as you wish copy the ttf file from [Poppins](./ingredients/etc/skel/.local/fonts/Poppins/)
 
 - [ ] **Tweaks**
     ```
-    apt install gnome-tweaks
+    sudo apt install gnome-tweaks
     ```
-
-- [ ] **Slideshow**  
-
-    copy the file in their respective folder from [slides](./ingredients/usr/share/ubiquity-slideshow/slides/)  
-    if you wish to have a slideshow for oem install:  
-    ```    
-    apt-get install oem-config-slideshow-ubuntu
-    ```
-    Then also copy the files under `/usr/share/oem-config-slideshow/slides/l10n/
-    
-
 - [ ] Flatpak
     ```
-    add-apt-repository ppa:flatpak/stable
-    apt install flatpak -y
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    sudo add-apt-repository ppa:flatpak/stable
+    sudo apt install flatpak -y
+    sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     ```
 - [ ] **fail2ban**  
     ```
-    apt install -y fail2ban
+    sudo apt install -y fail2ban
     cd /etc/fail2ban
-    cp jail.conf jail.local
+    sudo cp jail.conf jail.local
     ```
     Edit jail.local to set basic configuration:
     ```
@@ -307,221 +273,57 @@ mkdir .icons
     ```
     Enable and start the service:
     ```
-    systemctl enable fail2ban
+    sudo systemctl enable fail2ban
     ```
 - [ ] **Security**  
     ```
     # Install and configure UFW
-    apt install -y ufw
-    ufw default deny incoming
-    ufw default allow outgoing
-    ufw allow ssh
-    ufw allow 16000/tcp  # Conceal port
-    ufw allow 3500/tcp  # Conceal assistant port
-    ufw --force enable
+    sudo apt install -y ufw
+    sudo ufw allow ssh
+    sudo ufw allow from 192.168.1.0/24 to any port 8080
+    sudo ufw allow 15000  # Conceal port    
+    sudo ufw allow 16000  # Conceal port
+    sudo ufw allow 3500  # Conceal assistant port
+    sudo ufw --force enable
+    ```
+    edit ssh_config
+    ```
+    cd /etc/ssh
+    sudo nano ssh_config
+    ```
+    append with `PermitRootLogin no` and save.
+
+- [ ] **Plymouth**
+    ```
+    sudo cp /opt/Conceal-OS/ingredients/usr/share/plymouth/ubuntu-logo.png /usr/share/plymouth/
     ```
 
-- [ ] **System Optimization** (optional)
-    ```
-    # Add performance tweaks to sysctl
-    echo "vm.swappiness=10" >> /etc/sysctl.conf
-    echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf
-    
-    # For mining optimization
-    echo "kernel.sched_migration_cost_ns=5000000" >> /etc/sysctl.conf
-    echo "kernel.sched_autogroup_enabled=0" >> /etc/sysctl.conf    
-    ```
+## End result
+* activate argos extension
+![argos](docs/Raspberry-Pi-result-002.jpg)    
+* End Result
+![result](docs/Raspberry-Pi-result-001.jpg)    
 
-- [ ] **Monitoring Tools** (optional)
-    ```
-    # Consider adding monitoring tools:
-    apt install -y htop iotop nmon
-    ```
-
-- [ ] **GRUB**
-    ```
-    nano /etc/default/grub
-    ```
-    *append GRUB_CMDLINE_LINUX_DEFAULT with :* 
-    ```
-    amdgpu.ppfeaturemask=0xffffffff  
-    ```
-    then backup your grub:
-    ```
-    mkdir -p /usr/share/grub/default
-    cp /etc/default/grub /usr/share/grub/default/grub
-    ```
-- [ ] **GRUB Display Configuration**
-    ```
-    # Add kernel parameters for better GPU support
-    echo 'GRUB_GFXMODE="1920x1080"' >> /etc/default/grub
-    # echo 'GRUB_GFXPAYLOAD_LINUX="keep"' >> /etc/default/grub
-    ```
-- [ ] **Backup GRUB changes**  
-    ```
-    mkdir -p /opt/grub_backup
-    cp /etc/default/grub /opt/grub_backup/grub
-    ```
-
-- [ ] **Other GRUB** (optional)  
-    To Change Distribution name, edit 10_linux file
-    ```
-    cd 
-    cd /etc/grub.d/10_linux
-    ```
-    change the OS= value in the is this section:  
-    ```
-        case ${GRUB_DISTRIBUTOR} in
-        Ubuntu|Kubuntu)
-            OS="${GRUB_DISTRIBUTOR}"
-            ;;
-        *)
-    ```
-
-
-
-- [ ] **Post-Installation Updates Configuration**
-    ```bash
-    # Create post-installation update configuration script
-    cd /opt
-    ```
-    Copy [post-install-updates.sh](./ingredients/opt/post-install-updates.sh)
-    ```bash
-    chmod +x post-install-updates.sh
-    ```
-    copy [post-install-updates.service](./ingredients/etc/systemd/system/post-install-updates.service) in  
-    ```
-    cd /etc/systemd/system
-    ```
-    and enable the oneshot servcice:  
-    ```
-    systemctl enable post-install-updates.service
-    ```
-
-## Third step on Cubic
-![Cubic Step 3](docs/cubic_step3.png)
-Select package you want to remove (i.e. save some space removing some languages)
-
-## Fourth step on Cubic
-![Cubic Step 4](docs/cubic_step4.png)
-
-Modify presseed to take grub modification into account:  
-
+## Helpfull command
+* if the node is not reporting location
 ```
-ubiquity ubiquity/success_command string \
-# (a) Generate /boot/grub/grub.cfg using the customized version of /etc/default/>grub.  
-# (b) Revert the customized version of /etc/default/grub after it has been >overwritten. 
-#    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-image-6. | awk "{print $2}")'; \
-#    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-headers-6. | awk "{print $2}")'; \
-#    in-target bash -c 'dpkg --purge $(dpkg -l | grep linux-modules-6. | awk "{print $2}")'; \
-    in-target bash -c 'update-grub'; \
-    in-target bash -c 'cp /usr/share/grub/default/grub /etc/default/grub';
-    in-target bash -c 'apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic'; \
-
+sudo systemctl stop ccx-guardian.service
+cd /opt/conceal-guardian
+sudo node index.js
 ```
----
+wait synchronisation and, **Ctrl** + **C**
+```
+sudo systemctl start ccx-guardian.service
+```
 
-### Extra
-- [ ] **Xbox driver**
-    ```
-    apt install xboxdrv
-    # create rules file
-    cat > /etc/udev/rules.d/99-xbox-controller.rules << 'EOF'
-    # Load uinput kernel module
-    ACTION=="add", SUBSYSTEM=="input", RUN+="/sbin/modprobe uinput"
-    # Xbox 360 Controller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", ACTION=="add", RUN+="/bin/systemctl restart xbox-controller.service"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="028e", ACTION=="remove", RUN+="/bin/systemctl stop xbox-controller.service"
-    # Set permissions for uinput
-    KERNEL=="uinput", MODE="0666", GROUP="input"
-    EOF
-    udevadm control --reload-rules
-    udevadm trigger  
-    ```
-    and copy [xbox-controller.service](/ingredients/etc/systemd/system/xbox-controller.service) in `/etc/systemd/system`
-    ```
-    systemctl enable xbox-controller.service
-    ```
-
-- [ ] **Plymouth Splash Screen**
-    ```
-    # Install Plymouth tools
-    apt install -y plymouth-themes plymouth-theme-spinner
-    
-    # Create a custom theme directory
-    mkdir -p /usr/share/plymouth/themes/conceal-logo
-    
-    # Copy theme files
-    cp splash.png /usr/share/plymouth/themes/conceal-logo/
-    cp progress_box.png /usr/share/plymouth/themes/conceal-logo/
-    cp progress_bar.png /usr/share/plymouth/themes/conceal-logo/
-    cp conceal-logo.plymouth /usr/share/plymouth/themes/conceal-logo/
-    cp conceal-logo.script /usr/share/plymouth/themes/conceal-logo/
-    
-    # Set permissions
-    chmod 644 /usr/share/plymouth/themes/conceal-logo/*
-    
-      
-    # Set the custom theme
-    update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/conceal-logo/conceal-logo.plymouth 100
-    update-alternatives --set default.plymouth /usr/share/plymouth/themes/conceal-logo/conceal-logo.plymouth
-    
-    # Ensure Plymouth is in initramfs
-    echo "FRAMEBUFFER=y" > /etc/initramfs-tools/conf.d/plymouth
-    
-    # Configure Plymouth to show during boot and shutdown
-    #append GRUB_CMDLINE_LINUX_DEFAULT
-    # with: plymouth.enable=1
-    
-    # Update initramfs
-    update-initramfs -u -k 5.15.0-43-generic
-
-    # List available themes
-    update-alternatives --list default.plymouth
-    ```
-
-- [ ] **Plymouth Progress Bar Creation**
-    ```
-    # Install ImageMagick
-    apt install -y imagemagick
-    
-    # Create progress box (container)
-    convert -size 200x20 xc:transparent \
-        -fill none \
-        -stroke '#323436' \
-        -strokewidth 2 \
-        -draw "roundrectangle 0,0 199,19 10,10" \
-        /usr/share/plymouth/themes/conceal-logo/progress_box.png
-    
-    # Create progress bar (fill) - orange gradient
-    convert -size 196x16 xc:transparent \
-        -fill gradient:'#cc8400-#ffa500' \
-        -draw "roundrectangle 0,0 195,15 8,8 fill" \
-        /usr/share/plymouth/themes/conceal-logo/progress_bar.png
-    ```
-
----
-
-## Possible issues
-
-- [ ] **unability to wake up after suspend**  
-    if in the Bios the option is available:  
-    `security` => `security chip`  => `Disable`
-
-- [ ] **System still tries to update**    
-    re run the post install script after installation:  
-    ```
-    cd /opt
-    sudo ./post-install-updates.sh
-    ```
-    and/or
-    ```
-    sudo apt-mark hold linux-image-5.15.0-43-generic linux-headers-5.15.0-43-generic linux-modules-5.15.0-43-generic
-    ```
-- [ ] **Grub did not upgrade**  
-    implement the custom one "manually" 
-    ```
-    sudo cp /usr/share/grub/default/grub /etc/default/grub
-    sudo update-grub
-    ```    
-    and reboot
+* synchronisation will be slow, to the point guardian might give up,
+so just run the node to synchronisation without guardian:
+```
+sudo systemctl stop ccx-guardian.service
+cd /opt/conceal-core/build/src
+sudo ./conceald
+```
+wait synchronisation and, `save`, `exit`, hit enter, and restart the service:
+```
+sudo systemctl start ccx-guardian.service
+```
