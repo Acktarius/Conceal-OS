@@ -36,6 +36,9 @@ sudo chmod +x packer-builder-arm-image
 sudo mv packer-builder-arm-image ~/.packer.d/plugins
 ```
 
+## Pre Build
+the `Conceal-Pi-OS.json` file can handle 2 versions : `22.04.5` or `24.01.1`.Input the one you want in the variable version field.
+
 ## Build
 ```
 git clone https://github.com/Acktarius/Conceal-OS.git

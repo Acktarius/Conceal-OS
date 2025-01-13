@@ -2,14 +2,14 @@
     "variables": {
         "image_url_22045": "https://cdimage.ubuntu.com/releases/22.04.5/release/ubuntu-22.04.5-preinstalled-desktop-arm64+raspi.img.xz",
         "image_checksum_22045": "74764944dd4a96bdddd30cf1ffc133ecbe5ebb1d1f2eaa34cd5f8fbb57211c86",
-        "image_url_22041": "http://cdimage.ubuntu.com/releases/noble/release/ubuntu-24.04.1-preinstalled-desktop-arm64+raspi.img.xz",
-        "image_checksum_22041": "5bd01d2a51196587b3fb2899a8f078a2a080278a83b3c8faa91f8daba750d00c",
-        "version": "22045"
+        "image_url_24041": "http://cdimage.ubuntu.com/releases/noble/release/ubuntu-24.04.1-preinstalled-desktop-arm64+raspi.img.xz",
+        "image_checksum_24041": "5bd01d2a51196587b3fb2899a8f078a2a080278a83b3c8faa91f8daba750d00c",
+        "version": "24041"
       },
     "builders": [{
       "type": "arm-image",
-      "iso_url": "{{user `image_url_22045`}}",
-      "iso_checksum": "sha256:{{user `image_checksum_22045`}}",
+      "iso_url": "{{user `image_url_24041`}}",
+      "iso_checksum": "sha256:{{user `image_checksum_24041`}}",
       "output_directory": "output",
       "output_filename": "conceal-raspberry-pi-os-{{user `version`}}.img",
       "image_type": "raspberrypi",
@@ -20,7 +20,7 @@
     "provisioners": [
     {
       "type": "shell",
-      "script": "Pi-scripts/000_setup.sh"
+      "script": "Pi-scripts/000_setup-{{user `version`}}.sh"
     },
     {
         "type": "shell",
