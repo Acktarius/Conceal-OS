@@ -1,0 +1,4 @@
+*.img
+*.zip
+*.sha256
+packer_cache/
