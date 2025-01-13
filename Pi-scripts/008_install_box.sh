@@ -10,4 +10,4 @@ cp /opt/Conceal-OS/ingredients/etc/skel/.local/share/applications/CCX-BOX_Apps_u
 cp /opt/Conceal-OS/ingredients/opt/conceal-toolbox/ccx-assistant_firefox.sh /opt/conceal-toolbox/ccx-assistant_firefox.sh
 chmod 755 /opt/conceal-toolbox/ccx-assistant_firefox.sh
 cp /opt/Conceal-OS/ingredients/etc/skel/.local/share/applications/ccx-assistant_firefox.desktop /etc/skel/.local/share/applications/ccx-assistant_firefox.desktop
-cp /opt/Conceal-OS/ingredients/etc/profile.d/zmotd-Pi.sh etc/profile.d/zmotd-Pi.sh
+cp /opt/Conceal-OS/ingredients/etc/profile.d/zmotd-Pi.sh /etc/profile.d/zmotd-Pi.sh

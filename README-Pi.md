@@ -42,29 +42,37 @@ git clone https://github.com/Acktarius/Conceal-OS.git
 cd Conceal-OS
 sudo packer build Conceal-Pi-OS.json
 ```
-output will be raspberry-conceal-pi-os.img
+output will be conceal-raspberry-pi-os-<version>.img
 ### Compress
 ```
-zip -r rpi-arm-ccx-image.zip raspberry-conceal-pi-os.img
+xz -z -v -k -T 2 conceal-raspberry-pi-os-<version>.img
 ```
 
 ### Generate SHA256
 ```
-sha256sum rpi-arm-ccx-image.zip > rpi-arm-ccx-image.zip.sha256
+sha256sum conceal-raspberry-pi-os-<version>.img.xz > conceal-raspberry-pi-os-<version>.img.xz.sha256
 ```
 
 
 ### Verify integrity
 ```
-sha256sum -c raspberry-conceal-pi-os.zip.sha256
+sha256sum -c conceal-raspberry-pi-os-<version>.img.xz.sha256
 ```
 
 
 ### Unzip
 ```
-unzip rpi-arm-ccx-image.zip
+unxz conceal-raspberry-pi-os-<version>.img.img.xz
 ```
 
 ## Create bootable SSD
 in raspberry pi imager, select **Use Custom**
 ![Custom](docs/Raspberry-Pi-custom-001.png)
+
+## Setup
+* plug SSD
+* plug Raspberry Pi, after few flickering blue screen, Ubuntu should launch.
+* setup keyboard, language preference and create user.
+* Go through Ubuntu welcome Screens
+:Warning: Ubuntu will want to update and upgrade, it's recommend to consider your operation and system limitation before doing so.  
+* Consider changing your screen display orientation, follow guidance from your screen provider.
