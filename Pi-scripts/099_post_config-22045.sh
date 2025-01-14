@@ -1,6 +1,8 @@
 #!/bin/bash
 
+# Cleaning
 rm -rf /opt/Conceal-OS
+
 # force automatic rootfs expansion on first boot:
 # https://forums.raspberrypi.com/viewtopic.php?t=174434#p1117084
 wget -O /etc/init.d/resize2fs_once https://raw.githubusercontent.com/RPi-Distro/pi-gen/master/stage2/01-sys-tweaks/files/resize2fs_once

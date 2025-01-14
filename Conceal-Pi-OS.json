@@ -56,7 +56,7 @@
     },
     {
         "type": "shell",
-        "script": "Pi-scripts/007_install_e4c.sh"
+        "script": "Pi-scripts/007_install_e4c-{{user `version`}}.sh"
     },
     {
         "type": "shell",
@@ -80,7 +80,7 @@
     },
     {
         "type": "shell",
-        "script": "Pi-scripts/099_post_config.sh"
+        "script": "Pi-scripts/099_post_config-{{user `version`}}.sh"
     }
   ]
   }

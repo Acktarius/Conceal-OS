@@ -14,6 +14,6 @@ mkdir conceal-toolbox
 cd conceal-toolbox
 git clone https://github.com/Acktarius/extension4Concealers.git
 cd extension4Concealers
-chmod 755 assistant.1r.1m+.sh
+chmod 755 assistant.1r.1m+.sh serviceFlicker.sh
 mkdir -p /etc/skel/.config/argos
 cp assistant.1r.1m+.sh /etc/skel/.config/argos/assistant.1r.1m+.sh
