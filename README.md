@@ -54,3 +54,13 @@ Updating these components to newer versions, while tempting, may result in loss 
 
 ### References:
 * [Howtoforge.com](https://www.howtoforge.com/how-to-block-package-and-kernel-updates-in-debian-ubuntu/)
+
+### Considering to Donate ?
+* Donation to Conceal Network CCX address:
+```
+ccx7V4LeUXy2eZ9waDXgsLS7Uc11e2CpNSCWVdxEqSRFAm6P6NQhSb7XMG1D6VAZKmJeaJP37WYQg84zbNrPduTX2whZ5pacfj
+```
+* Donation to Acktarius CCX address:
+```
+ccx7Zbm7PjafXKvb3naqpGXzhLtAXesKiR5UXUbfwD9MCf77XdvXf1TX64KdDjcTDb3E7dS6MGE2GKT3w4DuCb8H9dwvWWGuof
+```

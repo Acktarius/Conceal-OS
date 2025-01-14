@@ -79,3 +79,13 @@ in raspberry pi imager, select **Use Custom**
 * Go through Ubuntu welcome Screens
 :Warning: Ubuntu will want to update and upgrade, it's recommend to consider your operation and system limitation before doing so.  
 * Consider changing your screen display orientation, follow guidance from your screen provider.
+
+### Considering to Donate ?
+* Donation to Conceal Network CCX address:
+```
+ccx7V4LeUXy2eZ9waDXgsLS7Uc11e2CpNSCWVdxEqSRFAm6P6NQhSb7XMG1D6VAZKmJeaJP37WYQg84zbNrPduTX2whZ5pacfj
+```
+* Donation to Acktarius CCX address:
+```
+ccx7Zbm7PjafXKvb3naqpGXzhLtAXesKiR5UXUbfwD9MCf77XdvXf1TX64KdDjcTDb3E7dS6MGE2GKT3w4DuCb8H9dwvWWGuof
+```
