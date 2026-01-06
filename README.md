@@ -41,6 +41,12 @@ It is the user's responsibility to review and comply with all applicable license
     packer init plugins.pkr.hcl
     ```
   - This will download the required QEMU plugin to `~/.packer.d/plugins/`
+  - Install QEMU (required for Packer QEMU builder):
+    ```bash
+    sudo apt update
+    sudo apt install -y qemu-system-x86 qemu-utils
+    ```
+    **Note**: Without QEMU installed, you will encounter the error: `exec: "qemu-system-x86_64": executable file not found in $PATH`
 
   - Quick Start (Packer Method)
     1. **Build**: Run `./customize-build.sh` - Select build type (Miner/xfce/Pi), enter credentials, builds QCOW2 image
