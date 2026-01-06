@@ -1,0 +1,149 @@
+{
+  "variables": {
+    "vm_name": "conceal-os-Miner",
+    "ssh_username": "conceal",
+    "ssh_password": "conceal",
+    "version": "3.2.0-miner"
+  },
+  "builders": [
+  {
+    "type": "qemu",
+    "name": "conceal-os-{{user `version`}}",
+
+    "vm_name": "{{user `vm_name`}}",
+    "accelerator": "kvm",
+    "headless": true,
+
+    "iso_url": "https://releases.ubuntu.com/jammy/ubuntu-22.04.5-live-server-amd64.iso",
+    "iso_checksum": "sha256:9bc6028870aef3f74f4e16b900008179e78b130e6b0b9a140635434a46aa98b0",
+    "disk_size": "7G",
+    "format": "qcow2",
+    "qemu_binary": "qemu-system-x86_64",
+    "qemuargs": [
+      ["-m", "4096"],
+      ["-smp", "2"]
+    ],
+
+    "http_directory": "http",
+
+    "boot_command": [
+      "c<wait>",
+      "linux /casper/vmlinuz --- autoinstall ds='nocloud-net;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/' ",
+      "<enter><wait>",
+      "initrd /casper/initrd<enter><wait>",
+      "boot<enter>"
+    ],
+
+    "ssh_username": "{{user `ssh_username`}}",
+    "ssh_password": "{{user `ssh_password`}}",
+    "ssh_timeout": "30m",
+    "ssh_wait_timeout": "20m",
+
+    "shutdown_command": "echo '{{user `ssh_password`}}' | sudo -S shutdown -P now",
+    "output_directory": "output"
+  }
+],
+    "provisioners": [
+      {
+        "type": "shell",
+        "inline": [
+          "df -h /",
+          "df -h /tmp",
+          "lsblk",
+          "sudo mkdir -p /opt/ingredients/etc/systemd/system /opt/ingredients/opt /opt/ingredients/usr/share/backgrounds /opt/ingredients/usr/share/plymouth",
+          "sudo chown -R {{user `ssh_username`}}:{{user `ssh_username`}} /opt/ingredients"
+        ]
+      },
+        {
+          "type": "file",
+          "source": "ingredients/etc/",
+          "destination": "/opt/ingredients/etc/"
+        },
+        {
+          "type": "file",
+          "source": "ingredients/opt/",
+          "destination": "/opt/ingredients/opt/"
+        },
+        {
+          "type": "file",
+          "source": "ingredients/usr/share/backgrounds/",
+          "destination": "/opt/ingredients/usr/share/backgrounds/"
+        },
+        {
+          "type": "file",
+          "source": "ingredients/usr/share/plymouth/",
+          "destination": "/opt/ingredients/usr/share/plymouth/"
+        },
+        {
+          "type": "shell",
+          "inline": [
+            "echo 'Verifying copied files...'",
+            "ls -la /opt/ingredients/opt/ | head -10",
+            "ls -la /opt/ingredients/etc/systemd/system/ | head -10",
+            "test -f /opt/ingredients/opt/post-install-updates.sh && echo '✓ post-install-updates.sh found' || echo '✗ post-install-updates.sh MISSING'",
+            "test -f /opt/ingredients/etc/systemd/system/post-install-updates.service && echo '✓ post-install-updates.service found' || echo '✗ post-install-updates.service MISSING'"
+          ]
+        },
+        {
+            "type": "shell",
+            "script": "Ubuntu-scripts/000_Ubuntu_iso.sh",
+            "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/002_apt.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/050_Conceal-assistant.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/066_install_amd_drivers.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/067_install_xmrstak.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/068_install_oc_amd.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/069_install_ping_ccx_pool.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/070_install_fail2ban.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/080_install_ufw.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/090_grub.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/095_user.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/099_post_config.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        }
+    ]
+}    

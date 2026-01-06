@@ -19,10 +19,33 @@ It is the user's responsibility to review and comply with all applicable license
   - Download link: [Ubuntu 22.04.1 LTS ISO](https://releases.ubuntu.com/22.04/ubuntu-22.04.1-desktop-amd64.iso)
 
 ### Required Tools
-- Cubic (Custom Ubuntu ISO Creator)
+#### Cubic (Custom Ubuntu ISO Creator)
   - Developed by PJ Singh
   - Repository: [https://github.com/PJ-Singh-001/Cubic](https://github.com/PJ-Singh-001/Cubic)
   - We strongly recommend using this tool for building the Conceal OS ISO
+
+*or*  
+#### Packer 1.10.0 (for automated builds)
+  - Download and install Packer:
+    ```bash
+    export PACKER_VERSION="1.10.0"
+    cd /tmp
+    wget https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip
+    unzip packer_${PACKER_VERSION}_linux_amd64.zip
+    sudo mv packer /usr/local/bin/
+    packer --version
+    ```
+  - Initialize Packer plugins (required for QEMU builder):
+    ```bash
+    cd /path/to/Conceal-OS
+    packer init plugins.pkr.hcl
+    ```
+  - This will download the required QEMU plugin to `~/.packer.d/plugins/`
+
+  - Quick Start (Packer Method)
+    1. **Build**: Run `./customize-build.sh` - Select build type (Miner/xfce/Pi), enter credentials, builds QCOW2 image
+    2. **Test** (optional): Run `./boot-vm.sh` - Boot image in QEMU for testing
+    3. **Deploy**: Run `sudo ./create-disk.sh` - Write image to physical disk (USB/SSD/HDD)
 
 ### Additional Components
 - AMD Drivers

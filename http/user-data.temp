@@ -1,0 +1,43 @@
+#cloud-config
+autoinstall:
+  version: 1
+
+  identity:
+    hostname: conceal-os
+    username: conceal
+    password: "$6$OAZHoYR9XSAG4HEA$jUOgzaHp9BX3dnwXkXgoSTi.yAs7QFxQe5cjMdPB.YfiEtcwY94JhWs9G1RCN2tEXf/SBQTCxp3JCIQTTYRDp."
+
+  ssh:
+    install-server: true
+    allow-pw: true
+    authorized-keys: []
+
+  locale: en_CA.UTF-8
+  keyboard:
+    layout: us
+
+  updates: security
+  
+  network:
+    version: 2
+    ethernets:
+      any:
+        match:
+          name: "en*"
+        dhcp4: true
+        dhcp-identifier: mac
+  
+  storage:
+    layout:
+      name: lvm
+    swap:
+      size: 0
+
+  packages:
+    - openssh-server
+    - qemu-guest-agent
+    - cloud-guest-utils
+
+  late-commands:
+    - curtin in-target --target=/target -- bash -c "echo 'conceal ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/conceal"
+    - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/conceal

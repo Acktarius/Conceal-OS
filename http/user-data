@@ -1,0 +1,34 @@
+#cloud-config
+autoinstall:
+  version: 1
+
+  identity:
+    hostname: conceal-os
+    username: cptflamme
+    password: "$6$9DOrvsfga8l9Y2Mq$wJj4SXiZw2d2FrF4qCh/WO60s55AxYZIo6kBIig/7zZgi5U/sYu2.RwfXKyrJP6PDLVFHPYN6sDctY/Qiw/uF/"
+
+  ssh:
+    install-server: true
+    allow-pw: true
+    authorized-keys: []
+
+  locale: en_CA.UTF-8
+  keyboard:
+    layout: us
+
+  updates: security
+  # NO 'network:' block here – let installer handle DHCP
+  storage:
+    layout:
+      name: lvm
+    swap:
+      size: 0
+
+  packages:
+    - openssh-server
+    - qemu-guest-agent
+    - cloud-guest-utils
+
+  late-commands:
+    - curtin in-target --target=/target -- bash -c "echo 'cptflamme ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/cptflamme"
+    - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/cptflamme

@@ -1,0 +1,87 @@
+{
+    "variables": {
+        "image_url_22045": "https://cdimage.ubuntu.com/releases/22.04.5/release/ubuntu-22.04.5-preinstalled-desktop-arm64+raspi.img.xz",
+        "image_checksum_22045": "74764944dd4a96bdddd30cf1ffc133ecbe5ebb1d1f2eaa34cd5f8fbb57211c86",
+        "image_url_24041": "http://cdimage.ubuntu.com/releases/noble/release/ubuntu-24.04.1-preinstalled-desktop-arm64+raspi.img.xz",
+        "image_checksum_24041": "5bd01d2a51196587b3fb2899a8f078a2a080278a83b3c8faa91f8daba750d00c",
+        "version": "22045"
+      },
+    "builders": [{
+      "type": "arm-image",
+      "iso_url": "{{user `image_url_22045`}}",
+      "iso_checksum": "sha256:{{user `image_checksum_22045`}}",
+      "output_directory": "output",
+      "output_filename": "conceal-raspberry-pi-os-{{user `version`}}.img",
+      "image_type": "raspberrypi",
+      "image_mounts": ["/boot", "/"],
+      "qemu_binary": "/usr/bin/qemu-arm-static",
+      "target_image_size": 12884901888
+    }],
+    "provisioners": [
+    {
+      "type": "shell",
+      "script": "Pi-scripts/000_setup-{{user `version`}}.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/001_setup.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/002_install_conceald.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/003_install_nodejs.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/004_install_guardian.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/005_install_assistant.sh"
+    },
+    {
+        "type": "shell",
+        "inline": [
+          "echo 'enable services'",
+          "systemctl enable ccx-guardian.service",
+          "systemctl enable ccx-assistant.service"
+        ]
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/006_install_icons.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/007_install_e4c-{{user `version`}}.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/008_install_box.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/009_install_background.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/010_install_profile.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/011_install_fail2ban.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/012_install_ufw.sh"
+    },
+    {
+        "type": "shell",
+        "script": "Pi-scripts/099_post_config-{{user `version`}}.sh"
+    }
+  ]
+  }
+
