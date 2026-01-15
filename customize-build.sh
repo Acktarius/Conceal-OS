@@ -9,7 +9,8 @@ echo "Select build type:"
 echo "1) Conceal-OS-Miner (Miner configuration)"
 echo "2) Conceal-OS-xfce (XFCE desktop configuration)"
 echo "3) Conceal-Pi-OS (Raspberry Pi configuration)"
-read -p "Enter choice [1-3]: " build_choice
+echo "4) Conceal-OS (Full configuration Ubuntu)"
+read -p "Enter choice [1-4]: " build_choice
 
 case $build_choice in
     1)
@@ -27,6 +28,12 @@ case $build_choice in
         output_file="Conceal-Pi-OS.json"
         needs_credentials=false
         ;;
+    4)
+        template_file="Conceal-OS.json.template"
+        output_file="Conceal-OS.json"
+        needs_credentials=true
+        ;;
+
     *)
         echo "Error: Invalid choice. Please select 1, 2, or 3"
         exit 1

@@ -4,8 +4,8 @@ autoinstall:
 
   identity:
     hostname: conceal-os
-    username: cptflamme
-    password: "$6$9DOrvsfga8l9Y2Mq$wJj4SXiZw2d2FrF4qCh/WO60s55AxYZIo6kBIig/7zZgi5U/sYu2.RwfXKyrJP6PDLVFHPYN6sDctY/Qiw/uF/"
+    username: conceal
+    password: "$6$YFyWxvYfHnoDKGP6$rN0ln3wNIB8jUXeROt9ACQAtr7VqlJumeXvgDV2RSdlcTAg6qsG6weZCJh8Z1uAzkPzXe1eUCXSOTEQHfij.O/"
 
   ssh:
     install-server: true
@@ -17,7 +17,16 @@ autoinstall:
     layout: us
 
   updates: security
-  # NO 'network:' block here – let installer handle DHCP
+  
+  network:
+    version: 2
+    ethernets:
+      any:
+        match:
+          name: "en*"
+        dhcp4: true
+        dhcp-identifier: mac
+  
   storage:
     layout:
       name: lvm
@@ -30,5 +39,5 @@ autoinstall:
     - cloud-guest-utils
 
   late-commands:
-    - curtin in-target --target=/target -- bash -c "echo 'cptflamme ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/cptflamme"
-    - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/cptflamme
+    - curtin in-target --target=/target -- bash -c "echo 'conceal ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/conceal"
+    - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/conceal

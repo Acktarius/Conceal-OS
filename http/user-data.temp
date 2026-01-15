@@ -5,7 +5,7 @@ autoinstall:
   identity:
     hostname: conceal-os
     username: conceal
-    password: "$6$OAZHoYR9XSAG4HEA$jUOgzaHp9BX3dnwXkXgoSTi.yAs7QFxQe5cjMdPB.YfiEtcwY94JhWs9G1RCN2tEXf/SBQTCxp3JCIQTTYRDp."
+    password: "$6$JD188xTKCSdljcs6$zjTC/4D0SaEJ0DOsYncANweHM6GkLisxxxHoOLyxPZfRfseQnrv92ww59vCccPRNzcqIm16/qLqHRq0W3s7/80"
 
   ssh:
     install-server: true

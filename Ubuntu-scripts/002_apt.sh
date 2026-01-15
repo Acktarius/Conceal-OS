@@ -58,9 +58,21 @@ apt install -y \
  # Prevent cryptsetup warnings
 echo "CRYPTSETUP=n" >> /etc/initramfs-tools/conf.d/cryptsetup
 
-# echo "remove language surplus"
-# apt remove -y language-pack-pt language-pack-pt-base
-#show_status "language surplus removed"
+ echo "remove language surplus"
+apt remove -y language-pack-it language-pack-it-base language-pack-pt language-pack-pt-base language-pack-zh-hans language-pack-zh-hans-base language-pack-zh-hant language-pack-zh-hant-base
+show_status "language surplus removed"
+
+echo "remove games and unnecessary applications"
+apt purge -y aisleriot gnome-mahjongg gnome-mines gnome-games || true
+show_status "games removed (keeping gnome-sudoku)"
+
+echo "remove miner packages if present"
+apt purge -y $(dpkg -l | grep -i miner | awk '{print $2}' | grep -v "^$") || true
+show_status "miner packages removed"
+
+echo "autoremove unused packages"
+apt autoremove -y
+show_status "autoremove completed"
 
 echo "install or remove tiny software"
 apt install -y \
