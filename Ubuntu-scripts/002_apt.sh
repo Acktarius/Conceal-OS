@@ -48,6 +48,19 @@ cat > /etc/NetworkManager/conf.d/10-globally-managed-devices.conf <<EOF
 unmanaged-devices=none
 EOF
 
+# Configure NetworkManager to not wait for network (allows GDM to start)
+cat > /etc/NetworkManager/conf.d/20-connectivity.conf <<EOF
+[connectivity]
+uri=http://www.ubuntu.com/connectivity-check.html
+interval=0
+EOF
+
+# Disable network wait-online services to prevent boot blocking
+systemctl disable systemd-networkd-wait-online.service || true
+systemctl mask systemd-networkd-wait-online.service || true
+systemctl disable NetworkManager-wait-online.service || true
+systemctl mask NetworkManager-wait-online.service || true
+
 # Install additional GPU support
 apt install -y \
     mesa-vulkan-drivers \

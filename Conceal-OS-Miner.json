@@ -1,9 +1,9 @@
 {
   "variables": {
-    "vm_name": "conceal-os-xfce",
-    "ssh_username": "conceal",
-    "ssh_password": "conceal",
-    "version": "3.2.0-xfce"
+    "vm_name": "conceal-os-Miner",
+    "ssh_username": "cptflamme",
+    "ssh_password": "7jSKjuRk",
+    "version": "3.2.0-miner"
   },
   "builders": [
   {
@@ -16,15 +16,15 @@
 
     "iso_url": "https://releases.ubuntu.com/jammy/ubuntu-22.04.5-live-server-amd64.iso",
     "iso_checksum": "sha256:9bc6028870aef3f74f4e16b900008179e78b130e6b0b9a140635434a46aa98b0",
-    "disk_size": "9G",
+    "disk_size": "7G",
     "format": "qcow2",
     "qemu_binary": "qemu-system-x86_64",
     "qemuargs": [
-      ["-m", "4096"],
-      ["-smp", "2"]
+      ["-m", "8192"],
+      ["-smp", "4"]
     ],
 
-    "http_directory": "http-2",
+    "http_directory": "http",
 
     "boot_command": [
       "c<wait>",
@@ -94,39 +94,25 @@
           "script": "Ubuntu-scripts/002_apt.sh",
           "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
         },
+        
         {
           "type": "shell",
-          "script": "Ubuntu-scripts/010_nodejs.sh",
-          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
-        },
-        {
-          "type": "shell",
-          "script": "Ubuntu-scripts/040_Conceal-desktop.sh",
-          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
-        },
-        {
-          "type": "shell",
-          "script": "Ubuntu-scripts/060_install_icons.sh",
-          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
-        },
-        {
-          "type": "shell",
-          "script": "Ubuntu-scripts/063_install_background.sh",
-          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
-        },
-        {
-          "type": "shell",
-          "script": "Ubuntu-scripts/064_install_profile.sh",
-          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
-        },
-        {
-          "type": "shell",
-          "script": "Ubuntu-scripts/065_install_flatpak.sh",
+          "script": "Ubuntu-scripts/050_Conceal-assistant.sh",
           "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
         },
         {
           "type": "shell",
           "script": "Ubuntu-scripts/066_install_amd_drivers.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/067_install_xmrstak.sh",
+          "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
+        },
+        {
+          "type": "shell",
+          "script": "Ubuntu-scripts/068_install_oc_amd.sh",
           "execute_command": "echo '{{user `ssh_password`}}' | sudo -S -E bash '{{.Path}}'"
         },
         {
@@ -161,4 +147,3 @@
         }
     ]
 }    
-

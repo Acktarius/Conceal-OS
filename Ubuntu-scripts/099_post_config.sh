@@ -62,6 +62,8 @@ else
   echo "⚠ Warning: /opt/ingredients/etc/systemd/system/resize-disk-once.service not found"
 fi
 
+# Network should be configured by autoinstall user-data - no fix needed
+
 # Clean up temporary files
 echo "Cleaning temporary files..."
 rm -rf /opt/ingredients
@@ -98,71 +100,20 @@ systemctl disable snapd.socket 2>/dev/null || true
 systemctl disable snapd.seeded 2>/dev/null || true
 rm -rf /var/lib/snapd /var/cache/snapd /snap || true
 
-# Keep cloud-init for network configuration on first boot
-# Only disable it after network is configured (don't purge it)
-# cloud-init handles initial network setup via DHCP
-systemctl enable cloud-init 2>/dev/null || true
-systemctl enable cloud-init-local 2>/dev/null || true
-systemctl enable cloud-config 2>/dev/null || true
-systemctl enable cloud-final 2>/dev/null || true
+# Network is configured by autoinstall user-data - cloud-init will handle it
+# NetworkManager will take over after cloud-init completes
+systemctl enable NetworkManager || true
 
-# Ensure NetworkManager is also enabled and will manage interfaces after cloud-init
-systemctl enable NetworkManager
-systemctl start NetworkManager || true
+# Ensure graphical target is enabled (for desktop login screen)
+systemctl set-default graphical.target || true
 
-# Remove multipath-tools if not using multipath
-apt-get purge -y multipath-tools || true
-
-# Remove unnecessary kernel modules (keep only current kernel)
-apt-get purge -y linux-modules-extra-* || true
-
-# Clean package cache
-apt-get clean
-rm -rf /var/lib/apt/lists/*
-show_status "Package cache cleaned"
-
-# Remove unnecessary packages and files
-apt-get autoremove -y --purge
-apt-get autoclean -y
-show_status "Unnecessary packages removed"
-
-# Step 2: Strip documentation, manpages, and info pages
-echo "Stripping documentation and manpages..."
-rm -rf /usr/share/doc/* || true
-rm -rf /usr/share/man/* || true
-rm -rf /usr/share/info/* || true
-rm -rf /usr/share/lintian/* || true
-show_status "Documentation stripped"
-
-# Keep only English locale (or your preferred language)
-echo "Configuring locales..."
-# Remove other locale data (keep en_US and en_CA)
-find /usr/share/locale -mindepth 1 -maxdepth 1 ! -name 'en_US*' ! -name 'en_CA*' ! -name 'locale.alias' -exec rm -rf {} + 2>/dev/null || true
-# Clean locale-archive (keep only en_US and en_CA)
-if command -v localedef >/dev/null 2>&1; then
-    localedef --list-archive | grep -v -E '^(en_US|en_CA)' | xargs -r localedef --delete-from-archive 2>/dev/null || true
+# Ensure GDM (display manager) is enabled for login screen
+# GDM is automatically enabled with ubuntu-desktop and is part of graphical.target
+if systemctl list-unit-files | grep -q gdm.service; then
+    systemctl enable gdm.service || true
+    echo "GDM display manager enabled"
 fi
-show_status "Locales minimized"
 
-# Step 3: Kill caches and logs before image capture
-echo "Clearing logs and caches..."
-
-# Truncate all log files
-find /var/log -type f -exec truncate -s 0 {} \; 2>/dev/null || true
-
-# Clear journal logs
-journalctl --rotate
-journalctl --vacuum-time=1s
-show_status "Logs cleared"
-
-# Clear temporary system files
-rm -rf /tmp/*
-rm -rf /var/tmp/*
-rm -rf /var/cache/apt/archives/*
-rm -rf /var/cache/debconf/*
-rm -rf /root/.cache/*
-rm -rf /home/*/.cache/* 2>/dev/null || true
-show_status "Temporary system files and caches cleared"
 
 # Zero out free space to improve compression (if converting to ISO later)
 echo "Zeroing out free space for better compression..."

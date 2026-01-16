@@ -23,6 +23,13 @@ sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 amd
 # Append plymouth.enable=1 to GRUB_CMDLINE_LINUX_DEFAULT
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 plymouth.enable=1"/' /etc/default/grub
 
+# Add systemd timeouts to prevent hanging on physical hardware
+# Reduce device timeout to prevent /dev/disk/... hanging
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 systemd.device-timeout=30"/' /etc/default/grub
+
+# Reduce systemd service start timeout to prevent target.start hanging
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 systemd.default_timeout_start_sec=60s"/' /etc/default/grub
+
 show_status "GRUB_CMDLINE_LINUX_DEFAULT updated"
 
 # Change OS name to "Conceal OS" in GRUB
@@ -36,7 +43,7 @@ mkdir -p /usr/share/grub/default
 cp /etc/default/grub /usr/share/grub/default/grub
 mkdir -p /opt/grub_backup
 cp /etc/default/grub /opt/grub_backup/grub
-show_status "grub configured"
+show_status "grub configured and preserved (will be restored and updated by post-install-updates.service on first boot)"
 
 echo "=== post-install-updates.sh ==="
 echo ""

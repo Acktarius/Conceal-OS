@@ -17,33 +17,60 @@ echo "===     063_install_background.sh       ==="
 echo "=== installing background ==="
 echo ""
 
-# Regular Ubuntu/GNOME build
-echo "Configuring Ubuntu/GNOME default background..."
+    # XFCE build: Copy backgrounds to XFCE expected location
+    # XFCE uses /usr/share/backgrounds/ for system backgrounds
+    if ls /opt/ingredients/usr/share/backgrounds/ccxBackground* 1> /dev/null 2>&1; then
+      cp /opt/ingredients/usr/share/backgrounds/ccxBackground* /usr/share/backgrounds/ || { echo "✗ Failed to copy backgrounds"; exit 1; }
+      show_status "backgrounds copied to /usr/share/backgrounds/"
+    else
+      echo "✗ /opt/ingredients/usr/share/backgrounds/ccxBackground* not found"
+    fi
 
-# Copy backgrounds from /tmp/usr/share/backgrounds/ or /opt/ingredients/usr/share/backgrounds/
-if ls /tmp/usr/share/backgrounds/ccxBackground* 1> /dev/null 2>&1; then
-    cp /tmp/usr/share/backgrounds/ccxBackground* /usr/share/backgrounds/
-    show_status "backgrounds copied from /tmp/usr/share/backgrounds/"
-elif ls /opt/ingredients/usr/share/backgrounds/ccxBackground* 1> /dev/null 2>&1; then
-    cp /opt/ingredients/usr/share/backgrounds/ccxBackground* /usr/share/backgrounds/
-    show_status "backgrounds copied from /opt/ingredients/usr/share/backgrounds/"
-else
-    echo "✗ Background files not found in /tmp/usr/share/backgrounds/ or /opt/ingredients/usr/share/backgrounds/"
-fi
+    # Verify background file exists for XFCE config
+    if [ ! -f /usr/share/backgrounds/ccxBackground5.jpg ] && [ ! -f /usr/share/backgrounds/ccxBackground5.png ]; then
+      echo "⚠ Warning: ccxBackground5.jpg or ccxBackground5.png not found in /usr/share/backgrounds/"
+      echo "   XFCE background configuration may not work correctly"
+    fi
 
-# Remove default Ubuntu wallpaper and create symlink
-cd /usr/share/backgrounds
-rm -f ubuntu-default-greyscale-wallpaper.png
-# Create a new symlink to your custom background
-if [ -f ccxBackground5.jpg ]; then
-    ln -s ccxBackground5.jpg ubuntu-default-greyscale-wallpaper.png
-    show_status "backgrounds copied and symlink created"
-elif [ -f ccxBackground5.png ]; then
-    ln -s ccxBackground5.png ubuntu-default-greyscale-wallpaper.png
-    show_status "backgrounds copied and symlink created"
-else
-    echo "⚠ Warning: ccxBackground5.jpg or ccxBackground5.png not found"
-fi
+    # Configure XFCE default background
+    echo "Configuring XFCE default background..."
+    # Install xfconf-query if not already installed (should be part of xfce4 package)
+    apt install -y xfce4-settings || true
+
+    # Create XFCE desktop configuration with ccxBackground5.jpg as default
+    XFCE_DESKTOP_CONFIG='<?xml version="1.0" encoding="UTF-8"?>
+<channel name="xfce4-desktop" version="1.0">
+  <property name="backdrop" type="empty">
+    <property name="screen0" type="empty">
+      <property name="monitor0" type="empty">
+        <property name="workspace0" type="empty">
+          <property name="color-style" type="int" value="0"/>
+          <property name="picture-style" type="int" value="5"/>
+          <property name="picture-options" type="int" value="1"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/ccxBackground5.jpg"/>
+          <property name="last-single-image" type="string" value="/usr/share/backgrounds/ccxBackground5.jpg"/>
+        </property>
+      </property>
+    </property>
+  </property>
+</channel>'
+
+    # Set default background for new users via /etc/skel
+    mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
+    echo "$XFCE_DESKTOP_CONFIG" > /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+    chmod 644 /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+    show_status "XFCE default background configured for new users (via /etc/skel)"
+
+    # Set it for existing conceal user
+    if id -u conceal >/dev/null 2>&1; then
+        USER_HOME=$(eval echo ~conceal)
+        if [ -d "$USER_HOME" ]; then
+            mkdir -p "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml"
+            echo "$XFCE_DESKTOP_CONFIG" > "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
+            chown -R conceal:conceal "$USER_HOME/.config"
+            show_status "XFCE background configured for conceal user"
+        fi
+    fi
 
 
 if [ -f /opt/ingredients/usr/share/plymouth/ubuntu-logo.png ]; then

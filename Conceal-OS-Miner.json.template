@@ -24,7 +24,7 @@
       ["-smp", "2"]
     ],
 
-    "http_directory": "http",
+    "http_directory": "http-1",
 
     "boot_command": [
       "c<wait>",

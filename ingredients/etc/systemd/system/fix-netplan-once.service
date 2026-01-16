@@ -1,0 +1,15 @@
+[Unit]
+Description=One-time netplan/cloud-init fix
+After=network-pre.target
+Before=NetworkManager.service
+Wants=network-pre.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/fix-netplan-once.sh
+RemainAfterExit=yes
+# Don't fail boot if this script fails
+StandardError=journal+console
+
+[Install]
+WantedBy=multi-user.target

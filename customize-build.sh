@@ -16,26 +16,30 @@ case $build_choice in
     1)
         template_file="Conceal-OS-Miner.json.template"
         output_file="Conceal-OS-Miner.json"
+        http_dir="http-1"
         needs_credentials=true
         ;;
     2)
         template_file="Conceal-OS-xfce.json.template"
         output_file="Conceal-OS-xfce.json"
+        http_dir="http-2"
         needs_credentials=true
         ;;
     3)
         template_file="Conceal-Pi-OS.json.template"
         output_file="Conceal-Pi-OS.json"
+        http_dir="http-3"
         needs_credentials=false
         ;;
     4)
         template_file="Conceal-OS.json.template"
         output_file="Conceal-OS.json"
+        http_dir="http-4"
         needs_credentials=true
         ;;
 
     *)
-        echo "Error: Invalid choice. Please select 1, 2, or 3"
+        echo "Error: Invalid choice. Please select 1, 2, 3, or 4"
         exit 1
         ;;
 esac
@@ -69,11 +73,11 @@ if [ "$needs_credentials" = true ]; then
     echo "Updating configuration files..."
 
     # Restore user-data from template
-    cp http/user-data.temp http/user-data
-    sed -i "s/    username: conceal/    username: $username/" http/user-data
-    sed -i "s|    password: \".*\"|    password: \"$password_hash\"|" http/user-data
-    sed -i "s/echo 'conceal ALL=(ALL) NOPASSWD:ALL'/echo '$username ALL=(ALL) NOPASSWD:ALL'/" http/user-data
-    sed -i "s|/etc/sudoers.d/conceal|/etc/sudoers.d/$username|" http/user-data
+    cp "$http_dir/user-data.temp" "$http_dir/user-data"
+    sed -i "s/    username: conceal/    username: $username/" "$http_dir/user-data"
+    sed -i "s|    password: \".*\"|    password: \"$password_hash\"|" "$http_dir/user-data"
+    sed -i "s/echo 'conceal ALL=(ALL) NOPASSWD:ALL'/echo '$username ALL=(ALL) NOPASSWD:ALL'/" "$http_dir/user-data"
+    sed -i "s|/etc/sudoers.d/conceal|/etc/sudoers.d/$username|" "$http_dir/user-data"
 
     # Restore JSON from template
     cp "$template_file" "$output_file"
@@ -86,7 +90,7 @@ else
     cp "$template_file" "$output_file"
 fi
 
-echo "✓ Configuration updated"
+echo "Configuration updated"
 echo ""
 echo "Starting Packer build..."
 packer-1.11.0 build "$output_file"
