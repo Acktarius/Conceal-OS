@@ -13,6 +13,13 @@ show_status() {
     fi
 }
 
+# Get username from cloud-init user-data (where we defined it)
+USERNAME=$(grep -E "^\s+username:\s+" /var/lib/cloud/seed/nocloud/user-data 2>/dev/null | awk '{print $2}' | tr -d '"' || echo "")
+# Fallback: get first user home directory from /home
+if [ -z "$USERNAME" ]; then
+    USERNAME=$(ls -1 /home 2>/dev/null | grep -v "lost+found" | head -1)
+fi
+
 echo "===     040_Conceal-desktop.sh       ==="
 echo "===   installing conceal-desktop     ==="
 echo ""
@@ -59,6 +66,12 @@ mkdir -p .local/share/applications
 if [ -f /opt/ingredients/etc/skel/.icons/conceal.png ]; then
   mv /opt/ingredients/etc/skel/.icons/conceal.png .icons/conceal.png
   show_status "Icon set"
+  # Also copy to current user's home directory
+  if [ -n "$USERNAME" ] && [ -d "/home/$USERNAME" ]; then
+    mkdir -p "/home/$USERNAME/.icons"
+    cp .icons/conceal.png "/home/$USERNAME/.icons/"
+    chown -R "$USERNAME:$USERNAME" "/home/$USERNAME/.icons"
+  fi
 else
   echo "✗ /opt/ingredients/etc/skel/.icons/conceal.png not found"
 fi
@@ -66,6 +79,12 @@ fi
 if [ -f /opt/ingredients/etc/skel/.local/share/applications/conceal-desktop.desktop ]; then
   cp /opt/ingredients/etc/skel/.local/share/applications/conceal-desktop.desktop .local/share/applications/conceal-desktop.desktop
   show_status "Desktop file set"
+  # Also copy to current user's home directory
+  if [ -n "$USERNAME" ] && [ -d "/home/$USERNAME" ]; then
+    mkdir -p "/home/$USERNAME/.local/share/applications"
+    cp .local/share/applications/conceal-desktop.desktop "/home/$USERNAME/.local/share/applications/"
+    chown -R "$USERNAME:$USERNAME" "/home/$USERNAME/.local/share/applications"
+  fi
 else
   echo "✗ /opt/ingredients/etc/skel/.local/share/applications/conceal-desktop.desktop not found"
 fi

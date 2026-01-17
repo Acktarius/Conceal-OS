@@ -20,16 +20,9 @@ echo ""
 # Regular Ubuntu/GNOME build
 echo "Configuring Ubuntu/GNOME default background..."
 
-# Copy backgrounds from /tmp/usr/share/backgrounds/ or /opt/ingredients/usr/share/backgrounds/
-if ls /tmp/usr/share/backgrounds/ccxBackground* 1> /dev/null 2>&1; then
-    cp /tmp/usr/share/backgrounds/ccxBackground* /usr/share/backgrounds/
-    show_status "backgrounds copied from /tmp/usr/share/backgrounds/"
-elif ls /opt/ingredients/usr/share/backgrounds/ccxBackground* 1> /dev/null 2>&1; then
-    cp /opt/ingredients/usr/share/backgrounds/ccxBackground* /usr/share/backgrounds/
-    show_status "backgrounds copied from /opt/ingredients/usr/share/backgrounds/"
-else
-    echo "✗ Background files not found in /tmp/usr/share/backgrounds/ or /opt/ingredients/usr/share/backgrounds/"
-fi
+# Copy backgrounds from /opt/ingredients/usr/share/backgrounds/
+cp /opt/ingredients/usr/share/backgrounds/ccxBackground* /usr/share/backgrounds/ 2>/dev/null || true
+show_status "backgrounds copied from /opt/ingredients/usr/share/backgrounds/"
 
 # Remove default Ubuntu wallpaper and create symlink
 cd /usr/share/backgrounds

@@ -13,6 +13,13 @@ show_status() {
     fi
 }
 
+# Get username from cloud-init user-data (where we defined it)
+USERNAME=$(grep -E "^\s+username:\s+" /var/lib/cloud/seed/nocloud/user-data 2>/dev/null | awk '{print $2}' | tr -d '"' || echo "")
+# Fallback: get first user home directory from /home
+if [ -z "$USERNAME" ]; then
+    USERNAME=$(ls -1 /home 2>/dev/null | grep -v "lost+found" | head -1)
+fi
+
 echo "===     050_Conceal-assistant.sh       ==="
 echo "=== installing conceal-assistant ==="
 echo ""
@@ -27,6 +34,12 @@ npm install
 if [ -f /opt/ingredients/etc/skel/.local/share/applications/ccx-assistant_firefox.desktop ]; then
   mv /opt/ingredients/etc/skel/.local/share/applications/ccx-assistant_firefox.desktop /etc/skel/.local/share/applications/ccx-assistant_firefox.desktop
   show_status "ccx-assistant_firefox.desktop pre-installed"
+  # Also copy to current user's home directory
+  if [ -n "$USERNAME" ] && [ -d "/home/$USERNAME" ]; then
+    mkdir -p "/home/$USERNAME/.local/share/applications"
+    cp /etc/skel/.local/share/applications/ccx-assistant_firefox.desktop "/home/$USERNAME/.local/share/applications/"
+    chown -R "$USERNAME:$USERNAME" "/home/$USERNAME/.local/share/applications"
+  fi
 else
   echo "✗ /opt/ingredients/etc/skel/.local/share/applications/ccx-assistant_firefox.desktop not found"
 fi
